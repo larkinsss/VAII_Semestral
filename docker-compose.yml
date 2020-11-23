@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+    ambulance-postgres:
+        image: "postgres"
+        environment:
+            POSTGRES_DB: ambulance
+            POSTGRES_USER: doctor
+            POSTGRES_PASSWORD: Welcome1
+        container_name: ambulance-postgres
+        volumes:
+            - ambulance-data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+    
+      
+volumes:
+    ambulance-data:
