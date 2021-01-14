@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8"/>
+    <title>A document with a short head</title>
+  </head>
+  
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>account_circle</mat-icon>
+        <span> {{ data.firstname }} {{data.lastname}} </span>
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ data.dateOfArrival| date: "shortTime" }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field appearance="outline">
+      <mat-label>Dátum a čas príchodu</mat-label>
+      <input
+        matInput
+        [value]="data.dateOfArrival | date: 'medium'"
+      />
+    </mat-form-field> 
+    <mat-form-field  appearance="outline">
+      <mat-label>Dôvod návštevy</mat-label>
+      <input
+        matInput
+        [value]="data.illnessDesc"
+      />
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-label>Poradové číslo</mat-label>
+      <input
+        matInput
+        [value]="data.id"
+        readonly
+      />
+    </mat-form-field>
+    <mat-action-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Dátum a čas príchodu</mat-label>
+        <input
+          matInput
+          [(ngModel)]="arrivalDate"
+        />
+      </mat-form-field>
+      <mat-form-field  appearance="outline">
+        <mat-label>Dôvod návštevy</mat-label>
+        <input
+          matInput
+          [(ngModel)]="illness"
+        />
+      </mat-form-field>
+      <button mat-button (click)="change(data)">Upraviť záznam</button>
+      <button mat-button (click)="delete.next(data)">Odstrániť záznam</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+  

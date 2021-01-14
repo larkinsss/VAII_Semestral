@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8"/>
+    <title>A document with a short head</title>
+  </head>
+
+<mat-toolbar>
+    <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-xs>
+        <mat-icon class="menuIcon">menu</mat-icon>
+    </button>
+    <mat-icon class="appIcon">medical_services</mat-icon>
+    <div fxShow="true" fxHide.lt-sm>
+        <a mat-button class="navButton" [routerLink] = "['home']" routerLinkActive="active-link">Úvod</a>
+        <a mat-button class="navButton" [routerLink] = "['waiting-list']" routerLinkActive="active-link">Čakáreň</a>
+        <a mat-button class="navButton" [routerLink] = "['appointment']" routerLinkActive="active-link" >Objednanie</a>
+        <a mat-button class="navButton" [routerLink] = "['ambulance']" routerLinkActive="active-link">Kontakt</a>
+    </div>
+
+
+    <span class="menu-spacer"></span>
+</mat-toolbar>
+
+<mat-sidenav-container fxFlexFill style="background-color: white;">
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <div class="row">
+          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['home']" routerLinkActive="active-link">Úvod</a>
+          <br>
+        </div>
+        <div class="row">
+          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['waiting-list']" routerLinkActive="active-link">Čakáreň</a>
+        <br>
+        </div>
+        <div class="row">
+          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['appointment']" routerLinkActive="active-link" >Objednanie</a>
+        <br>
+        </div>
+        <div class="row">
+          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['ambulance']" routerLinkActive="active-link">Kontakt</a>
+        </div>
+        
+      </mat-nav-list>
+    </mat-sidenav>
+    <hr class = "separator">
+    <div class="app-content" >
+      <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-container>

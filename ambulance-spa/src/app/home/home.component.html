@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="sk"> 
+  <head>
+    <meta charset="utf-8"/>
+    <title>A document with a short head</title>
+  </head>
+ 
+<div class= "homepage">
+  <h1 class="text nadpis">
+    Vitajte v ambulancií doktora Mrkvičku
+  </h1>
+
+  <div class="text">
+      Na tejto stránke nájdete prehľad našej ambulancie s prehľadom čakajúcich pacientov a ďalšími informáciami.
+  </div>
+  
+  <br>
+  
+  <ngb-carousel class="carousel">
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="assets/doctor.jpg" alt="Random first slide">
+      </div>
+      <div class="text carousel-caption">
+        <h3 class="text nadpis">Doktor Mrkvička</h3>
+        <p>Akreditovaný praktický lekár</p>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="assets/patient.jpg" alt="Random second slide">
+      </div>
+      <div class="text carousel-caption">
+        <h3 class="text nadpis">Poradovník v čakárni</h3>
+        <p>Pozrite si kto čaká pred vami a kedy sa dostanete na rad</p>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="assets/appointment.jpg" alt="Random third slide">
+      </div>
+      <div class="text carousel-caption">
+        <h3 class="text nadpis">Appointment</h3>
+        <p>Jednoduchý systém objednania lekárskej prehliadky</p>
+      </div>
+    </ng-template>
+      
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="assets/ambulance.jpg" alt="Random fourth slide">
+      </div>
+      <div class="text carousel-caption">
+        <h3 class="text nadpis">Kontakt</h3>
+        <p>Kde a kedy nás nájdete na pracovisku</p>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+  
+  <div class="row">
+    <div class="text col-md-7">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Zákrok</th>
+          <th scope="col">Indikačné obmedzenie</th>
+          <th scope="col">Cena</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- <tr *ngFor="let entry of listOfProcedures; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            {{ entry.name }}
+          </td>
+          <td>{{ entry.restriction}}</td>
+          <td>{{ entry.cost | number }}€</td>
+        </tr> -->
+        <tr>
+          <th>1</th>
+          <td>Preventívna prehliadka</td>
+          <td>minimálny vek: 3 mesiace</td>
+          <td>19.99€</td>
+        </tr>
+        <tr>
+          <th>2</th>
+          <td>EKG</td>
+          <td>minimálny vek: 1 rok</td>
+          <td>5.0€</td>
+        </tr>
+        <tr>
+          <th>3</th>
+          <td>Preventívna stomatologická prehliadka</td>
+          <td>maximálny vek: 18 rokov</td>
+          <td>18.80€</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-5">
+      <img src="assets/docPac.jpg" alt="Doctor and patients">
+    </div>
+  </div>
+
+
+  
+  <div class="text" style="margin-top: 1rem;">
+    <p class="mb-0">Practitioner of the healing arts, equally skilled in fighting disease and illness. Legible handwriting is their enemy.</p>
+    <footer class="blockquote-footer">Some famous doctor</footer>
+  </div>
+  
+</div>

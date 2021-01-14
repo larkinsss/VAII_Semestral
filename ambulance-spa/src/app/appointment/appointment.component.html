@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="sk"> 
+  <head>
+    <meta charset="utf-8"/>
+    <title>A document with a short head</title>
+  </head>
+
+<h1 class="header">
+    Zadajte svoje osobné údaje a zvoľte si čas vašej návštevy.
+</h1>
+<div class="container">
+    <form (ngSubmit)="appointmentForm.form.valid" [formGroup]="myForm" #appointmentForm="ngForm">
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                    <mat-label>Meno</mat-label>
+                    <input matInput maxlength="50" placeholder="Krstné meno" formControlName="firstnameValue">
+                  </mat-form-field>
+            </p>
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                    <mat-label>Priezvisko</mat-label>
+                    <input matInput maxlength="50" placeholder="Priezvisko" formControlName="lastnameValue">
+                  </mat-form-field>
+            </p>
+        </div>
+    
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                    <mat-label>Dátum narodenia</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateValue">
+                    <mat-error *ngIf="this.showWarning">
+                        Dátum narodenia nevyzerá byť v poriadku
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    
+                  </mat-form-field>
+            </p>
+        </div>
+    
+        <div class="row">
+            
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Telefónne číslo</mat-label>
+                  <input matInput placeholder="+421999888777" formControlName="phonenumberValue">
+                  <mat-hint>Zadajte aj predvoľbu</mat-hint>
+                </mat-form-field>
+            </p>
+    
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                    <mat-label>Vložte svoj email</mat-label>
+                    <input matInput type="email" placeholder="martinko@priklad.sk" formControlName="emailValue">
+                    <mat-error *ngIf="!emailValue.valid">
+                        Váš email nevyzerá správne
+                    </mat-error>
+                    <mat-error *ngIf="emailValue.untouched">
+                        Email je <strong>vyžadovaný</strong>
+                    </mat-error>
+                  </mat-form-field>
+            </p>
+        </div>
+    
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                    <mat-label>V krátkosti popíšte svoje ťažkosti alebo dôvod vašej návštevy</mat-label>
+                    <textarea matInput formControlName="illnessValue"></textarea>
+                  </mat-form-field>
+            </p>
+        </div>
+        <div class="button">
+            <button mat-raised-button [disabled]="myForm.invalid" color="warn" (click)="this.addAppointment()">Rezervuj</button>
+        </div>
+    </form>
+</div>
+</html>
+  
