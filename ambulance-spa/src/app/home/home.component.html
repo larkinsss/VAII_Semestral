@@ -69,31 +69,13 @@
         </tr>
         </thead>
         <tbody>
-        <!-- <tr *ngFor="let entry of listOfProcedures; index as i">
+        <tr *ngFor="let procedure of entriesOfProcedures; index as i">
           <th scope="row">{{ i + 1 }}</th>
           <td>
-            {{ entry.name }}
+            {{ procedure.procedureName }}
           </td>
-          <td>{{ entry.restriction}}</td>
-          <td>{{ entry.cost | number }}€</td>
-        </tr> -->
-        <tr>
-          <th>1</th>
-          <td>Preventívna prehliadka</td>
-          <td>minimálny vek: 3 mesiace</td>
-          <td>19.99€</td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td>EKG</td>
-          <td>minimálny vek: 1 rok</td>
-          <td>5.0€</td>
-        </tr>
-        <tr>
-          <th>3</th>
-          <td>Preventívna stomatologická prehliadka</td>
-          <td>maximálny vek: 18 rokov</td>
-          <td>18.80€</td>
+          <td>{{ procedure.procedureRestriction}}</td>
+          <td>{{ procedure.procedurePrice | number }}€</td>
         </tr>
         </tbody>
       </table>

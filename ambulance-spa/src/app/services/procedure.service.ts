@@ -17,9 +17,9 @@ export class ProcedureService {
     this.getProcedureList().subscribe((response) => {
       this.procedureList = response;
       this.procedureList.forEach(entry => {
-        if (entry.procedure_id > this.maxId)
+        if (entry.procedureId > this.maxId)
         {
-          this.maxId= entry.procedure_id;
+          this.maxId= entry.procedureId;
         }
       });
     });
@@ -34,7 +34,7 @@ export class ProcedureService {
   public updateProcedureList(procedure: Procedure): Observable<any> {
     const url = `${environment.baseUrl}/post/procedure`;
     this.maxId++;
-    procedure.procedure_id = this.maxId;
+    procedure.procedureId = this.maxId;
     return this.httpClient.post(url, procedure);
   }
 

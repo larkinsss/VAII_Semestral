@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class AmbulanceAppApplication {
+public class AmbulanceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AmbulanceAppApplication.class, args);
+		SpringApplication.run(AmbulanceApplication.class, args);
 	}
 
 	@Bean

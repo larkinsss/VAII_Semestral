@@ -60,15 +60,15 @@ public class ProcedureController {
 		return modelMapper.map(procedure, DBOProcedure.class);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200, http://localhost:8080")
-	@GetMapping("/get/procedure/all")
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value="/get/procedure/all")
 	public ResponseEntity<List<Procedure>> getAllProcedures() {
 		List<Procedure> procedureList = this.procedureService.getAllProcedures();
 		return ResponseEntity.accepted().body(procedureList);
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
-	@DeleteMapping("/delete/procedure/all")
+	@DeleteMapping(value="/delete/procedure/all")
 	public ResponseEntity<String> deleteAllAppointments() {
 		if (this.procedureService.deleteAll()) {
 			return ResponseEntity.accepted().body("All procedures removed");
@@ -78,7 +78,7 @@ public class ProcedureController {
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/update/procedure")
+	@PostMapping(value="/update/procedure")
 	public ResponseEntity<Procedure> updateProcedure(@RequestBody DBOProcedure procedure) {
 		if (procedure != null) {
 			Procedure updatedProcedure = procedureService.updateProcedure(modelMapper.map(procedure, Procedure.class));
