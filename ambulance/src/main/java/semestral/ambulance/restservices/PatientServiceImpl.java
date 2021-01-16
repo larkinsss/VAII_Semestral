@@ -1,13 +1,8 @@
 package semestral.ambulance.restservices;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-import semestral.ambulance.controllers.ItemNotFoundException;
-import semestral.ambulance.models.DBOPatient;
 import semestral.ambulance.models.Patient;
 import semestral.ambulance.repository.PatientRepository;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,7 +29,7 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public List<Patient> getAllPatients(){
         List<Patient> pR = patientRepository.findAll();
-        System.out.println(pR);
+        System.err.println(pR);
         return pR;
     }
 
@@ -42,7 +37,6 @@ public class PatientServiceImpl implements PatientService{
     public Patient deletePatient(Long id) throws Exception{
         Patient patientToBeRemoved = patientRepository.findById(id).orElseThrow(Exception::new);
         if(id != null) {
-            // patientRepository.delete(patientToBeRemoved);
             patientRepository.deleteById(id);
             return patientToBeRemoved;
         } else {

@@ -1,7 +1,5 @@
 package semestral.ambulance.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 public class DBOPatient {

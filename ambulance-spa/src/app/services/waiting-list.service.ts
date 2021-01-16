@@ -2,7 +2,6 @@ import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { WaitingListComponent } from '../waiting-list/waiting-list.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 

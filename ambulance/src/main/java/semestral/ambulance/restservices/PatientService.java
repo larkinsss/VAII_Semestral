@@ -1,8 +1,6 @@
 package semestral.ambulance.restservices;
 
 import semestral.ambulance.models.Patient;
-import semestral.ambulance.repository.PatientRepository;
-
 import java.util.List;
 
 public interface PatientService {
