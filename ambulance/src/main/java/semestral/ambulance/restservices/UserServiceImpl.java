@@ -2,23 +2,27 @@ package semestral.ambulance.restservices;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
 import semestral.ambulance.models.User;
 import semestral.ambulance.repository.UserRepostory;
 
+@Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepostory userRepo;
-
-    UserServiceImpl(UserRepostory userRepostory) {
-        this.userRepo = userRepostory;
-    }
+    @Autowired
+    UserRepostory userRepo;
 
     @Override
     public User getUserById(Long id) {
         Optional<User> existing = userRepo.findById(id).map(result -> (User) result);
-        if (existing.isPresent()){
+        if (existing.isPresent()) {
             return existing.get();
-        } else return null;
+        } else
+            return null;
     }
 
     @Override
@@ -47,5 +51,14 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
-    
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> existing = userRepo.findUserByUsername(username);
+        if (existing.isPresent()) {
+            return existing.get();
+        } else {
+            throw new UsernameNotFoundException("Username: " + username + " not found");
+        }
+    }
 }

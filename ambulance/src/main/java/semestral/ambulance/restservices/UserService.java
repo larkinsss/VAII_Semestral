@@ -1,8 +1,10 @@
 package semestral.ambulance.restservices;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import semestral.ambulance.models.User;
 
-public interface UserService {
+public interface UserService extends UserDetailsService{
     
     public User getUserById(Long id);
 

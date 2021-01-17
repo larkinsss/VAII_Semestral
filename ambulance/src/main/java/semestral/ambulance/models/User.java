@@ -1,47 +1,52 @@
 package semestral.ambulance.models;
 
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name= "user_data")
-public class User {
+@Table(name = "user_data")
+public class User implements UserDetails {
 
     @Id
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name="user_name")
-    private String userName;
-    
+    @Column(name = "user_name")
+    private String username;
+
     @Email
-    @Column(name="user_email")
+    @Column(name = "user_email")
     private String email;
 
-    @Column(name="user_firstname")
+    @Column(name = "user_firstname")
     private String firstname;
 
-    @Column(name="user_lastname")
+    @Column(name = "user_lastname")
     private String lastname;
 
-    @Column(name="user_birthday")
+    @Column(name = "user_birthday")
     private Date birthdate;
 
-    @Column(name="user_password")
+    @Column(name = "user_password")
     private String password;
 
-    @Column(name="role")
+    @Column(name = "role")
     private int role;
 
     public User(Long id, String userName, @Email String email, String firstname, String lastname, Date birthdate,
             String password, int role) {
         this.id = id;
-        this.userName = userName;
+        this.username = userName;
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -52,7 +57,7 @@ public class User {
 
     public User(User user, String hashedPasswd) {
         this.id = user.id;
-        this.userName = user.userName;
+        this.username = user.username;
         this.email = user.email;
         this.firstname = user.firstname;
         this.lastname = user.lastname;
@@ -61,7 +66,12 @@ public class User {
         this.role = user.role;
     }
 
-    public User() {}
+    public User(String username) {
+        this.username = username;
+    }
+
+    public User() {
+    }
 
     public Long getId() {
         return id;
@@ -71,12 +81,8 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String getEmail() {
@@ -125,5 +131,40 @@ public class User {
 
     public void setRole(int role) {
         this.role = role;
-    }    
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        return true;
+    }
 }
