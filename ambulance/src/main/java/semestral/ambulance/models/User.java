@@ -3,6 +3,7 @@ package semestral.ambulance.models;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.validation.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import javassist.Loader.Simple;
 
 @Entity
 @Table(name = "user_data")
@@ -34,17 +37,17 @@ public class User implements UserDetails {
     @Column(name = "user_lastname")
     private String lastname;
 
-    @Column(name = "user_birthday")
+    @Column(name = "user_birthdate")
     private Date birthdate;
 
     @Column(name = "user_password")
     private String password;
 
     @Column(name = "role")
-    private int role;
+    private Role role;
 
     public User(Long id, String userName, @Email String email, String firstname, String lastname, Date birthdate,
-            String password, int role) {
+            String password, String role) {
         this.id = id;
         this.username = userName;
         this.email = email;
@@ -52,7 +55,12 @@ public class User implements UserDetails {
         this.lastname = lastname;
         this.birthdate = birthdate;
         this.password = password;
-        this.role = role;
+        if (role.equals("ADMIN")) {
+            this.role = Role.ADMIN;
+        }
+        if (role.equals("USER")) {
+            this.role = Role.USER;
+        }
     }
 
     public User(User user, String hashedPasswd) {
@@ -125,18 +133,21 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public int getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.role.equals(Role.ADMIN)) {
+            return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+        } else {
+            return Arrays.asList(new SimpleGrantedAuthority("USER"));
+        }
     }
 
     @Override

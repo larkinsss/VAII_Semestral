@@ -27,6 +27,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './login/login.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -36,7 +39,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     HomeComponent,
     AmbulanceComponent,
     AppointmentComponent,
-    WaitingListEntryComponent
+    WaitingListEntryComponent,
+    UserComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     FormsModule,
     MatButtonModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule
   ],
   providers: [MatSnackBar],
   bootstrap: [AppComponent]

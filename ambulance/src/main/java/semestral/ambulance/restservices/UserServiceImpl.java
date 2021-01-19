@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import semestral.ambulance.models.User;
@@ -15,6 +16,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepostory userRepo;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public User getUserById(Long id) {
@@ -49,6 +53,16 @@ public class UserServiceImpl implements UserService {
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public User getUserByUsername(String username){
+        Optional<User> existing = userRepo.findUserByUsername(username);
+        if (existing.isPresent()) {
+            return existing.get();
+        } else {
+            throw new UsernameNotFoundException("Username: " + username + " not found");
         }
     }
 

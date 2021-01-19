@@ -11,6 +11,11 @@ import semestral.ambulance.models.DBOPatient;
 import semestral.ambulance.models.Patient;
 import semestral.ambulance.restservices.PatientService;
 
+@CrossOrigin(
+	origins = {"http://localhost:4200", "http://localhost:8080"}, 
+	allowedHeaders = {"Authorization", "Content-type"},
+	exposedHeaders = {"Authorization", "Content-type"}
+)
 @RestController
 public class PatientController {
 
@@ -24,13 +29,12 @@ public class PatientController {
 		this.modelMapper = modelMapper;
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	
 	@GetMapping("/get/patient/default")
 	public Patient getPatient(@RequestParam(value = "firstname", defaultValue = "Patient") String firstname) {
 		return new Patient(counter.nextLong());
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/delete/patient")
 	public ResponseEntity<Patient> deletePatient(@RequestParam(value = "id") Long id) throws Exception {
 		if (id != null) {
@@ -40,7 +44,6 @@ public class PatientController {
 		}
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "/post/patient", produces = "application/json", method = {RequestMethod.POST})
 	public ResponseEntity<Patient> postPatient(@RequestBody DBOPatient patient) {
 		if (patient != null) {
@@ -51,21 +54,18 @@ public class PatientController {
 		}
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value="/get/{id}")
 	public DBOPatient getPatientById(@PathVariable("id") Long id, Model model) throws ItemNotFoundException {
 		Patient controlPatient = patientService.getById(id);
 		return modelMapper.map(controlPatient, DBOPatient.class);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/get/all")
 	public ResponseEntity<List<Patient>> getAllPatients() {
 		List<Patient> patientList = this.patientService.getAllPatients();
 		return ResponseEntity.accepted().body(patientList);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/delete/all")
 	public ResponseEntity<String> deleteAllAppointments() {
 		if (this.patientService.deleteAll()) {
@@ -74,8 +74,7 @@ public class PatientController {
 			return ResponseEntity.badRequest().body("Could not remove all appointments");
 		}
 	}
-
-	@CrossOrigin(origins = "http://localhost:4200")
+	
 	@PostMapping("/update/patient")
 	public ResponseEntity<Patient> updatePatient(@RequestBody DBOPatient patient) {
 		if (patient != null) {

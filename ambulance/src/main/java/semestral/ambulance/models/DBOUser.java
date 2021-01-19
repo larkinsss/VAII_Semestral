@@ -10,5 +10,5 @@ public class DBOUser {
     public String lastname;
     public Date birthdate;
     public String password;
-    public int role;
+    public String role;
 }

@@ -19,7 +19,7 @@
       <mat-label>Dátum a čas príchodu</mat-label>
       <input
         matInput
-        [value]="data.dateOfArrival | date: 'medium'"
+        [(ngModel)]="data.dateOfArrival"
       />
     </mat-form-field> 
     <mat-form-field  appearance="outline">

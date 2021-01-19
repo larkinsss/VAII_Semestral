@@ -26,25 +26,25 @@ export class ProcedureService {
   }
 
   public getProcedureList(): Observable<Procedure[]> {
-    const url = `${environment.baseUrl}/get/procedure/all`;
+    const url = `${environment.baseUrl}/procedure/get/all`;
     const apiCall = this.httpClient.get(url);
     return apiCall.pipe(map(response => (response as Procedure[])));
   }
 
   public updateProcedureList(procedure: Procedure): Observable<any> {
-    const url = `${environment.baseUrl}/post/procedure`;
+    const url = `${environment.baseUrl}/procedure/post`;
     this.maxId++;
     procedure.procedureId = this.maxId;
     return this.httpClient.post(url, procedure);
   }
 
   public deleteAll(): Observable<any> {
-    const url = `${environment.baseUrl}/delete/procedure/all`;
+    const url = `${environment.baseUrl}/procedure/delete/all`;
     return this.httpClient.delete(url);
   }
 
   public updateEntry(procedure: Procedure): Observable<any> {
-    const url = `${environment.baseUrl}/update/procedure`;
+    const url = `${environment.baseUrl}/procedure/update`;
     return this.httpClient.post(url, procedure);
   }
 }
