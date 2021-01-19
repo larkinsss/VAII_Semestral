@@ -1,11 +1,6 @@
+import { Procedure } from './../model/procedure';
+import { ProcedureService } from './../services/procedure.service';
 import { Component, OnInit } from '@angular/core';
-
-// tslint:disable-next-line: class-name
-interface entryProcedure{
-  name: string;
-  restriction: string;
-  cost: number;
-}
 
 @Component({
   selector: 'app-home',
@@ -13,26 +8,18 @@ interface entryProcedure{
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public listOfProcedures: entryProcedure[] = [
-    {
-      name: 'Preventívna prehliadka',
-      restriction: 'minimálny vek: 3 mesiace',
-      cost: 19.99
-    },
-    {
-      name: 'EKG',
-      restriction: 'minimálny vek: 1 rok',
-      cost: 5.0
-    },
-    {
-      name: 'Preventívna stomatologická prehliadka',
-      restriction: 'maximálny vek: 18 rokov',
-      cost: 18.80
-    }
-  ];
+  public listOfProcedures: Procedure[];
+  get entriesOfProcedures() { return (this.listOfProcedures ) ? this.listOfProcedures : [] }
 
-  constructor() { }
+  constructor(private procedureService: ProcedureService) {}
+
+  getListOfProcedures(): Procedure[]{
+    return (this.listOfProcedures) ? this.listOfProcedures : null;
+  }
 
   ngOnInit(): void {
+    this.procedureService.getProcedureList().subscribe((response) => {
+      this.listOfProcedures = response;
+    });
   }
 }

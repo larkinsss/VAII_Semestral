@@ -1,7 +1,7 @@
 export interface Procedure{
-    procedure_id: number;
+    procedureId: number;
     description: string;
-    proc_name: string;
-    proc_price: number;
-    proc_rest: string;
+    procedureName: string;
+    procedurePrice: number;
+    procedureRestriction: string;
 }

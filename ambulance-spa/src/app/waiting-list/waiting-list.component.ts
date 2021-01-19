@@ -18,8 +18,8 @@ export class WaitingListComponent implements OnInit {
     this.service.getWaitingList().subscribe((result) => {
       this.waitingList = result;
       this.waitingList.sort((a, b) => {
-        const dateA = a.dateOfArrival;
-        const dateB = b.dateOfArrival;
+        const dateA = a.dateOfArrival.getTime();
+        const dateB = b.dateOfArrival.getTime();
         if (dateA < dateB) {
           return -1;
         }

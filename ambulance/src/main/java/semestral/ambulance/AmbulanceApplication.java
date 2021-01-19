@@ -5,12 +5,18 @@ import org.modelmapper.config.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import semestral.ambulance.repository.PatientRepository;
+import semestral.ambulance.repository.ProcedureRepository;
+import semestral.ambulance.repository.UserRepostory;
 
 @SpringBootApplication
-public class AmbulanceAppApplication {
+@EnableJpaRepositories(basePackageClasses = {UserRepostory.class, ProcedureRepository.class, PatientRepository.class})
+public class AmbulanceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AmbulanceAppApplication.class, args);
+		SpringApplication.run(AmbulanceApplication.class, args);
 	}
 
 	@Bean
