@@ -39,7 +39,7 @@ export class LoginService {
 
   private checkRole(user: User): string {
     let role;
-    if (user.role === 0) {
+    if (user.role === 'ADMIN') {
       role = 'ADMIN';
     }
     else {

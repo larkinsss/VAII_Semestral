@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import semestral.ambulance.filters.JwtRequestFilter;
+import semestral.ambulance.repository.UserRepostory;
 import semestral.ambulance.restservices.UserService;
 import semestral.ambulance.restservices.UserServiceImpl;
 
@@ -74,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
 	public PasswordEncoder encoder() {
     	return new BCryptPasswordEncoder();
-    }	
+    }
     
     @Override
     @Bean

@@ -14,8 +14,11 @@ import semestral.ambulance.repository.UserRepostory;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserRepostory userRepo;
+    private UserRepostory userRepo;
+
+    UserServiceImpl(UserRepostory userRepostory) {
+        this.userRepo = userRepostory;
+    }
 
     @Autowired
     PasswordEncoder passwordEncoder;

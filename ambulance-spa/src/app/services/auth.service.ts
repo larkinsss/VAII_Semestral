@@ -87,11 +87,11 @@ export class AuthService {
 
   private checkRole(user: User): string {
     let role = 'x';
-    if (user.role === 1) {
-      role = 'ROLE_ADMIN';
+    if (user.role === 'ADMIN') {
+      role = 'ADMIN';
     }
     else {
-      role = 'ROLE_USER';
+      role = 'USER';
     }
     return role;
   }

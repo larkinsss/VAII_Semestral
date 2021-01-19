@@ -30,6 +30,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { AdminComponent } from './admin/admin/admin.component';
+import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
+import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
 
 
 @NgModule({
@@ -41,7 +44,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AppointmentComponent,
     WaitingListEntryComponent,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    AdminComponent,
+    ProceduresEditorComponent,
+    AmbulanceEditorComponent
   ],
   imports: [
     BrowserModule,

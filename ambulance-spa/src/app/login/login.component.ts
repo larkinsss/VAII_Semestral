@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   routeAccordingToRole(role: string): void{
     if (role === 'ADMIN') {
-      this.router.navigate(['admin/home']);
+      this.router.navigate(['admin']);
     } else {
       this.router.navigate(['user/home']);
     }
