@@ -2,3 +2,27 @@ mat-form-field {
     margin-right: 1rem;
     width: auto;
 }
+
+.label{
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.exp-header{
+    text-align: center;
+}
+
+.mat-expansion-panel-header-title{
+    width: 10%;
+}
+
+@media (max-width: 800px) {
+
+    .mat-expansion-panel-header-title{
+        width: 70%;
+    }
+
+    .mat-expansion-panel-header-description{
+        width: 30%;
+    }
+}
