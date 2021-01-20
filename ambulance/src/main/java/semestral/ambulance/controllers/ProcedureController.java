@@ -27,7 +27,7 @@ public class ProcedureController {
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
-	@DeleteMapping("/admin/procedure/delete/")
+	@DeleteMapping("/procedure/delete/")
 	public ResponseEntity<Procedure> deleteProcedure(@RequestParam(value = "id") Long id) throws NoSuchElementException{
 		if (id != null) {
             Optional<Procedure> procToDelete = procedureService.deleteProcedure(id);
@@ -43,7 +43,7 @@ public class ProcedureController {
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
-	@RequestMapping(value = "/admin/procedure/post", produces = "application/json", method = {RequestMethod.POST})
+	@RequestMapping(value = "/procedure/post", produces = "application/json", method = {RequestMethod.POST})
 	public ResponseEntity<Procedure> postProcedure(@RequestBody DBOProcedure procedure) {
 		if (procedure != null) {
 			Procedure procToStore = procedureService.createProcedure(modelMapper.map(procedure, Procedure.class));
@@ -68,7 +68,7 @@ public class ProcedureController {
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
-	@DeleteMapping(value="/admin/procedure/delete/all")
+	@DeleteMapping(value="/procedure/delete/all")
 	public ResponseEntity<String> deleteAllAppointments() {
 		if (this.procedureService.deleteAll()) {
 			return ResponseEntity.accepted().body("All procedures removed");
@@ -78,7 +78,7 @@ public class ProcedureController {
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping(value="/admin/procedure/update")
+	@PostMapping(value="/procedure/update")
 	public ResponseEntity<Procedure> updateProcedure(@RequestBody DBOProcedure procedure) {
 		if (procedure != null) {
 			Procedure updatedProcedure = procedureService.updateProcedure(modelMapper.map(procedure, Procedure.class));

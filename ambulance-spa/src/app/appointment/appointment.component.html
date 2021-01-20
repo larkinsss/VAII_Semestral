@@ -30,12 +30,17 @@
                 <mat-form-field appearance="outline" class="input-area">
                     <mat-label>Dátum narodenia</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="dateValue">
-                    <mat-error *ngIf="this.showWarning">
-                        Dátum narodenia nevyzerá byť v poriadku
-                    </mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    
+                    <mat-error *ngIf="myForm.controls['dateValue'].hasError('required')">
+                        Musíte si zvoliť dátum narodenia
+                    </mat-error>
+                    <mat-error *ngIf="myForm.controls['dateValue'].hasError('matDatepickerMin')">
+                        Musíte si zvoliť správny dátum narodenia
+                    </mat-error>
+                    <mat-error *ngIf="myForm.controls['dateValue'].hasError('matDatepickerMax')">
+                        Musíte si zvoliť správny dátum narodenia
+                    </mat-error>
                   </mat-form-field>
             </p>
         </div>
@@ -45,8 +50,8 @@
             <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">
                   <mat-label>Telefónne číslo</mat-label>
-                  <input matInput placeholder="+421999888777" formControlName="phonenumberValue">
-                  <mat-hint>Zadajte aj predvoľbu</mat-hint>
+                  <input matInput placeholder="0987654321" formControlName="phonenumberValue">
+                  <mat-hint>*Zadajte číslo bez predvoľby</mat-hint>
                 </mat-form-field>
             </p>
     

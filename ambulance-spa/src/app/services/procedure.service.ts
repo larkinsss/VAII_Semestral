@@ -1,6 +1,6 @@
 import { Procedure } from './../model/procedure';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,8 +10,9 @@ import { map } from 'rxjs/operators';
 })
 export class ProcedureService {
 
-  private procedureList: Procedure[];
+  public procedureList: Procedure[];
   private maxId: number;
+  private authHeader: HttpHeaders;
 
   constructor(private httpClient: HttpClient) { 
     this.getProcedureList().subscribe((response) => {
@@ -27,24 +28,34 @@ export class ProcedureService {
 
   public getProcedureList(): Observable<Procedure[]> {
     const url = `${environment.baseUrl}/procedure/get/all`;
-    const apiCall = this.httpClient.get(url);
+    this.setAuthHeader();
+    const apiCall = this.httpClient.get(url, { headers : this.authHeader });
     return apiCall.pipe(map(response => (response as Procedure[])));
   }
 
   public updateProcedureList(procedure: Procedure): Observable<any> {
     const url = `${environment.baseUrl}/procedure/post`;
+    this.setAuthHeader();
     this.maxId++;
     procedure.procedureId = this.maxId;
-    return this.httpClient.post(url, procedure);
+    return this.httpClient.post(url, procedure, { headers : this.authHeader });
   }
 
   public deleteAll(): Observable<any> {
     const url = `${environment.baseUrl}/procedure/delete/all`;
-    return this.httpClient.delete(url);
+    this.setAuthHeader();
+    return this.httpClient.delete(url, { headers : this.authHeader });
   }
 
   public updateEntry(procedure: Procedure): Observable<any> {
     const url = `${environment.baseUrl}/procedure/update`;
-    return this.httpClient.post(url, procedure);
+    this.setAuthHeader();
+    return this.httpClient.post(url, procedure, { headers : this.authHeader });
+  }
+
+  private setAuthHeader(): void {
+    const jwt = localStorage.getItem('JWT');
+    this.authHeader = new HttpHeaders({​​ 'Authorization': 'Bearer '+ jwt, 'Content-type': 'application/json'}​​);
+    //this.authHeader = new HttpHeaders().set('Content-type', 'application/json').set('Authorization', 'Bearer '+ jwt);
   }
 }
