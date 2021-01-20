@@ -106,6 +106,8 @@ export class AuthService {
     localStorage.setItem('STATE', 'false');
     localStorage.setItem('ROLE', '');
     localStorage.setItem('USERNAME', '');
+    localStorage.setItem('JWT', '');
+    localStorage.setItem('AUTHENTICATED', 'false');
     return of({ success: this.isLogin, role: '' });
   }
 

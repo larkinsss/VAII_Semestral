@@ -1,0 +1,31 @@
+.mat-expansion-panel-header-title{
+    max-width: 30%;
+}
+
+mat-form-field {
+    margin-right: 2px;
+    min-width: 30%;
+    max-width: 100%;
+}
+
+.popis{
+    min-width: 90%;
+}
+
+.label{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+
+@media (max-width: 800px) {
+
+    .exp_desc{
+        visibility: hidden;
+    }
+
+    .mat-expansion-panel-header{
+        min-height: 80px;
+    }
+}

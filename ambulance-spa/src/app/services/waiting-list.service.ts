@@ -35,6 +35,7 @@ export class WaitingListService {
 
   public updateList(waitingListEntry: WaitingListEntry): Observable<any> {
     const url = `${environment.baseUrl}/post/patient`;
+    this.setAuthHeader();
     this.IdBoundary++;
     waitingListEntry.id = this.IdBoundary;
     return this.httpClient.post(url, waitingListEntry, { headers : this.authHeader });
@@ -42,16 +43,19 @@ export class WaitingListService {
 
   public deleteFromList(id: number): Observable<any> {
     const url = `${environment.baseUrl}/delete/patient?id=${id}`;
+    this.setAuthHeader();
     return this.httpClient.delete(url, { headers : this.authHeader });
   }
 
   public deleteAll(): Observable<any> {
     const url = `${environment.baseUrl}/delete/all`;
+    this.setAuthHeader();
     return this.httpClient.delete(url, { headers : this.authHeader });
   }
 
   public updateEntry(waitingListEntry: WaitingListEntry): Observable<any> {
     const url = `${environment.baseUrl}/update/patient`;
+    this.setAuthHeader();
     return this.httpClient.post(url, waitingListEntry, { headers : this.authHeader });
   }
 

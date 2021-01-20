@@ -24,13 +24,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loginService.authenticate(this.credentials, () => {
+      if(localStorage.getItem('AUTHENTICATED') === 'true'){
+        this.loginCorrect= true;
         this.routeAccordingToRole(localStorage.getItem('ROLE'));
+      } else {
+        this.loginCorrect= false;
+      }
+      
     });
-    if(this.loginServ.authenticated){
-      this.loginCorrect= true;
-    } else {
-      this.loginCorrect= false;
-    }
+    
     
   }
 
@@ -45,5 +47,7 @@ export class LoginComponent implements OnInit {
   registerUser(){
     this.router.navigate(['register']);
   }
+
+  if
 
 }

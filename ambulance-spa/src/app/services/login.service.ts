@@ -30,13 +30,15 @@ export class LoginService {
               localStorage.setItem('JWT',this.authResponse.jwt);
               localStorage.setItem('ROLE', this.checkRole(this.authResponse.user));
               localStorage.setItem('STATE', 'true');
+              localStorage.setItem('AUTHENTICATED', 'true');
               this.authenticated = true;
             } else {
               this.authenticated = false;
             }
             return callback && callback();
         }, (error) => {
-          return error as HttpErrorResponse;
+          localStorage.setItem('AUTHENTICATED', 'false');
+          return callback && callback();
         });
 
   }

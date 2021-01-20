@@ -34,6 +34,7 @@ import { AdminComponent } from './admin/admin/admin.component';
 import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
 import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
 import { RegisterComponent } from './register/register.component';
+import { ProcedureEntryComponent } from './admin/procedure-entry/procedure-entry.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { RegisterComponent } from './register/register.component';
     AdminComponent,
     ProceduresEditorComponent,
     AmbulanceEditorComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProcedureEntryComponent
   ],
   imports: [
     BrowserModule,
