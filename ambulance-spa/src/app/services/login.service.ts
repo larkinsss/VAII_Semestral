@@ -47,7 +47,7 @@ export class LoginService {
     return apiCall.pipe(map(response => (response as number)));
   }
 
-  register(user: User): Observable<any> {
+  public register(user: User): Observable<any> {
     let url = `${environment.baseUrl}/register`;
     const apiCall = this.http.post(url, user);
     return apiCall;
