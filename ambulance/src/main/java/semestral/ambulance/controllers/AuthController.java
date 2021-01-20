@@ -78,12 +78,12 @@ public class AuthController {
     }
 
     @GetMapping(value = "/user/get/newId")
-    public ResponseEntity<Integer> getNewId() {
+    public ResponseEntity<Long> getNewId() {
         List<User> users = this.userService.getAllUsers();
-        Integer newId = 0;
+        Long newId = (long) 0;
         for (User user : users) {
             if (user.getId() > newId) {
-                newId++;
+                newId = user.getId()+ 1;
             }
         }
         return ResponseEntity.ok().body(newId);
