@@ -1,6 +1,7 @@
 .login {
     display: contents;
     width: inherit 50%;
+    text-align: center;
 }
 
 .col-md {
@@ -11,6 +12,41 @@
 }
 
 .row{
-    min-width: 20%;
+    min-width: 50%;
     align-content: center;
+}
+
+.error_message{
+    margin: 1rem;
+    margin-bottom: 20px;
+}
+
+.navButton {
+    margin: 20px;
+}
+
+.container{
+    margin-top: 50px;
+}
+
+.form{
+    min-height: 80%;
+}
+
+.form-group{
+    text-align: center;
+}
+
+.form-control{
+    width: 60%;
+    margin-left: 20%;
+    align-items: center;
+}
+
+.error{
+    margin: 20px;
+}
+
+.button{
+    margin: 5px;
 }

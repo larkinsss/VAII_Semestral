@@ -1,3 +1,7 @@
+import { RegisterComponent } from './register/register.component';
+import { AdminComponent } from './admin/admin/admin.component';
+import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
+import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
 import { LoginComponent } from './login/login.component';
 import { WaitingListComponent } from './waiting-list/waiting-list.component';
 import { NgModule } from '@angular/core';
@@ -15,6 +19,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: 'user',
     component: UserComponent,
@@ -48,31 +53,23 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: UserComponent,
+    component: AdminComponent,
     canActivate: [AuthGuard],
     data: {
       role: 'ADMIN',
     },
     children:  [
       {
-        path: 'home',
-        component: HomeComponent,
-      },
-      {
-        path: 'appointment', // child route path
-        component: AppointmentComponent, // child route component that the router renders
-      },
-      {
         path: 'ambulance',
-        component: AmbulanceComponent,
+        component: AmbulanceEditorComponent,
       },
-            {
-        path: 'waiting-list', 
-        component: WaitingListComponent
+      {
+        path: 'procedures', // child route path
+        component: ProceduresEditorComponent, // child route component that the router renders
       },
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'ambulance',
         pathMatch: 'full',
       },
     ],

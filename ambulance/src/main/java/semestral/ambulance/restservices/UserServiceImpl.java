@@ -1,5 +1,6 @@
 package semestral.ambulance.restservices;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,11 @@ import semestral.ambulance.repository.UserRepostory;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserRepostory userRepo;
+    private UserRepostory userRepo;
+
+    UserServiceImpl(UserRepostory userRepostory) {
+        this.userRepo = userRepostory;
+    }
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -57,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         Optional<User> existing = userRepo.findUserByUsername(username);
         if (existing.isPresent()) {
             return existing.get();
@@ -74,5 +78,10 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new UsernameNotFoundException("Username: " + username + " not found");
         }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return this.userRepo.findAll();
     }
 }

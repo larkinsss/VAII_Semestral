@@ -1,3 +1,4 @@
+import { trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
 
@@ -18,6 +19,25 @@ export class WaitingListEntryComponent {
 
   @Output()
   public update = new EventEmitter<WaitingListEntry>();
+
+  onUpdate() {
+    this.update.emit(this.data);
+  }
+
+  showToAdmin() {
+    if (localStorage.getItem('ROLE') === 'ADMIN') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  showToUser() {
+    if (localStorage.getItem('ROLE') === 'USER') {
+      return true;
+    }
+    return false;
+  }
 
   public change(data: WaitingListEntry): void
   {

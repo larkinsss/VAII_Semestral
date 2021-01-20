@@ -1,0 +1,35 @@
+<mat-toolbar>
+    <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-xs>
+        <mat-icon class="menuIcon">menu</mat-icon>
+    </button>
+    <mat-icon class="appIcon">medical_services</mat-icon>
+    <div fxShow="true" fxHide.lt-sm>
+        <a mat-button class="navButton" [routerLink] = "['ambulance']" routerLinkActive="active-link">Pacienti</a>
+        <a mat-button class="navButton" [routerLink] = "['procedures']" routerLinkActive="active-link">Zoznam zákrokov</a>
+    </div>
+
+    <div *ngIf="this.authGuard.checkIfUserLoggedIn()">
+        <button style="margin-left:20px" mat-raised-button color="warn" class="logout" (click)="logout()">Log out</button>
+    </div>
+    
+    <span class="menu-spacer"></span>
+</mat-toolbar>
+
+<mat-sidenav-container fxFlexFill style="background-color: white;">
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <div class="row">
+          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['ambulance']" routerLinkActive="active-link">Pacienti</a>
+          <br>
+        </div>
+        <div class="row">
+          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['procedures']" routerLinkActive="active-link">Zoznam zákrokov</a>
+        <br>
+        </div>        
+      </mat-nav-list>
+    </mat-sidenav>
+    <hr class = "separator">
+    <div class="app-content" >
+      <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-container>

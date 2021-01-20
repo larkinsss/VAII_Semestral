@@ -1,5 +1,7 @@
 package semestral.ambulance;
 
+import javax.annotation.security.PermitAll;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,7 @@ import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import semestral.ambulance.filters.JwtRequestFilter;
+import semestral.ambulance.repository.UserRepostory;
 import semestral.ambulance.restservices.UserService;
 import semestral.ambulance.restservices.UserServiceImpl;
 
@@ -53,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers( HttpMethod.POST, "/register").permitAll()
                 .antMatchers( HttpMethod.GET, "/procedure/get/*").permitAll()
+                .antMatchers("user/get/newId").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(JwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
@@ -74,7 +78,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
 	public PasswordEncoder encoder() {
     	return new BCryptPasswordEncoder();
-    }	
+    }
     
     @Override
     @Bean

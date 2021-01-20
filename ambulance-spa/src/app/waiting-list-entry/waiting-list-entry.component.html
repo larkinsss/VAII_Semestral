@@ -18,41 +18,26 @@
     <mat-form-field appearance="outline">
       <mat-label>Dátum a čas príchodu</mat-label>
       <input
-        matInput
-        [(ngModel)]="data.dateOfArrival"
+        matInput 
+        [ngModel] ="data.dateOfArrival | date:'yyyy-MM-dd'"
+        readonly
       />
     </mat-form-field> 
     <mat-form-field  appearance="outline">
       <mat-label>Dôvod návštevy</mat-label>
-      <input
-        matInput
-        [value]="data.illnessDesc"
-      />
+      <div *ngIf="showToAdmin()">
+        <input matInput [(ngModel)]="data.illnessDesc" (keydown.enter)='onUpdate()'/>
+      </div>
+      <div *ngIf="showToUser()">
+        <input matInput [value]="data.illnessDesc" readonly/>
+      </div>
     </mat-form-field>
     <mat-form-field  appearance="outline">
       <mat-label>Poradové číslo</mat-label>
-      <input
-        matInput
-        [value]="data.id"
-        readonly
-      />
+      <input matInput [value]="data.id" readonly/>
     </mat-form-field>
-    <mat-action-row>
-      <mat-form-field appearance="outline">
-        <mat-label>Dátum a čas príchodu</mat-label>
-        <input
-          matInput
-          [(ngModel)]="arrivalDate"
-        />
-      </mat-form-field>
-      <mat-form-field  appearance="outline">
-        <mat-label>Dôvod návštevy</mat-label>
-        <input
-          matInput
-          [(ngModel)]="illness"
-        />
-      </mat-form-field>
-      <button mat-button (click)="change(data)">Upraviť záznam</button>
+    <mat-action-row *ngIf='showToAdmin()'>
+      <!-- <button mat-button (click)="change(data)">Upraviť záznam</button> -->
       <button mat-button (click)="delete.next(data)">Odstrániť záznam</button>
     </mat-action-row>
   </mat-expansion-panel>

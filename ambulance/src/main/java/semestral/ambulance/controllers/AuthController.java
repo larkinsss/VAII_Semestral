@@ -1,5 +1,7 @@
 package semestral.ambulance.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import semestral.ambulance.models.AuthenticationRequest;
 import semestral.ambulance.models.AuthenticationResponse;
 import semestral.ambulance.models.DBOUser;
+import semestral.ambulance.models.Role;
 import semestral.ambulance.models.User;
 import semestral.ambulance.restservices.UserService;
 import semestral.ambulance.util.JwtUtil;
@@ -74,6 +77,18 @@ public class AuthController {
         }
     }
 
+    @GetMapping(value = "/user/get/newId")
+    public ResponseEntity<Integer> getNewId() {
+        List<User> users = this.userService.getAllUsers();
+        Integer newId = 0;
+        for (User user : users) {
+            if (user.getId() > newId) {
+                newId++;
+            }
+        }
+        return ResponseEntity.ok().body(newId);
+    }
+
     @CrossOrigin(origins = { "http://localhost:4200", "http://localhost:8080" })
     @RequestMapping(value = "/authenticate", method = { RequestMethod.POST })
     public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
@@ -89,10 +104,15 @@ public class AuthController {
         final UserDetails userDetail = userService.loadUserByUsername(authenticationRequest.getUsername());
 
         final User userForResponse = userService.getUserByUsername(userDetail.getUsername());
-        
-        final String jwt = jwtTokenUtil.generateToken(userDetail);
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt, userForResponse));
+        if(userForResponse.getRole() == Role.ADMIN || userForResponse.getRole() == Role.USER) {
+            final String jwt = jwtTokenUtil.generateToken(userDetail);
+            return ResponseEntity.ok(new AuthenticationResponse(jwt, userForResponse));
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
+        
+        
     }
 
 }

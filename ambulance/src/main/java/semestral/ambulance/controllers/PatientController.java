@@ -54,7 +54,7 @@ public class PatientController {
 		}
 	}
 
-	@GetMapping(value="/get/{id}")
+	@GetMapping(value="/get/patient/{id}")
 	public DBOPatient getPatientById(@PathVariable("id") Long id, Model model) throws ItemNotFoundException {
 		Patient controlPatient = patientService.getById(id);
 		return modelMapper.map(controlPatient, DBOPatient.class);
@@ -74,7 +74,7 @@ public class PatientController {
 			return ResponseEntity.badRequest().body("Could not remove all appointments");
 		}
 	}
-	
+
 	@PostMapping("/update/patient")
 	public ResponseEntity<Patient> updatePatient(@RequestBody DBOPatient patient) {
 		if (patient != null) {

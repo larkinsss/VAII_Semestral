@@ -1,17 +1,16 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { WaitingListService } from './../services/waiting-list.service';
-import { Component, OnInit } from '@angular/core';
-import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
-import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
-import { Observable } from 'rxjs';
+import { LoginService } from './../../services/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
+import { WaitingListService } from 'src/app/services/waiting-list.service';
 
 @Component({
-  selector: 'app-waiting-list',
-  templateUrl: './waiting-list.component.html',
-  styleUrls: ['./waiting-list.component.scss']
+  selector: 'app-ambulance-editor',
+  templateUrl: './ambulance-editor.component.html',
+  styleUrls: ['./ambulance-editor.component.scss']
 })
-export class WaitingListComponent implements OnInit {
+export class AmbulanceEditorComponent implements OnInit {
   public waitingList: WaitingListEntry[];
 
   constructor(private service: WaitingListService, private snackBar: MatSnackBar) {
@@ -74,6 +73,5 @@ export class WaitingListComponent implements OnInit {
       }
     });
   }
-
 
 }
