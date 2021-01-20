@@ -1,3 +1,4 @@
+import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
 import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: 'user',
     component: UserComponent,

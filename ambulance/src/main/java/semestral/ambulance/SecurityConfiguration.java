@@ -1,5 +1,7 @@
 package semestral.ambulance;
 
+import javax.annotation.security.PermitAll;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers( HttpMethod.POST, "/register").permitAll()
                 .antMatchers( HttpMethod.GET, "/procedure/get/*").permitAll()
+                .antMatchers("user/get/newId").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(JwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }

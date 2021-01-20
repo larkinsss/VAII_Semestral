@@ -12,8 +12,12 @@ export class LoginComponent implements OnInit {
 
   credentials = {username: '', password: ''};
   error:string;
+  loginService: LoginService;
+  loginCorrect: boolean = true;
 
-  constructor(private loginService: LoginService, private http: HttpClient, private router: Router) { }
+  constructor(private loginServ: LoginService, private http: HttpClient, private router: Router) { 
+    this.loginService = loginServ;
+  }
 
   ngOnInit(): void {
   }
@@ -22,7 +26,12 @@ export class LoginComponent implements OnInit {
     this.loginService.authenticate(this.credentials, () => {
         this.routeAccordingToRole(localStorage.getItem('ROLE'));
     });
-    return false;
+    if(this.loginServ.authenticated){
+      this.loginCorrect= true;
+    } else {
+      this.loginCorrect= false;
+    }
+    
   }
 
   routeAccordingToRole(role: string): void{
@@ -31,6 +40,10 @@ export class LoginComponent implements OnInit {
     } else {
       this.router.navigate(['user/home']);
     }
+  }
+
+  registerUser(){
+    this.router.navigate(['register']);
   }
 
 }

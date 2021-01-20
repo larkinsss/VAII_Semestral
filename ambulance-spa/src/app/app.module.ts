@@ -33,6 +33,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { AdminComponent } from './admin/admin/admin.component';
 import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
 import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-edi
     LoginComponent,
     AdminComponent,
     ProceduresEditorComponent,
-    AmbulanceEditorComponent
+    AmbulanceEditorComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
