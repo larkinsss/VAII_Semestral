@@ -6,6 +6,7 @@
     <div fxShow="true" fxHide.lt-sm>
         <a mat-button class="navButton" [routerLink] = "['ambulance']" routerLinkActive="active-link">Pacienti</a>
         <a mat-button class="navButton" [routerLink] = "['procedures']" routerLinkActive="active-link">Zoznam zákrokov</a>
+        <a mat-button class="navButton" [routerLink] = "['requests']" routerLinkActive="active-link">Žiadosti o registráciu</a>
     </div>
 
     <div *ngIf="this.authGuard.checkIfUserLoggedIn()">
@@ -24,6 +25,10 @@
         </div>
         <div class="row">
           <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['procedures']" routerLinkActive="active-link">Zoznam zákrokov</a>
+        <br>
+        </div> 
+        <div class="row">
+          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['requests']" routerLinkActive="active-link">Žiadosti</a>
         <br>
         </div>        
       </mat-nav-list>

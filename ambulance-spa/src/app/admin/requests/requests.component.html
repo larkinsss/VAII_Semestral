@@ -1,0 +1,37 @@
+<div class="request">
+    <ng-container *ngFor="let request of this.requestList">
+        <mat-card>
+            <mat-card-title>{{request.firstname}} {{request.lastname}}
+                <br>
+            </mat-card-title>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col-md-8">
+                        <tr>
+                            <td class = "title">Používateľské meno: </td>
+                            <td></td>
+                            <td>{{request.username}}</td>
+                        </tr>
+                        <tr>
+                            <td class = "title">E-mail: </td>
+                            <td></td>
+                            <td>{{request.userEmail}}</td>
+                
+                        </tr>
+                        <tr>
+                            <td class = "title">Dátum narodenia: </td>
+                            <td></td>
+                            <td>{{request.birthdate | date: 'dd/MM/yyyy'}}</td>
+                        </tr>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-card-actions  >
+                            <button mat-raised-button color="warn" (click)="onAccept(request)" class="aptoveButton">Potvrdiť</button>
+                            <button mat-stroked-button class="declineButton" (click)="onDelete(request)" >Zamietnuť</button>
+                        </mat-card-actions >
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</div>

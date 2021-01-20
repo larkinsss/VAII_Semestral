@@ -1,3 +1,4 @@
+import { RequestsComponent } from './admin/requests/requests.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
@@ -66,6 +67,10 @@ const routes: Routes = [
       {
         path: 'procedures', // child route path
         component: ProceduresEditorComponent, // child route component that the router renders
+      },
+      {
+        path: 'requests', // child route path
+        component: RequestsComponent, // child route component that the router renders
       },
       {
         path: '',
