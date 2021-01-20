@@ -7,7 +7,6 @@
         <a mat-button class="navButton" [routerLink] = "['home']" routerLinkActive="active-link">Úvod</a>
         <a mat-button class="navButton" [routerLink] = "['waiting-list']" routerLinkActive="active-link">Čakáreň</a>
         <a mat-button class="navButton" [routerLink] = "['appointment']" routerLinkActive="active-link" >Objednanie</a>
-        <!-- <a mat-button class="navButton" [routerLink] = "['ambulance']" routerLinkActive="active-link">Kontakt</a> -->
     </div>
 
     <div *ngIf="this.authGuard.checkIfUserLoggedIn()">

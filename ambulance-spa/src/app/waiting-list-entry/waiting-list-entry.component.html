@@ -7,9 +7,10 @@
   
 <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <mat-panel-title class="exp_header">
         <mat-icon>account_circle</mat-icon>
-        <span> {{ data.firstname }} {{data.lastname}} </span>
+        <mat-label class="label"> {{ data.firstname }} </mat-label>
+            <mat-label class="label"> {{ data.lastname }} </mat-label>
       </mat-panel-title>
       <mat-panel-description>
         {{ data.dateOfArrival| date: "shortTime" }}

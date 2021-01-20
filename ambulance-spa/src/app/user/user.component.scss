@@ -37,11 +37,9 @@ mat-toolbar mat-icon {
 }
 
 .navButton {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
     color: coral;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .separator {
@@ -63,7 +61,7 @@ mat-toolbar mat-icon {
     position: absolute;
     left: 10%;
     right: 10%;
-    margin-top: 5%;
+    margin-top: 100px;
 }
 
 .mat-button {
@@ -74,6 +72,11 @@ mat-toolbar mat-icon {
 }
 
 @media only screen and (max-width: 600px) {
+
+    .mat-drawer{
+        margin-top: 56px;
+    }
+
     .mat-button {
         height: 100%;
         display: flex;
@@ -96,6 +99,14 @@ mat-toolbar mat-icon {
 
     .navButton {
         margin: 15px;
+        width: 100%;
+    }
+
+    .app-content {
+        margin-top: 100px;
+        position: absolute;
+        left: 5px;
+        right: 5px;
     }
 
   }
