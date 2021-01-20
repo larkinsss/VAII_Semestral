@@ -6,6 +6,6 @@
   </head>
 
 <ng-container *ngFor="let entry of waitingList">
-        <app-waiting-list-entry [data]="entry" (delete)="onDelete($event)" (update)="onUpdate($event)">
+        <app-waiting-list-entry [data]="entry">
         </app-waiting-list-entry>
 </ng-container>
