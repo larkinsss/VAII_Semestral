@@ -1,5 +1,5 @@
+import { LoginService } from './../services/login.service';
 import { Router } from '@angular/router';
-import { AuthService } from './../services/auth.service';
 import { AuthGuard } from './../authguard/auth.guard';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,11 +11,11 @@ import { Component, OnInit } from '@angular/core';
 export class UserComponent implements OnInit {
 
   authGuard: AuthGuard;
-  authServ: AuthService;
+  authServ: LoginService;
   router: Router;
 
 
-  constructor(authGuard: AuthGuard, authServ: AuthService, router: Router) { 
+  constructor(authGuard: AuthGuard, authServ: LoginService, router: Router) { 
     this.authGuard = authGuard;
     this.authServ = authServ;
     this.router = router;

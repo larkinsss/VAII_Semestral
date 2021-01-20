@@ -1,0 +1,49 @@
+mat-card {
+    border-top: 2px coral solid;
+    border-left: 2px white solid;
+    border-right: 2px white solid;
+}
+
+.protocols {
+    margin-top: 100px;
+    border-bottom: 2px coral solid;
+}
+
+mat-card-title {
+    color: dimgray;
+}
+
+mat-card-content {
+    color: gray;
+}
+
+mat-card-actions{
+    float: right;
+} 
+
+td {
+    margin: 0;
+    padding: 0;
+    line-height: 20px;
+    padding-right: 3px;
+}
+.title{
+    font-weight: bolder;
+}
+
+.textRight {
+    text-align: right;
+    padding-right: 5px;
+    font-size: larger;
+    margin-top: 5px;
+}
+.buttons{
+    text-align: end;
+}
+mat-card-actions{
+    float: right;
+} 
+
+.declineButton {
+    border-top: 1px black solid;
+}

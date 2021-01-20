@@ -25,8 +25,14 @@ import semestral.ambulance.models.Role;
 import semestral.ambulance.models.User;
 import semestral.ambulance.restservices.UserService;
 import semestral.ambulance.util.JwtUtil;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = { "http://localhost:4200", "http://localhost:8080"})
+@CrossOrigin(
+	origins = {"http://localhost:4200", "http://localhost:8080"}, 
+	allowedHeaders = {"Authorization", "Content-type"},
+	exposedHeaders = {"Authorization", "Content-type"}
+)
 @RestController
 public class AuthController {
 
@@ -55,7 +61,7 @@ public class AuthController {
         String hashedPassword = passwordEncoder.encode(user.password);
 
         User userToStore = new User(modelMapper.map(user, User.class), hashedPassword);
-        User resultOfPost = this.userService.upsertUser(userToStore);
+        User resultOfPost = this.userService.insertUser(userToStore);
         if (resultOfPost != null) {
             return ResponseEntity.accepted().body(userToStore);
         } else {
@@ -78,14 +84,13 @@ public class AuthController {
         List<User> users = this.userService.getAllUsers();
         Long newId = (long) 0;
         for (User user : users) {
-            if (user.getId() > newId) {
+            if (user.getId() >= newId) {
                 newId = user.getId()+ 1;
             }
         }
         return ResponseEntity.ok().body(newId);
     }
 
-    @CrossOrigin(origins = { "http://localhost:4200", "http://localhost:8080" })
     @RequestMapping(value = "/authenticate", method = { RequestMethod.POST })
     public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
             throws Exception {
@@ -110,5 +115,39 @@ public class AuthController {
         
         
     }
+
+    @GetMapping(value = "/get/requests")
+    public ResponseEntity<List<User>> getPendingRequests() {
+        List<User> pendingUsers = this.userService.getPendingUsers();
+        if (pendingUsers != null && pendingUsers.size() > 0){
+            return ResponseEntity.ok().body(pendingUsers);
+        } else {
+            return ResponseEntity.ok().body(null);
+        }
+    }
+
+    @PostMapping(value="/approve/request/{username}")
+    public ResponseEntity<Boolean> acceptRequest(@PathVariable("username") String username) {
+        User userToAccept = this.userService.getUserByUsername(username);
+        if (userToAccept != null) {
+            userToAccept.setRole(Role.USER);
+            this.userService.upsertUser(userToAccept);
+            return ResponseEntity.ok().body(true);
+        }
+        return ResponseEntity.badRequest().body(false);
+    }
+
+    @PostMapping(value="/decline/request/{username}")
+    public ResponseEntity<Boolean> declineRequest(@PathVariable("username") String username) {
+        User userToDecline = this.userService.getUserByUsername(username);
+        if (userToDecline != null) {
+            this.userService.deleteUser(userToDecline.getId());
+            return ResponseEntity.ok().body(true);
+        }
+        return ResponseEntity.badRequest().body(false);
+    }
+    
+
+
 
 }

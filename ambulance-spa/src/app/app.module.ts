@@ -35,6 +35,8 @@ import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-
 import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
 import { RegisterComponent } from './register/register.component';
 import { ProcedureEntryComponent } from './admin/procedure-entry/procedure-entry.component';
+import { RequestsComponent } from './admin/requests/requests.component';
+import {MatCardModule} from '@angular/material/card'; 
 
 
 @NgModule({
@@ -51,7 +53,8 @@ import { ProcedureEntryComponent } from './admin/procedure-entry/procedure-entry
     ProceduresEditorComponent,
     AmbulanceEditorComponent,
     RegisterComponent,
-    ProcedureEntryComponent
+    ProcedureEntryComponent,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { ProcedureEntryComponent } from './admin/procedure-entry/procedure-entry
     MatButtonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule
   ],
   providers: [MatSnackBar],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthRequest } from './../model/auth-request';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -15,6 +15,8 @@ export class LoginService {
   authenticated = false;
   authRequest: AuthRequest;
   authResponse: AuthResponse;
+  isLogin = false;
+  roleAs: string;
 
   constructor(private http: HttpClient) {
     this.authRequest = new AuthRequest;
@@ -65,4 +67,34 @@ export class LoginService {
     }
     return role;
   }
+
+  logout(): Observable<{
+    success: boolean;
+    role: string;
+  }> {
+    this.isLogin = false;
+    this.roleAs = '';
+    localStorage.setItem('STATE', 'false');
+    localStorage.setItem('ROLE', '');
+    localStorage.setItem('USERNAME', '');
+    localStorage.setItem('JWT', '');
+    localStorage.setItem('AUTHENTICATED', 'false');
+    return of({ success: this.isLogin, role: '' });
+  }
+
+  isLoggedIn(): boolean {
+    const loggedIn = localStorage.getItem('STATE');
+    if (loggedIn === 'true') {
+      this.isLogin = true;
+    } else {
+      this.isLogin = false;
+    }
+    return this.isLogin;
+  }
+
+  getRole(): string {
+    this.roleAs = localStorage.getItem('ROLE');
+    return this.roleAs;
+  }
+  
 }

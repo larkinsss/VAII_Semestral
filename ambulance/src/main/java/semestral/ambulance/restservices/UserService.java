@@ -12,10 +12,14 @@ public interface UserService extends UserDetailsService{
 
     public User upsertUser(User user);
 
+    public User insertUser(User user);
+
     public boolean deleteUser(Long id);
 
     public User getUserByUsername(String username);
 
     public List<User> getAllUsers();
+
+    public List<User> getPendingUsers();
 
 }
