@@ -39,7 +39,7 @@
     </mat-form-field>
     <mat-action-row *ngIf='showToAdmin()'>
       <!-- <button mat-button (click)="change(data)">Upraviť záznam</button> -->
-      <button mat-button (click)="delete.next(data)">Odstrániť záznam</button>
+      <button mat-button (click)="delete.next(data)" id="remove_button_{{data.id}}" class="button">Odstrániť záznam</button>
     </mat-action-row>
   </mat-expansion-panel>
   

@@ -44,7 +44,7 @@ export class AppointmentComponent implements OnInit {
       ]],
       phonenumberValue: ['',
       [Validators.required,
-        Validators.pattern('^((\\+91-?)|0)?[0-9]{12}$')
+        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')
       ]],
       dateValue: [null, [
         Validators.required
@@ -114,7 +114,7 @@ export class AppointmentComponent implements OnInit {
       };
       this.service.updateList(entry as WaitingListEntry).subscribe((response) => {
         this.snackBar.open('Your appointment was saved!', 'Hide', {
-          duration: 3000,
+          duration: 15000,
         });
         this.resetForm();
       });

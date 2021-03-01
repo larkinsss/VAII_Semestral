@@ -5,8 +5,8 @@
     <mat-icon class="appIcon">medical_services</mat-icon>
     <div fxShow="true" fxHide.lt-sm>
         <a mat-button class="navButton" [routerLink] = "['home']" routerLinkActive="active-link">Úvod</a>
-        <a mat-button class="navButton" [routerLink] = "['waiting-list']" routerLinkActive="active-link">Čakáreň</a>
-        <a mat-button class="navButton" [routerLink] = "['appointment']" routerLinkActive="active-link" >Objednanie</a>
+        <a id="wait_button" mat-button class="navButton" [routerLink] = "['waiting-list']" routerLinkActive="active-link">Čakáreň</a>
+        <a id="app_button" mat-button class="navButton" [routerLink] = "['appointment']" routerLinkActive="active-link" >Objednanie</a>
     </div>
 
     <div *ngIf="this.authGuard.checkIfUserLoggedIn()">
@@ -27,8 +27,8 @@
           <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['waiting-list']" routerLinkActive="active-link">Čakáreň</a>
         <br>
         </div>
-        <div class="row">
-          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['appointment']" routerLinkActive="active-link" >Objednanie</a>
+        <div class="row" id="obj_button">
+          <a id="appointment" mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['appointment']" routerLinkActive="active-link">Objednanie</a>
         <br>
         </div>
         <!-- <div class="row">
