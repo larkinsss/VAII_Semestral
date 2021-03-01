@@ -86,7 +86,7 @@ export class RegisterComponent implements OnInit {
       let entry = {
         userId: null,
         username: this.usernameValue,
-        userEmail: this.emailValue,
+        email: this.emailValue,
         firstname: this.firstnameValue,
         lastname: this.lastnameValue,
         birthdate: this.dateValue,
