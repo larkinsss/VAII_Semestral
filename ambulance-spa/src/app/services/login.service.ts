@@ -58,14 +58,7 @@ export class LoginService {
   }
 
   private checkRole(user: User): string {
-    let role;
-    if (user.role === 'ADMIN') {
-      role = 'ADMIN';
-    }
-    else {
-      role = 'USER';
-    }
-    return role;
+    return user.role.toString();
   }
 
   logout(): Observable<{

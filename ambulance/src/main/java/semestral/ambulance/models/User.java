@@ -58,8 +58,14 @@ public class User implements UserDetails {
         if (role.equals("ADMIN")) {
             this.role = Role.ADMIN;
         }
-        if (role.equals("USER")) {
-            this.role = Role.USER;
+        if (role.equals("DOCTOR")) {
+            this.role = Role.DOCTOR;
+        }
+        if (role.equals("UNREGISTERED")) {
+            this.role = Role.UNREGISTERED;
+        }
+        if (role.equals("PSP")) {
+            this.role = Role.PSP;
         }
     }
 
@@ -143,10 +149,15 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role.equals(Role.ADMIN)) {
-            return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
-        } else {
-            return Arrays.asList(new SimpleGrantedAuthority("USER"));
+        switch (this.role) {
+            case ADMIN:
+                return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+            case DOCTOR:
+                return Arrays.asList(new SimpleGrantedAuthority("DOCTOR"));
+            case PSP:
+                return Arrays.asList(new SimpleGrantedAuthority("PSP"));
+            default:
+                return Arrays.asList(new SimpleGrantedAuthority("UNREGISTERED"));
         }
     }
 

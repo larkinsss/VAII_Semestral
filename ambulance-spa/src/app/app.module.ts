@@ -1,3 +1,4 @@
+import { PatientDetailComponent } from './patient-list/patient-detail/patient-detail.component';
 import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -36,7 +37,10 @@ import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-edi
 import { RegisterComponent } from './register/register.component';
 import { ProcedureEntryComponent } from './admin/procedure-entry/procedure-entry.component';
 import { RequestsComponent } from './admin/requests/requests.component';
-import {MatCardModule} from '@angular/material/card'; 
+import {MatCardModule} from '@angular/material/card';
+import { PatientListComponent } from './patient-list/patient-list.component'; 
+import { FilterPipe } from './patient-filter.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -54,7 +58,10 @@ import {MatCardModule} from '@angular/material/card';
     AmbulanceEditorComponent,
     RegisterComponent,
     ProcedureEntryComponent,
-    RequestsComponent
+    RequestsComponent,
+    PatientListComponent,
+    FilterPipe,
+    PatientDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -78,9 +85,11 @@ import {MatCardModule} from '@angular/material/card';
     HttpClientModule,
     ReactiveFormsModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [MatSnackBar],
+  entryComponents:[PatientDetailComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

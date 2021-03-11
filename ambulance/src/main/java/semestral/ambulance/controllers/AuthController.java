@@ -106,7 +106,7 @@ public class AuthController {
 
         final User userForResponse = userService.getUserByUsername(userDetail.getUsername());
 
-        if(userForResponse.getRole() == Role.ADMIN || userForResponse.getRole() == Role.USER) {
+        if(userForResponse.getRole() == Role.ADMIN || userForResponse.getRole() == Role.DOCTOR) {
             final String jwt = jwtTokenUtil.generateToken(userDetail);
             return ResponseEntity.ok(new AuthenticationResponse(jwt, userForResponse));
         } else {
@@ -130,7 +130,7 @@ public class AuthController {
     public ResponseEntity<Boolean> acceptRequest(@PathVariable("username") String username) {
         User userToAccept = this.userService.getUserByUsername(username);
         if (userToAccept != null) {
-            userToAccept.setRole(Role.USER);
+            userToAccept.setRole(Role.DOCTOR);
             this.userService.upsertUser(userToAccept);
             return ResponseEntity.ok().body(true);
         }

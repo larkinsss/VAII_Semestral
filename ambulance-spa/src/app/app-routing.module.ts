@@ -1,3 +1,4 @@
+import { PatientListComponent } from './patient-list/patient-list.component';
 import { RequestsComponent } from './admin/requests/requests.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin/admin.component';
@@ -26,7 +27,7 @@ const routes: Routes = [
     component: UserComponent,
     canActivate: [AuthGuard],
     data: {
-      role: 'USER',
+      role: 'DOCTOR',
     },
     children:  [
       {
@@ -41,9 +42,13 @@ const routes: Routes = [
         path: 'ambulance',
         component: AmbulanceComponent,
       },
-            {
+      {
         path: 'waiting-list', 
         component: WaitingListComponent
+      },
+      {
+        path: 'patient-list', 
+        component: PatientListComponent
       },
       {
         path: '',

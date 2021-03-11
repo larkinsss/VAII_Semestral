@@ -1,0 +1,32 @@
+<mat-card class="card">
+    <mat-card-title>{{patient.firstname}} {{patient.lastname}}
+        <br>
+    </mat-card-title>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-md-8">
+                <tr>
+                    <td class = "title">Meno pacienta:</td>
+                    <td></td>
+                    <td>{{patient.firstname}}</td>
+                </tr>
+                <tr>
+                    <td class = "title">E-mail: </td>
+                    <td></td>
+                    <td>{{patient.email}}</td>
+        
+                </tr>
+                <tr>
+                    <td class = "title">Dátum narodenia: </td>
+                    <td></td>
+                    <td>{{patient.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+<br>
+<div class="button-div">
+    <button mat-raised-button color="warn" (click)="createPN()" class="aptoveButton">Vytvoriť záznam PN</button>
+</div>
+
