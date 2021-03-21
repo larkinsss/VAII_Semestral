@@ -1,4 +1,4 @@
-import { LoginService } from './../../services/login.service';
+import { LoginService } from '../../services/login/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthGuard } from 'src/app/authguard/auth.guard';

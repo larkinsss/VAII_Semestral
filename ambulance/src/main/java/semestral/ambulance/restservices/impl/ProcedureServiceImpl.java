@@ -1,10 +1,9 @@
-package semestral.ambulance.restservices;
+package semestral.ambulance.restservices.impl;
 
 import org.springframework.stereotype.Service;
-import semestral.ambulance.models.Patient;
 import semestral.ambulance.models.Procedure;
-import semestral.ambulance.repository.PatientRepository;
 import semestral.ambulance.repository.ProcedureRepository;
+import semestral.ambulance.restservices.ProcedureService;
 
 import java.util.List;
 import java.util.Optional;

@@ -126,11 +126,11 @@ public class AuthController {
         }
     }
 
-    @PostMapping(value="/approve/request/{username}")
-    public ResponseEntity<Boolean> acceptRequest(@PathVariable("username") String username) {
+    @PostMapping(value="/approve/request/{username}/{role}")
+    public ResponseEntity<Boolean> acceptRequest(@PathVariable("username") String username, @PathVariable("role") Integer role) {
         User userToAccept = this.userService.getUserByUsername(username);
         if (userToAccept != null) {
-            userToAccept.setRole(Role.DOCTOR);
+            userToAccept.setRole(Role.getRoleByInt(role));
             this.userService.upsertUser(userToAccept);
             return ResponseEntity.ok().body(true);
         }

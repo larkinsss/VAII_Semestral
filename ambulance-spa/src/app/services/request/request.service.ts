@@ -1,9 +1,9 @@
+import { User } from './../../model/user';
+import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
-import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class RequestService {
     return apiCall.pipe(map(response => (response as User[])));
   }
 
-  public approveRequest(username:string) {
-    const url = `${environment.baseUrl}/approve/request/${username}`;
+  public approveRequest(username:string, user_role: number) {
+    const url = `${environment.baseUrl}/approve/request/${username}/${user_role}`;
     this.setAuthHeader();
     return this.httpClient.post(url, username, { headers : this.authHeader });
   }

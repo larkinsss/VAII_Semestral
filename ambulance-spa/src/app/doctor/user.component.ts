@@ -1,6 +1,6 @@
-import { LoginService } from './../services/login.service';
+import { LoginService } from '../services/login/login.service';
 import { Router } from '@angular/router';
-import { AuthGuard } from './../authguard/auth.guard';
+import { AuthGuard } from '../authguard/auth.guard';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -1,8 +1,10 @@
-package semestral.ambulance.restservices;
+package semestral.ambulance.restservices.impl;
 
 import org.springframework.stereotype.Service;
 import semestral.ambulance.models.Patient;
 import semestral.ambulance.repository.PatientRepository;
+import semestral.ambulance.restservices.PatientService;
+
 import java.util.List;
 
 @Service
@@ -22,7 +24,7 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public Patient getById(Long id) {
+    public Patient getById(String id) {
         return patientRepository.findById(id).orElse(null);
     }
 
@@ -34,7 +36,7 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public Patient deletePatient(Long id) throws Exception{
+    public Patient deletePatient(String id) throws Exception{
         Patient patientToBeRemoved = patientRepository.findById(id).orElseThrow(Exception::new);
         if(id != null) {
             patientRepository.deleteById(id);

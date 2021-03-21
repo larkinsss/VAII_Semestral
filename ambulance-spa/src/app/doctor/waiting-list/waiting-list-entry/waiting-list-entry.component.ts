@@ -1,6 +1,5 @@
-import { trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
+import { WaitingListEntry } from 'src/app/model/patient';
 
 @Component({
   selector: 'app-waiting-list-entry',
@@ -8,7 +7,6 @@ import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
   styleUrls: ['./waiting-list-entry.component.scss']
 })
 export class WaitingListEntryComponent {
-  illness: string;
   arrivalDate: Date;
 
   @Input()
@@ -33,7 +31,7 @@ export class WaitingListEntryComponent {
   }
 
   showToUser() {
-    if (localStorage.getItem('ROLE') === 'USER') {
+    if (localStorage.getItem('ROLE') === 'DOCTOR') {
       return true;
     }
     return false;
@@ -44,10 +42,6 @@ export class WaitingListEntryComponent {
     if (this.arrivalDate != null)
     {
       this.data.dateOfArrival = this.arrivalDate;
-    }
-    if (this.illness != null)
-    {
-      this.data.illnessDesc = this.illness;
     }
     this.update.next(this.data);
   }

@@ -1,9 +1,9 @@
-import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
+import { WaitingListEntry } from 'src/app/model/patient';
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from './../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +15,7 @@ export class WaitingListService {
   private authHeader: HttpHeaders;
 
   constructor(private httpClient: HttpClient) {
-    this.getWaitingList().subscribe((response) => {
-      this.entryList = response;
-      this.entryList.forEach(entry => {
-        if (entry.id > this.IdBoundary)
-        {
-          this.IdBoundary = entry.id;
-        }
-      });
-    });
+    
   }
 
   public getWaitingList(): Observable<WaitingListEntry[]> {
@@ -35,13 +27,10 @@ export class WaitingListService {
 
   public updateList(waitingListEntry: WaitingListEntry): Observable<any> {
     const url = `${environment.baseUrl}/post/patient`;
-    this.setAuthHeader();
-    this.IdBoundary++;
-    waitingListEntry.id = this.IdBoundary;
-    return this.httpClient.post(url, waitingListEntry, { headers : this.authHeader });
+    return this.httpClient.post(url, waitingListEntry);
   }
 
-  public deleteFromList(id: number): Observable<any> {
+  public deleteFromList(id: string): Observable<any> {
     const url = `${environment.baseUrl}/delete/patient?id=${id}`;
     this.setAuthHeader();
     return this.httpClient.delete(url, { headers : this.authHeader });

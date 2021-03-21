@@ -6,7 +6,7 @@
   </head>
 
 <h1 class="header" name="nadpis">
-    Zadajte svoje osobné údaje a zvoľte si čas vašej návštevy.
+    Formulár registrácie pacienta
 </h1>
 <div class="container">
     <form (ngSubmit)="appointmentForm.form.valid" [formGroup]="myForm" #appointmentForm="ngForm">
@@ -22,6 +22,16 @@
                     <mat-label>Priezvisko</mat-label>
                     <input matInput maxlength="50" placeholder="Priezvisko" formControlName="lastnameValue" id="lastname">
                   </mat-form-field>
+            </p>
+        </div>
+
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Rodné číslo</mat-label>
+                  <input matInput placeholder="9501011234" formControlName="birthnumberValue" id="birthnumber">
+                  <mat-hint>*Zadajte rodné číslo bez lomítka</mat-hint>
+                </mat-form-field>
             </p>
         </div>
     
@@ -42,6 +52,22 @@
                         Musíte si zvoliť správny dátum narodenia
                     </mat-error>
                   </mat-form-field>
+            </p>
+        </div>
+
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Ulica</mat-label>
+                  <input matInput placeholder="Hrašková" formControlName="streetNameValue" id="streetname">
+                </mat-form-field>
+            </p>
+
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Číslo</mat-label>
+                  <input matInput placeholder="1" formControlName="streetNumberValue" id="streetnumber">
+                </mat-form-field>
             </p>
         </div>
     
@@ -70,13 +96,41 @@
         </div>
     
         <div class="row">
+            <div class="col-md">
+                <label>
+                    Poistný vzťah:
+                </label>
+                <div *ngFor="let control of insuranceRelationships.controls; let i = index;">
+                    <input class="checkbox-input" type="checkbox" [formControl]="control" id="checkbox{{i}}" value="option1">
+                    <label class="checkbox-label" for="checkbox{{i}}">{{relationships[i]}}</label>
+                    <!-- {{relationships[i]}} -->
+                </div>
+                
+                <!-- <section>
+                    <mat-checkbox [checked]="employee" color="warn">
+                        Zamestnanec
+                    </mat-checkbox>
+                    <mat-checkbox [checked]="employee" color="warn">
+                        <label>
+                            <span>
+                                Povinne nemocensky poistená samostatne zárobkovo činná osoba
+                            </span>
+                        </label>
+                    </mat-checkbox>
+                    <mat-checkbox [checked]="employee" color="warn">
+                        Dobrovoľne nemocensky poistená osoba
+                    </mat-checkbox>
+                </section> -->
+                    
+                </div>
+
             <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">
-                    <mat-label>V krátkosti popíšte svoje ťažkosti alebo dôvod vašej návštevy</mat-label>
-                    <textarea matInput formControlName="illnessValue" id="illness"></textarea>
-                  </mat-form-field>
+                    <input matInput placeholder="24" formControlName="insuranceCompNumber" id="insuranceNumber">
+                </mat-form-field>
             </p>
         </div>
+        
         <div class="button">
             <button id="rezervacia" mat-raised-button [disabled]="myForm.invalid" color="warn" (click)="this.addAppointment()">Rezervuj</button>
         </div>

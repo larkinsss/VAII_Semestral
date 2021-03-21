@@ -1,5 +1,5 @@
-import { Procedure } from './../model/procedure';
-import { ProcedureService } from './../services/procedure.service';
+import { Procedure } from '../../model/procedure';
+import { ProcedureService } from '../../services/procedure/procedure.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

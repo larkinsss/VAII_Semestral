@@ -1,10 +1,10 @@
 import { Observable, of } from 'rxjs';
-import { AuthRequest } from './../model/auth-request';
+import { AuthRequest } from '../../model/auth-request';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from './../../environments/environment';
-import { AuthResponse } from '../model/auth-response';
-import { User } from '../model/user';
+import { environment } from '../../../environments/environment';
+import { AuthResponse } from '../../model/auth-response';
+import { User } from '../../model/user';
 import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
@@ -24,12 +24,12 @@ export class LoginService {
 
   authenticate(credentials, callback) {
         this.authRequest.password = credentials.password;
-        this.authRequest.username = credentials.username;    
-        const url = `${environment.baseUrl}/authenticate`;    
+        this.authRequest.username = credentials.username;
+        const url = `${environment.baseUrl}/authenticate`;
         this.http.post(url, this.authRequest).subscribe(response => {
             this.authResponse  = response as AuthResponse;
             if (this.authResponse != null) {
-              localStorage.setItem('JWT',this.authResponse.jwt);
+              localStorage.setItem('JWT', this.authResponse.jwt);
               localStorage.setItem('ROLE', this.checkRole(this.authResponse.user));
               localStorage.setItem('STATE', 'true');
               localStorage.setItem('AUTHENTICATED', 'true');
@@ -46,13 +46,13 @@ export class LoginService {
   }
 
   public getNewUserId(): Observable<number> {
-    let url = `${environment.baseUrl}/user/get/newId`;
+    const url = `${environment.baseUrl}/user/get/newId`;
     const apiCall = this.http.get(url);
     return apiCall.pipe(map(response => (response as number)));
   }
 
   public register(user: User): Observable<any> {
-    let url = `${environment.baseUrl}/register`;
+    const url = `${environment.baseUrl}/register`;
     const apiCall = this.http.post(url, user);
     return apiCall;
   }
@@ -89,5 +89,5 @@ export class LoginService {
     this.roleAs = localStorage.getItem('ROLE');
     return this.roleAs;
   }
-  
+
 }

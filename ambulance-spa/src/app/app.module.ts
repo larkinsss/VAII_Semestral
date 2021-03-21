@@ -1,4 +1,4 @@
-import { PatientDetailComponent } from './patient-list/patient-detail/patient-detail.component';
+import { PatientDetailComponent } from './doctor/patient-list/patient-detail/patient-detail.component';
 import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -13,8 +13,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { WaitingListComponent } from './waiting-list/waiting-list.component';
-import { HomeComponent } from './home/home.component';
+import { WaitingListComponent } from './doctor/waiting-list/waiting-list.component';
+import { HomeComponent } from './doctor/home/home.component';
 import { AmbulanceComponent } from './ambulance/ambulance.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -22,13 +22,13 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { WaitingListEntryComponent } from './waiting-list-entry/waiting-list-entry.component';
+import { WaitingListEntryComponent } from './doctor/waiting-list/waiting-list-entry/waiting-list-entry.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserComponent } from './user/user.component';
+import { UserComponent } from './doctor/user.component';
 import { LoginComponent } from './login/login.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { AdminComponent } from './admin/admin/admin.component';
@@ -38,9 +38,10 @@ import { RegisterComponent } from './register/register.component';
 import { ProcedureEntryComponent } from './admin/procedure-entry/procedure-entry.component';
 import { RequestsComponent } from './admin/requests/requests.component';
 import {MatCardModule} from '@angular/material/card';
-import { PatientListComponent } from './patient-list/patient-list.component'; 
+import { PatientListComponent } from './doctor/patient-list/patient-list.component';
 import { FilterPipe } from './patient-filter.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -86,10 +87,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     MatGridListModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [MatSnackBar],
-  entryComponents:[PatientDetailComponent],
+  entryComponents: [PatientDetailComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

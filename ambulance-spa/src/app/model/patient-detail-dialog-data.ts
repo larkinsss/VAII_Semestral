@@ -1,4 +1,4 @@
-import { WaitingListEntry } from './waiting-list-entry';
+import { WaitingListEntry } from './patient';
 
 export class PatientDetailDialogData {
     patientData: WaitingListEntry

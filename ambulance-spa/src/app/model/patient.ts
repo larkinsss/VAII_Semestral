@@ -1,10 +1,13 @@
 export interface WaitingListEntry{
-    id: number;
+    id: string;
     firstname: string;
     lastname: string;
     dateOfBirth: Date;
     dateOfArrival: Date;
     email: string;
     phoneNumber: string;
-    illnessDesc: string;
+    streetName: string;
+    streetNumber: number;
+    insuranceNumber: number;
+    insuranceRelationship: string;
 }

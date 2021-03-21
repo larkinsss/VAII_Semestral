@@ -1,10 +1,7 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { WaitingListService } from './../services/waiting-list.service';
 import { Component, OnInit } from '@angular/core';
-import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
-import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
-import { Observable } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { WaitingListEntry } from 'src/app/model/patient';
+import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
 
 @Component({
   selector: 'app-waiting-list',

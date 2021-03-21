@@ -17,25 +17,26 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-form-field appearance="outline">
-      <mat-label>Dátum a čas príchodu</mat-label>
+      <mat-label>Dátum narodenia</mat-label>
       <input
         matInput 
-        [ngModel] ="data.dateOfArrival | date:'yyyy-MM-dd'"
+        [ngModel] ="data.dateOfBirth | date:'dd-MM-yyyy'"
         readonly
       />
     </mat-form-field> 
     <mat-form-field  appearance="outline">
-      <mat-label>Dôvod návštevy</mat-label>
-      <div *ngIf="showToAdmin()">
-        <input matInput [(ngModel)]="data.illnessDesc" (keydown.enter)='onUpdate()'/>
-      </div>
-      <div *ngIf="showToUser()">
-        <input matInput [value]="data.illnessDesc" readonly/>
-      </div>
+      <mat-label>Rodné číslo</mat-label>
+      <!-- <div *ngIf="showToAdmin()">
+        <input matInput [(ngModel)]="data.insuranceRelationship" (keydown.enter)='onUpdate()'/>
+      </div> -->
+      <!-- <div *ngIf="showToUser()">
+        <input matInput [value]="data.insuranceRelationship" readonly/>
+      </div> -->
+      <input matInput [value]="data.id" readonly/>
     </mat-form-field>
     <mat-form-field  appearance="outline">
-      <mat-label>Poradové číslo</mat-label>
-      <input matInput [value]="data.id" readonly/>
+      <mat-label>Zdravotná poisťovňa</mat-label>
+      <input matInput [value]="data.insuranceNumber" readonly/>
     </mat-form-field>
     <mat-action-row *ngIf='showToAdmin()'>
       <!-- <button mat-button (click)="change(data)">Upraviť záznam</button> -->

@@ -1,7 +1,6 @@
 package semestral.ambulance.controllers;
 
 import java.util.List;
-import java.util.Random;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +18,6 @@ import semestral.ambulance.restservices.PatientService;
 @RestController
 public class PatientController {
 
-	private final Random counter = new Random();
-
 	private final PatientService patientService;
 	private final ModelMapper modelMapper;
 
@@ -32,11 +29,11 @@ public class PatientController {
 	
 	@GetMapping("/get/patient/default")
 	public Patient getPatient(@RequestParam(value = "firstname", defaultValue = "Patient") String firstname) {
-		return new Patient(counter.nextLong());
+		return new Patient("9901011004");
 	}
 
 	@DeleteMapping("/delete/patient")
-	public ResponseEntity<Patient> deletePatient(@RequestParam(value = "id") Long id) throws Exception {
+	public ResponseEntity<Patient> deletePatient(@RequestParam(value = "id") String id) throws Exception {
 		if (id != null) {
 			return ResponseEntity.accepted().body(patientService.deletePatient(id));
 		} else {
@@ -55,7 +52,7 @@ public class PatientController {
 	}
 
 	@GetMapping(value="/get/patient/{id}")
-	public DBOPatient getPatientById(@PathVariable("id") Long id, Model model) throws ItemNotFoundException {
+	public DBOPatient getPatientById(@PathVariable("id") String id, Model model) throws ItemNotFoundException {
 		Patient controlPatient = patientService.getById(id);
 		return modelMapper.map(controlPatient, DBOPatient.class);
 	}

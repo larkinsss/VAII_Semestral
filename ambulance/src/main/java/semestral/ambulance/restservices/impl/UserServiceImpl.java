@@ -1,4 +1,4 @@
-package semestral.ambulance.restservices;
+package semestral.ambulance.restservices.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import semestral.ambulance.models.Role;
 import semestral.ambulance.models.User;
 import semestral.ambulance.repository.UserRepostory;
+import semestral.ambulance.restservices.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
