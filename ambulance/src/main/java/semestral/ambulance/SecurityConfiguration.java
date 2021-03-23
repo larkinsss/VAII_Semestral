@@ -13,16 +13,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import semestral.ambulance.filters.JwtRequestFilter;
-import semestral.ambulance.repository.UserRepostory;
-import semestral.ambulance.restservices.UserService;
-import semestral.ambulance.restservices.UserServiceImpl;
+import semestral.ambulance.restservices.impl.UserServiceImpl;
+
 
 @Configuration
 @EnableWebSecurity
@@ -57,6 +54,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers( HttpMethod.POST, "/register").permitAll()
                 .antMatchers( HttpMethod.GET, "/procedure/get/*").permitAll()
                 .antMatchers("/user/get/newId").permitAll()
+                .antMatchers("/appointment").permitAll()
+                .antMatchers("/post/patient").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(JwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }

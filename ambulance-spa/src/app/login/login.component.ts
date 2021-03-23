@@ -1,4 +1,4 @@
-import { LoginService } from './../services/login.service';
+import { LoginService } from '../services/login/login.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -37,17 +37,20 @@ export class LoginComponent implements OnInit {
   }
 
   routeAccordingToRole(role: string): void{
-    if (role === 'ADMIN') {
-      this.router.navigate(['admin']);
-    } else {
-      this.router.navigate(['user/home']);
+    switch (role) {
+      case 'ADMIN':
+        this.router.navigate(['admin']);
+        break;
+      case 'DOCTOR':
+        this.router.navigate(['user/home']);
+        break;
+      case 'PSP':
+        this.router.navigate(['socp/home']);
+        break;
     }
   }
 
   registerUser(){
     this.router.navigate(['register']);
   }
-
-  if
-
 }

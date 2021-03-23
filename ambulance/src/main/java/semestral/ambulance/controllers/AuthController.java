@@ -106,7 +106,7 @@ public class AuthController {
 
         final User userForResponse = userService.getUserByUsername(userDetail.getUsername());
 
-        if(userForResponse.getRole() == Role.ADMIN || userForResponse.getRole() == Role.USER) {
+        if(userForResponse.getRole() == Role.ADMIN || userForResponse.getRole() == Role.DOCTOR) {
             final String jwt = jwtTokenUtil.generateToken(userDetail);
             return ResponseEntity.ok(new AuthenticationResponse(jwt, userForResponse));
         } else {
@@ -126,11 +126,11 @@ public class AuthController {
         }
     }
 
-    @PostMapping(value="/approve/request/{username}")
-    public ResponseEntity<Boolean> acceptRequest(@PathVariable("username") String username) {
+    @PostMapping(value="/approve/request/{username}/{role}")
+    public ResponseEntity<Boolean> acceptRequest(@PathVariable("username") String username, @PathVariable("role") Integer role) {
         User userToAccept = this.userService.getUserByUsername(username);
         if (userToAccept != null) {
-            userToAccept.setRole(Role.USER);
+            userToAccept.setRole(Role.getRoleByInt(role));
             this.userService.upsertUser(userToAccept);
             return ResponseEntity.ok().body(true);
         }

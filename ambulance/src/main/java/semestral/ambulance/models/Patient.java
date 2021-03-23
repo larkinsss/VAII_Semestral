@@ -9,8 +9,8 @@ public class Patient {
 
     @Id
     //@NotEmpty
-    @Column (name = "id")
-    private Long id;
+    @Column (name = "birth_number")
+    private String id;
 
     //NotEmpty
     @Column (name = "firstname")
@@ -36,12 +36,21 @@ public class Patient {
     @Column (name = "phone_number")
     private String phoneNumber;
 
-    @Column (name = "illness_desc")
-    private String illnessDesc;
+    @Column (name = "ins_comp_num")
+    private Integer insuranceNumber;
 
-    public Patient(Long id, String firstname, String lastname,
+    @Column (name = "street_name")
+    private String streetName;
+
+    @Column (name = "street_number")
+    private Integer streetNumber;
+
+    @Column (name = "ins_rel")
+    private String insuranceRelationship;
+
+    public Patient(String id, String firstname, String lastname,
                    Date dateOfBirth, Date timeOfArrival, String email,
-                   String phoneNumber, String illnessDesc) {
+                   String phoneNumber, Integer insuranceNum, String streetName, Integer streetNum, String insuranceRelString) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -49,10 +58,13 @@ public class Patient {
         this.dateOfArrival = timeOfArrival;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.illnessDesc = illnessDesc;
+        this.insuranceNumber = insuranceNum;
+        this.streetName = streetName;
+        this.streetNumber = streetNum;
+        this.insuranceRelationship = insuranceRelString;
     }
 
-    public Patient(Long id) {
+    public Patient(String id) {
         this.id = id;
         this.firstname = "Tester";
         this.lastname = "Subject";
@@ -60,7 +72,10 @@ public class Patient {
         this.dateOfArrival = new Date();
         this.email = "random@email.com";
         this.phoneNumber="0000000000";
-        this.illnessDesc = "Corona virus";
+        this.insuranceNumber = 24;
+        this.streetName = "streetName";
+        this.streetNumber = 5;
+        this.insuranceRelationship = "insuranceRelString";
     }
 
     public Patient(){}
@@ -85,20 +100,8 @@ public class Patient {
         return phoneNumber;
     }
 
-    public String getIllnessDesc() {
-        return illnessDesc;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
     public String getFirstname() {
         return firstname;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setFirstname(String firstname) {
@@ -125,7 +128,43 @@ public class Patient {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setIllnessDesc(String illnessDesc) {
-        this.illnessDesc = illnessDesc;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getInsuranceNumber() {
+        return insuranceNumber;
+    }
+
+    public void setInsuranceNumber(Integer insuranceNumber) {
+        this.insuranceNumber = insuranceNumber;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public Integer getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(Integer streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getInsuranceRelationship() {
+        return insuranceRelationship;
+    }
+
+    public void setInsuranceRelationship(String insuranceRelationship) {
+        this.insuranceRelationship = insuranceRelationship;
     }
 }

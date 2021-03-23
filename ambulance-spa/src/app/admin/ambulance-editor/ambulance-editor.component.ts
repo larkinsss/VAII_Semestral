@@ -1,9 +1,9 @@
-import { LoginService } from './../../services/login.service';
+import { LoginService } from '../../services/login/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
-import { WaitingListService } from 'src/app/services/waiting-list.service';
+import { WaitingListEntry } from 'src/app/model/patient';
+import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
 
 @Component({
   selector: 'app-ambulance-editor',
@@ -33,7 +33,7 @@ export class AmbulanceEditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  saveEntry(value) {
+  saveEntry(value): any {
     console.log(value);
   }
 

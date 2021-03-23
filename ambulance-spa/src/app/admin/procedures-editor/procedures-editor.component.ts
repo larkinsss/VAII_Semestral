@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Procedure } from 'src/app/model/procedure';
-import { ProcedureService } from 'src/app/services/procedure.service';
+import { ProcedureService } from 'src/app/services/procedure/procedure.service';
 
 @Component({
   selector: 'app-procedures-editor',

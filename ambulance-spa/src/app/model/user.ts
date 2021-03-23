@@ -1,7 +1,7 @@
 export class User{
     userId: number;
     username: string;
-    userEmail: string;
+    email: string;
     firstname: string;
     lastname: string;
     birthdate: Date;

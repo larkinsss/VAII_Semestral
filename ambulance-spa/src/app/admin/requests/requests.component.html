@@ -15,7 +15,7 @@
                         <tr>
                             <td class = "title">E-mail: </td>
                             <td></td>
-                            <td>{{request.userEmail}}</td>
+                            <td>{{request.email}}</td>
                 
                         </tr>
                         <tr>
@@ -26,7 +26,16 @@
                     </div>
                     <div class="col-md-4">
                         <mat-card-actions  >
-                            <button mat-raised-button color="warn" (click)="onAccept(request)" class="aptoveButton">Potvrdiť</button>
+                            <mat-form-field appearance="fill" color="warn">
+                                <mat-label>Pridel rolu</mat-label>
+                                <mat-select [(value)]="selected" class="role-drop">
+                                  <mat-option *ngFor="let role of roles" [value]="role.value">
+                                    {{role.viewValue}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <br>
+                            <button mat-raised-button color="warn" (click)="onAccept(request, selected)" class="aptoveButton">Potvrdiť</button>
                             <button mat-stroked-button class="declineButton" (click)="onDelete(request)" >Zamietnuť</button>
                         </mat-card-actions >
                     </div>

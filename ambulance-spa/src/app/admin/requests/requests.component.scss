@@ -47,3 +47,19 @@ mat-card-actions{
 .declineButton {
     border-top: 1px black solid;
 }
+
+// mat-label focused style
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: coral!important;
+}
+
+.col-md-8{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+
+
+

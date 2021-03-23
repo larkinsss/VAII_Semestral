@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8"/>
+    <title>A document with a short head</title>
+  </head>
+  
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title class="exp_header">
+        <mat-icon>account_circle</mat-icon>
+        <mat-label class="label"> {{ data.firstname }} </mat-label>
+            <mat-label class="label"> {{ data.lastname }} </mat-label>
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ data.dateOfArrival| date: "shortTime" }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field appearance="outline">
+      <mat-label>Dátum narodenia</mat-label>
+      <input
+        matInput 
+        [ngModel] ="data.dateOfBirth | date:'dd-MM-yyyy'"
+        readonly
+      />
+    </mat-form-field> 
+    <mat-form-field  appearance="outline">
+      <mat-label>Rodné číslo</mat-label>
+      <!-- <div *ngIf="showToAdmin()">
+        <input matInput [(ngModel)]="data.insuranceRelationship" (keydown.enter)='onUpdate()'/>
+      </div> -->
+      <!-- <div *ngIf="showToUser()">
+        <input matInput [value]="data.insuranceRelationship" readonly/>
+      </div> -->
+      <input matInput [value]="data.id" readonly/>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-label>Zdravotná poisťovňa</mat-label>
+      <input matInput [value]="data.insuranceNumber" readonly/>
+    </mat-form-field>
+    <mat-action-row *ngIf='showToAdmin()'>
+      <!-- <button mat-button (click)="change(data)">Upraviť záznam</button> -->
+      <button mat-button (click)="delete.next(data)" id="remove_button_{{data.id}}" class="button">Odstrániť záznam</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+  

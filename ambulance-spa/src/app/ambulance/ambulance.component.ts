@@ -1,6 +1,7 @@
-import { WaitingListService } from './../services/waiting-list.service';
+
 import { Component, OnInit } from '@angular/core';
-import { WaitingListEntry } from 'src/app/model/waiting-list-entry';
+import { WaitingListEntry } from 'src/app/model/patient';
+import { WaitingListService } from '../services/waiting-list/waiting-list.service';
 
 @Component({
   selector: 'app-ambulance',

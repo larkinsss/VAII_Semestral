@@ -5,8 +5,8 @@
     <title>A document with a short head</title>
   </head>
 
-<h1 class="header">
-    Zadajte svoje osobné údaje a zvoľte si čas vašej návštevy.
+<h1 class="header" name="nadpis">
+    Formulár registrácie pacienta
 </h1>
 <div class="container">
     <form (ngSubmit)="appointmentForm.form.valid" [formGroup]="myForm" #appointmentForm="ngForm">
@@ -14,14 +14,24 @@
             <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">
                     <mat-label>Meno</mat-label>
-                    <input matInput maxlength="50" placeholder="Krstné meno" formControlName="firstnameValue">
+                    <input matInput maxlength="50" placeholder="Krstné meno" formControlName="firstnameValue" id="firstname">
                   </mat-form-field>
             </p>
             <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">
                     <mat-label>Priezvisko</mat-label>
-                    <input matInput maxlength="50" placeholder="Priezvisko" formControlName="lastnameValue">
+                    <input matInput maxlength="50" placeholder="Priezvisko" formControlName="lastnameValue" id="lastname">
                   </mat-form-field>
+            </p>
+        </div>
+
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Rodné číslo</mat-label>
+                  <input matInput placeholder="9501011234" formControlName="birthnumberValue" id="birthnumber">
+                  <mat-hint>*Zadajte rodné číslo bez lomítka</mat-hint>
+                </mat-form-field>
             </p>
         </div>
     
@@ -29,7 +39,7 @@
             <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">
                     <mat-label>Dátum narodenia</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dateValue">
+                    <input matInput [matDatepicker]="picker" formControlName="dateValue" id="date">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="myForm.controls['dateValue'].hasError('required')">
@@ -44,13 +54,29 @@
                   </mat-form-field>
             </p>
         </div>
+
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Ulica</mat-label>
+                  <input matInput placeholder="Hrašková" formControlName="streetNameValue" id="streetname">
+                </mat-form-field>
+            </p>
+
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Číslo</mat-label>
+                  <input matInput placeholder="1" formControlName="streetNumberValue" id="streetnumber">
+                </mat-form-field>
+            </p>
+        </div>
     
         <div class="row">
             
             <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">
                   <mat-label>Telefónne číslo</mat-label>
-                  <input matInput placeholder="0987654321" formControlName="phonenumberValue">
+                  <input matInput placeholder="0987654321" formControlName="phonenumberValue" id="phone">
                   <mat-hint>*Zadajte číslo bez predvoľby</mat-hint>
                 </mat-form-field>
             </p>
@@ -58,7 +84,7 @@
             <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">
                     <mat-label>Vložte svoj email</mat-label>
-                    <input matInput type="email" placeholder="martinko@priklad.sk" formControlName="emailValue">
+                    <input matInput type="email" placeholder="martinko@priklad.sk" formControlName="emailValue" id="email">
                     <mat-error *ngIf="!emailValue.valid">
                         Váš email nevyzerá správne
                     </mat-error>
@@ -70,15 +96,50 @@
         </div>
     
         <div class="row">
+            <div class="col-md">
+                <label>
+                    Poistný vzťah:
+                </label>
+                <div *ngFor="let rel of relationships; let i=index">
+                    <label>
+                      <input type="checkbox" [value]="rel" (change)="onCheckboxChange($event)" />
+                      {{rel}}
+                    </label>
+                  </div>
+                  {{arrayOfChecks.value}}
+                <!-- <div *ngFor="let control of insuranceRelationships.controls; let i = index;">
+                    <input class="checkbox-input" type="checkbox" [formControl]="control" id="checkbox{{i}}" value="option1">
+                    <label class="checkbox-label" for="checkbox{{i}}">{{relationships[i]}}</label> -->
+                    <!-- {{relationships[i]}} -->
+                <!-- </div>
+                <mat-checkbox color="warn" formControlName="sameAdress" [(ngModel)]="isChecked" (change)="onCheckboxChange($event)">Pacient sa bude zdrziavat v mieste trvaleho bydliska</mat-checkbox>
+                <section>
+                    <mat-checkbox [checked]="employee" color="warn">
+                        Zamestnanec
+                    </mat-checkbox>
+                    <mat-checkbox [checked]="employee" color="warn">
+                        <label>
+                            <span>
+                                Povinne nemocensky poistená samostatne zárobkovo činná osoba
+                            </span>
+                        </label>
+                    </mat-checkbox>
+                    <mat-checkbox [checked]="employee" color="warn">
+                        Dobrovoľne nemocensky poistená osoba
+                    </mat-checkbox>
+                </section> -->
+                    
+            </div>
+
             <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">
-                    <mat-label>V krátkosti popíšte svoje ťažkosti alebo dôvod vašej návštevy</mat-label>
-                    <textarea matInput formControlName="illnessValue"></textarea>
-                  </mat-form-field>
+                    <input matInput placeholder="24" formControlName="insuranceCompNumber" id="insuranceNumber">
+                </mat-form-field>
             </p>
         </div>
+        
         <div class="button">
-            <button mat-raised-button [disabled]="myForm.invalid" color="warn" (click)="this.addAppointment()">Rezervuj</button>
+            <button id="rezervacia" mat-raised-button [disabled]="myForm.invalid" color="warn" (click)="this.addAppointment()">Rezervuj</button>
         </div>
     </form>
 </div>

@@ -1,6 +1,11 @@
-import { RequestService } from './../../services/request.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user';
+import { RequestService } from 'src/app/services/request/request.service';
+
+interface Roles {
+  value: number;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-requests',
@@ -10,33 +15,39 @@ import { User } from 'src/app/model/user';
 export class RequestsComponent implements OnInit {
 
   requestService: RequestService;
-  requestList: User[]
+  requestList: User[];
+  roles: Roles[] = [
+    {value: 0, viewValue: 'Admin'},
+    {value: 1, viewValue: 'Doctor'},
+    {value: 3, viewValue: 'PSP'}
+  ];
+  selected: string;
 
-  constructor(requestServ:RequestService) { 
+  constructor(requestServ: RequestService) {
     this.requestService = requestServ;
-    
+
   }
 
   ngOnInit(): void {
     this.requestService.getRequest().subscribe(response => {
       this.requestList = response;
-    })
+    });
   }
 
-  onAccept(user: User){
-    this.requestService.approveRequest(user.username).subscribe(response => {
-      let ans = response;
+  onAccept(user: User, role: number): void{
+    this.requestService.approveRequest(user.username, role).subscribe(response => {
+      const ans = response;
       this.ngOnInit();
     });
   }
 
-  onDelete(user: User){
+  onDelete(user: User): void{
     this.requestService.declineRequest(user.username).subscribe(response => {
-      let ans = response;
+      const ans = response;
       this.ngOnInit();
     });
   }
-  
+
 
 
 }
