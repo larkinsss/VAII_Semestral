@@ -1,3 +1,4 @@
+import { PnFormComponent } from './doctor/pn-form/pn-form.component';
 import { PatientListComponent } from './doctor/patient-list/patient-list.component';
 import { RequestsComponent } from './admin/requests/requests.component';
 import { RegisterComponent } from './register/register.component';
@@ -43,12 +44,16 @@ const routes: Routes = [
         component: AmbulanceComponent,
       },
       {
-        path: 'waiting-list', 
+        path: 'waiting-list',
         component: WaitingListComponent
       },
       {
-        path: 'patient-list', 
+        path: 'patient-list',
         component: PatientListComponent
+      },
+      {
+        path: 'pn-form',
+        component: PnFormComponent
       },
       {
         path: '',

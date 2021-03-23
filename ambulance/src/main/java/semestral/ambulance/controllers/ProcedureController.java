@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import semestral.ambulance.models.DBOProcedure;
 import semestral.ambulance.models.Procedure;
 import semestral.ambulance.restservices.ProcedureService;
+import semestral.ambulance.util.ItemNotFoundException;
 
 @RestController
 public class ProcedureController {

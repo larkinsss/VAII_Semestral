@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import semestral.ambulance.models.Patient;
 import semestral.ambulance.repository.PatientRepository;
 import semestral.ambulance.restservices.PatientService;
+import semestral.ambulance.util.ItemAlreadyExisting;
 
 import java.util.List;
 
@@ -18,8 +19,14 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public Patient createPatient(Patient patient) {
-        patientRepository.save(patient);
+    public Patient createPatient(Patient patient) throws ItemAlreadyExisting {
+        if (patient != null) {
+            if(patientRepository.findById(patient.getId()).isPresent()){
+                throw new ItemAlreadyExisting("Patient with this birth number already exists!");
+            } else {
+                patientRepository.save(patient);
+            }
+        }
         return patient;
     }
 

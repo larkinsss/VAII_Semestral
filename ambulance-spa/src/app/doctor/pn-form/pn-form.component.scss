@@ -1,0 +1,31 @@
+.container {
+    box-sizing: border-box;
+    max-width: 80%;
+    outline-style: ridge;
+    outline-color: coral;
+}
+
+.row{
+    min-width: 20%;
+
+}
+
+.col-md {
+    padding: 20px;
+    min-width: 30%;
+}
+
+.col-sm-4 {
+    padding: 20px;
+    min-width: 30%;
+}
+
+.col-sm-8 {
+    padding: 20px;
+    min-width: 10%;
+}
+
+.header {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+}

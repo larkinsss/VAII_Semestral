@@ -100,13 +100,20 @@
                 <label>
                     Poistný vzťah:
                 </label>
-                <div *ngFor="let control of insuranceRelationships.controls; let i = index;">
+                <div *ngFor="let rel of relationships; let i=index">
+                    <label>
+                      <input type="checkbox" [value]="rel" (change)="onCheckboxChange($event)" />
+                      {{rel}}
+                    </label>
+                  </div>
+                  {{arrayOfChecks.value}}
+                <!-- <div *ngFor="let control of insuranceRelationships.controls; let i = index;">
                     <input class="checkbox-input" type="checkbox" [formControl]="control" id="checkbox{{i}}" value="option1">
-                    <label class="checkbox-label" for="checkbox{{i}}">{{relationships[i]}}</label>
+                    <label class="checkbox-label" for="checkbox{{i}}">{{relationships[i]}}</label> -->
                     <!-- {{relationships[i]}} -->
-                </div>
-                
-                <!-- <section>
+                <!-- </div>
+                <mat-checkbox color="warn" formControlName="sameAdress" [(ngModel)]="isChecked" (change)="onCheckboxChange($event)">Pacient sa bude zdrziavat v mieste trvaleho bydliska</mat-checkbox>
+                <section>
                     <mat-checkbox [checked]="employee" color="warn">
                         Zamestnanec
                     </mat-checkbox>
@@ -122,7 +129,7 @@
                     </mat-checkbox>
                 </section> -->
                     
-                </div>
+            </div>
 
             <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">

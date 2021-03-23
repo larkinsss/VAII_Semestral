@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { PnFormService } from './../../../services/pn-form/pn-form.service';
 import { WaitingListEntry } from '../../../model/patient';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -14,14 +16,18 @@ export class PatientDetailComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<PatientDetailComponent>,
               @Inject(MAT_DIALOG_DATA) public data: PatientDetailDialogData,
+              public pnformService: PnFormService,
+              public router: Router
   ) {
     this.patient = data.patientData;
   }
 
   ngOnInit(): void {
+    
   }
 
-  createPN(): void{
-
+  createPN(patient: WaitingListEntry): void{
+    this.router.navigate(['user/pn-form'], {state: {data: patient}});
+    this.dialogRef.close();
   }
 }

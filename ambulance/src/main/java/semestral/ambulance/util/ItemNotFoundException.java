@@ -1,4 +1,4 @@
-package semestral.ambulance.controllers;
+package semestral.ambulance.util;
 
 public class ItemNotFoundException extends Exception {
 

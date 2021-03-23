@@ -14,9 +14,7 @@ export class WaitingListService {
   private entryList: WaitingListEntry[];
   private authHeader: HttpHeaders;
 
-  constructor(private httpClient: HttpClient) {
-    
-  }
+  constructor(private httpClient: HttpClient) {}
 
   public getWaitingList(): Observable<WaitingListEntry[]> {
     const url = `${environment.baseUrl}/get/all`;

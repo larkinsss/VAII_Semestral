@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WaitingListEntry } from 'src/app/model/patient';
@@ -66,7 +67,7 @@ export class AppointmentComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^-?(0|[1-9]\d*)?$/)
       ]],
-
+      checkArray: this.fb.array([])
     });
   }
 
@@ -117,6 +118,10 @@ export class AppointmentComponent implements OnInit {
     return  this.myForm.get('insuranceRel') as FormArray;
   }
 
+  public get arrayOfChecks(): any {
+    return this.myForm.get('checkArray') as FormArray;
+  }
+
   dateValueValidation(control: FormControl): Observable<any> {
     if (this.validateDatepicker(this.dateValue))
     {
@@ -138,35 +143,17 @@ export class AppointmentComponent implements OnInit {
   }
 
   private getInsuranceRel(): string{
-    let insureRel;
-    if (this.employee && this.hospIns && this.willingIns) {
-      insureRel += 'zamestnanec, povinne nemocensky poisteny, dobrovolne nemocensky poisteny';
-    }
-
-    if (this.employee) {
-      insureRel += 'zamestnanec';
-    }
-
-    if (this.hospIns) {
-      if (insureRel != null) {
-        insureRel += ', povinne nemocensky poisteny';
+    let insureRel = '';
+    let i = 0;
+    this.arrayOfChecks.value.forEach(element => {
+      if (element !== 'undefined'){
+        if (i > 0) {
+          insureRel += ', ';
+        }
+        insureRel += element;
+        i++;
       }
-      else
-      {
-        insureRel += 'povinne nemocensky poisteny';
-      }
-    }
-
-    if (this.willingIns) {
-      if (insureRel != null) {
-        insureRel += ', dobrovolne nemocensky poisteny';
-      }
-      else
-      {
-        insureRel += 'dobrovolne nemocensky poisteny';
-      }
-    }
-
+    });
     return insureRel;
   }
 
@@ -194,6 +181,11 @@ export class AppointmentComponent implements OnInit {
           duration: 15000,
         });
         this.resetForm();
+      },
+      (httpError: HttpErrorResponse) => {
+        this.snackBar.open(httpError.error, 'Hide', {
+          duration: 15000,
+        });
       });
     }
   }
@@ -202,6 +194,23 @@ export class AppointmentComponent implements OnInit {
     this.formDirective.resetForm();
     this.myForm.reset();
     this.ngOnInit();
+  }
+
+  onCheckboxChange(e): void {
+    const checkArray: FormArray = this.myForm.get('checkArray') as FormArray;
+
+    if (e.target.checked) {
+      checkArray.push(new FormControl(e.target.value));
+    } else {
+      let i = 0;
+      checkArray.controls.forEach((item: FormControl) => {
+        if (item.value === e.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
   }
 
 }

@@ -42,6 +42,7 @@ import { PatientListComponent } from './doctor/patient-list/patient-list.compone
 import { FilterPipe } from './patient-filter.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PnFormComponent } from './doctor/pn-form/pn-form.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     RequestsComponent,
     PatientListComponent,
     FilterPipe,
-    PatientDetailComponent
+    PatientDetailComponent,
+    PnFormComponent
   ],
   imports: [
     BrowserModule,

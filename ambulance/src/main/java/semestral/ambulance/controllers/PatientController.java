@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import semestral.ambulance.models.DBOPatient;
 import semestral.ambulance.models.Patient;
 import semestral.ambulance.restservices.PatientService;
+import semestral.ambulance.util.ItemNotFoundException;
 
 @CrossOrigin(
 	origins = {"http://localhost:4200", "http://localhost:8080"}, 
@@ -42,12 +43,16 @@ public class PatientController {
 	}
 
 	@RequestMapping(value = "/post/patient", produces = "application/json", method = {RequestMethod.POST})
-	public ResponseEntity<Patient> postPatient(@RequestBody DBOPatient patient) {
+	public ResponseEntity postPatient(@RequestBody DBOPatient patient) {
 		if (patient != null) {
-			Patient storedPatient = patientService.createPatient(modelMapper.map(patient, Patient.class));
-			return ResponseEntity.accepted().body(storedPatient);
+			try {
+				Patient storedPatient = patientService.createPatient(modelMapper.map(patient, Patient.class));
+				return ResponseEntity.accepted().body(storedPatient);
+			} catch (Exception e) {
+				return ResponseEntity.badRequest().body("Pacient s týmto rodným číslom už existuje!");
+			}
 		} else {
-			return ResponseEntity.badRequest().body(null);
+			return ResponseEntity.badRequest().body("postPatient: null argument");
 		}
 	}
 

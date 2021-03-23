@@ -1,0 +1,137 @@
+
+
+
+<h1 class="header" name="nadpis">
+    Legitimácia dočasne práceneschopného poistenca
+</h1>
+<div class="container">
+    <form (ngSubmit)="pnFormDirective.form.valid" [formGroup]="pnForm" #pnFormDirective="ngForm">
+        <div class="row">
+            <mat-form-field appearance="outline" class="col-sm-8">
+                <mat-label>Meno a Priezvisko</mat-label>
+                <input
+                  matInput 
+                  formControlName ="patientName"
+                  readonly
+                />
+            </mat-form-field> 
+            
+            <mat-form-field appearance="outline" class="col-sm-4">
+                <mat-label>Rodné číslo</mat-label>
+                <input
+                  matInput 
+                  formControlName="patientBirthNumber"
+                  readonly
+                />
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline" class="col-sm">
+                <mat-label>Adresa trvalého/prechodného pobytu</mat-label>
+                <input
+                  matInput 
+                  formControlName = "adresa"
+                  readonly
+                />
+            </mat-form-field> 
+        </div>
+        <mat-checkbox color="warn" formControlName="sameAdress" [(ngModel)]="isChecked" (change)="onCheckboxChange($event)">Pacient sa bude zdrziavat v mieste trvaleho bydliska</mat-checkbox>
+        
+        <div class="row" *ngIf="!sameAdress; else elseBlock">
+            <mat-form-field appearance="outline" class="col-sm">
+                <mat-label>Presna adresa kde sa bude poistenec zdrziavat v case docasnej pracovnej neschopnosti, vratane poschodia</mat-label>
+                <input
+                  matInput 
+                  formControlName = "prechAdresa"
+                  required
+                />
+            </mat-form-field> 
+        </div>
+        <ng-template #elseBlock>
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-sm">
+                    <mat-label>Presna adresa kde sa bude poistenec zdrziavat v case docasnej pracovnej neschopnosti, vratane poschodia</mat-label>
+                    <input
+                      matInput 
+                      formControlName = "prechAdresa"
+                      readonly
+                    />
+                </mat-form-field>
+            </div>
+        </ng-template>
+
+        <div class="row">
+            <mat-form-field appearance="outline" class="col-sm">
+                <mat-label>Názov a adresa zamestnávateľa</mat-label>
+                <input
+                  matInput 
+                  formControlName = "zamestnavatel"
+                  readonly
+                />
+            </mat-form-field> 
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline" class="col-sm-8">
+                <mat-label>Poistný vzťah</mat-label>
+                <input
+                  matInput 
+                  formControlName = "poistnyVztah"
+                  readonly
+                />
+            </mat-form-field> 
+            <mat-form-field appearance="outline" class="col-sm-4">
+                <mat-label>Kod zdravotnej poistovne</mat-label>
+                <input
+                  matInput 
+                  formControlName = "kod"
+                  readonly
+                />
+            </mat-form-field> 
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline" class="col-sm-4">
+                <mat-label>Neschopny prace od:</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="dateBegValue" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-sm-4">
+                <mat-label>Neschopny prace do:</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="dateEndValue">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <select class="form-control" formControlName="diagnoseCat" [(ngModel)]="diagnoseCategory" required>
+                    <option disabled selected>--Vyberte jednu z moznosti--</option>
+                    <option *ngFor="let entry of diagnoses" [ngValue]="entry">{{entry}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline" class="col-sm-2">
+                <mat-label>Diagnoza</mat-label>
+                <input
+                  matInput 
+                  formControlName="diagnoseNum"
+                  required
+                />
+            </mat-form-field>
+
+        </div>
+        <div class="button">
+            <button id="pnFormButton" mat-raised-button [disabled]="pnForm.invalid" color="warn" (click)="this.saveForm()">Rezervuj</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
