@@ -18,6 +18,8 @@ export class AppointmentComponent implements OnInit {
   willingIns = false;
   showWarning = false;
   relationships: Array<string> = ['Zamestnanec', 'Povinne nemocensky poistená samostatne zárobkovo činná osoba', 'Dobrovoľne nemocensky poistená osoba' ];
+  poistovne = [{code: 25, name: 'VšZP'},{code: 24, name: 'Dôvera'},{code: 27, name: 'UNION'}];
+
 
   @ViewChild('appointmentForm') private formDirective: NgForm;
 
@@ -62,12 +64,12 @@ export class AppointmentComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^-?(0|[1-9]\d*)?$/)
       ]],
-      insuranceRel: this.addInsRelControls(),
-      insuranceCompNumber: ['', [
+      insuranceCompNumber: ['--Vyberte jednu z moznosti--', [
         Validators.required,
-        Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        Validators.maxLength(2)
       ]],
-      checkArray: this.fb.array([])
+      insuranceRelationship: ['Zamestnanec', [Validators.required]]
     });
   }
 
@@ -114,12 +116,8 @@ export class AppointmentComponent implements OnInit {
     return this.myForm.get('insuranceCompNumber').value;
   }
 
-  public get insuranceRelationships(): any {
-    return  this.myForm.get('insuranceRel') as FormArray;
-  }
-
-  public get arrayOfChecks(): any {
-    return this.myForm.get('checkArray') as FormArray;
+  public get relationship(): any {
+    return this.myForm.get('insuranceRelationship').value;
   }
 
   dateValueValidation(control: FormControl): Observable<any> {
@@ -142,20 +140,20 @@ export class AppointmentComponent implements OnInit {
     return isValid;
   }
 
-  private getInsuranceRel(): string{
-    let insureRel = '';
-    let i = 0;
-    this.arrayOfChecks.value.forEach(element => {
-      if (element !== 'undefined'){
-        if (i > 0) {
-          insureRel += ', ';
-        }
-        insureRel += element;
-        i++;
-      }
-    });
-    return insureRel;
-  }
+  // private getInsuranceRel(): string{
+  //   let insureRel = '';
+  //   let i = 0;
+  //   this.arrayOfChecks.value.forEach(element => {
+  //     if (element !== 'undefined'){
+  //       if (i > 0) {
+  //         insureRel += ', ';
+  //       }
+  //       insureRel += element;
+  //       i++;
+  //     }
+  //   });
+  //   return insureRel;
+  // }
 
   addAppointment(): void {
     if (this.firstnameValue !== undefined &&
@@ -174,7 +172,7 @@ export class AppointmentComponent implements OnInit {
         streetName: this.streetNameValue,
         streetNumber: this.streetNumberValue,
         insuranceNumber: this.insuranceCompNumber,
-        insuranceRelationship: this.getInsuranceRel()
+        insuranceRelationship: this.relationship
       };
       this.service.updateList(entry as WaitingListEntry).subscribe((response) => {
         this.snackBar.open('Your appointment was saved!', 'Hide', {
@@ -196,20 +194,24 @@ export class AppointmentComponent implements OnInit {
     this.ngOnInit();
   }
 
-  onCheckboxChange(e): void {
+  onCheckboxChange(element): void {
     const checkArray: FormArray = this.myForm.get('checkArray') as FormArray;
 
-    if (e.target.checked) {
-      checkArray.push(new FormControl(e.target.value));
-    } else {
-      let i = 0;
-      checkArray.controls.forEach((item: FormControl) => {
-        if (item.value === e.target.value) {
-          checkArray.removeAt(i);
-          return;
-        }
-        i++;
-      });
+    // if (e.target.checked) {
+    //   checkArray.push(new FormControl(e.target.value));
+    // } else {
+    //   let i = 0;
+    //   checkArray.controls.forEach((item: FormControl) => {
+    //     if (item.value === e.target.value) {
+    //       checkArray.removeAt(i);
+    //       return;
+    //     }
+    //     i++;
+    //   });
+    // }
+    var ckName = document.getElementsByName(element.name);
+    for (var i = 0, c; c = ckName[i]; i++) {
+    c.disabled = !(!element.checked || c === element);
     }
   }
 

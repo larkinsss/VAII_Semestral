@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatIconModule} from '@angular/material/icon';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -17,32 +17,33 @@ import { WaitingListComponent } from './doctor/waiting-list/waiting-list.compone
 import { HomeComponent } from './doctor/home/home.component';
 import { AmbulanceComponent } from './ambulance/ambulance.component';
 import { AppointmentComponent } from './appointment/appointment.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { WaitingListEntryComponent } from './doctor/waiting-list/waiting-list-entry/waiting-list-entry.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule} from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserComponent } from './doctor/user.component';
 import { LoginComponent } from './login/login.component';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { AdminComponent } from './admin/admin/admin.component';
 import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
 import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
 import { RegisterComponent } from './register/register.component';
 import { ProcedureEntryComponent } from './admin/procedure-entry/procedure-entry.component';
 import { RequestsComponent } from './admin/requests/requests.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { PatientListComponent } from './doctor/patient-list/patient-list.component';
 import { FilterPipe } from './patient-filter.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PnFormComponent } from './doctor/pn-form/pn-form.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -90,9 +91,10 @@ import { PnFormComponent } from './doctor/pn-form/pn-form.component';
     MatGridListModule,
     MatCardModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRadioModule
   ],
-  providers: [MatSnackBar],
+  providers: [MatSnackBar, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   entryComponents: [PatientDetailComponent],
   bootstrap: [AppComponent]
 })
