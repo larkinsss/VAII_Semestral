@@ -1,3 +1,5 @@
+import { Employer } from './../model/employer';
+import { EmployerService } from './../services/employer/employer.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -18,12 +20,15 @@ export class AppointmentComponent implements OnInit {
   willingIns = false;
   showWarning = false;
   relationships: Array<string> = ['Zamestnanec', 'Povinne nemocensky poistená samostatne zárobkovo činná osoba', 'Dobrovoľne nemocensky poistená osoba' ];
-  poistovne = [{code: 25, name: 'VšZP'},{code: 24, name: 'Dôvera'},{code: 27, name: 'UNION'}];
-
+  poistovne = [{code: 25, name: 'VšZP'}, {code: 24, name: 'Dôvera'}, {code: 27, name: 'UNION'}];
+  employers: Array<Employer>;
 
   @ViewChild('appointmentForm') private formDirective: NgForm;
 
-  constructor(private service: WaitingListService, private snackBar: MatSnackBar, private fb: FormBuilder) {
+  constructor(private service: WaitingListService,
+              private snackBar: MatSnackBar,
+              private fb: FormBuilder,
+              private employerService: EmployerService) {
   }
 
   ngOnInit(): void {
@@ -69,7 +74,15 @@ export class AppointmentComponent implements OnInit {
         Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         Validators.maxLength(2)
       ]],
-      insuranceRelationship: ['Zamestnanec', [Validators.required]]
+      insuranceRelationship: ['Zamestnanec', [Validators.required]],
+      patientEmployer: ['--Vyberte vašeho zamestnávateľa--', [Validators.required]]
+    });
+
+    this.employerService.getEmployers().subscribe((response) => {
+      this.employers = response;
+    },
+    (err: HttpErrorResponse) => {
+      console.error(err.message);
     });
   }
 
@@ -118,6 +131,10 @@ export class AppointmentComponent implements OnInit {
 
   public get relationship(): any {
     return this.myForm.get('insuranceRelationship').value;
+  }
+
+  public get patientEmployer(): any {
+    return this.myForm.get('patientEmployer').value;
   }
 
   dateValueValidation(control: FormControl): Observable<any> {
@@ -209,8 +226,8 @@ export class AppointmentComponent implements OnInit {
     //     i++;
     //   });
     // }
-    var ckName = document.getElementsByName(element.name);
-    for (var i = 0, c; c = ckName[i]; i++) {
+    let ckName = document.getElementsByName(element.name);
+    for (let i = 0, c; c = ckName[i]; i++) {
     c.disabled = !(!element.checked || c === element);
     }
   }

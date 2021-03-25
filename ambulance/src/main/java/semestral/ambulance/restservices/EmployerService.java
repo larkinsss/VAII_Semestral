@@ -18,6 +18,6 @@ public interface EmployerService {
 
     public boolean deleteAll() throws NoItemsFoundException;
 
-    public Employer updatePatient(Employer empl) throws ItemNotFoundException;
+    public Employer updateEmployer(Employer empl) throws ItemNotFoundException;
     
 }

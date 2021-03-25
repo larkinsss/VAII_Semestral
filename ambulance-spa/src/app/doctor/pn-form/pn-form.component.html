@@ -108,7 +108,7 @@
             <div class="col-sm-8">
                 <select class="form-control" formControlName="diagnoseCat" [(ngModel)]="diagnoseCategory" required>
                     <option disabled selected>--Vyberte jednu z moznosti--</option>
-                    <option *ngFor="let entry of diagnoses" [ngValue]="entry">{{entry}}</option>
+                    <option *ngFor="let entry of diagnoses" [ngValue]="entry.code">{{entry.name}}</option>
                 </select>
             </div>
         </div>

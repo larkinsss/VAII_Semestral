@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
-
 @Entity
 @Table(name = "employer_data")
 public class Employer {

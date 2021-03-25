@@ -23,6 +23,13 @@ export class WaitingListService {
     return apiCall.pipe(map(response => (response as WaitingListEntry[])));
   }
 
+  public getPatient(id: string): Observable<WaitingListEntry> {
+    const url = `${environment.baseUrl}/get/patient/${id}`;
+    this.setAuthHeader();
+    const apiCall = this.httpClient.get(url, { headers : this.authHeader });
+    return apiCall.pipe(map(response => (response as WaitingListEntry)));
+  }
+
   public updateList(waitingListEntry: WaitingListEntry): Observable<any> {
     const url = `${environment.baseUrl}/post/patient`;
     return this.httpClient.post(url, waitingListEntry);

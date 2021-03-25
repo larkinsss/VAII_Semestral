@@ -3,6 +3,8 @@ package semestral.ambulance.restservices.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import semestral.ambulance.models.Employer;
 import semestral.ambulance.repository.EmployerRepository;
 import semestral.ambulance.restservices.EmployerService;
@@ -10,14 +12,20 @@ import semestral.ambulance.util.ItemAlreadyExisting;
 import semestral.ambulance.util.ItemNotFoundException;
 import semestral.ambulance.util.NoItemsFoundException;
 
+@Service
 public class EmployerServiceImpl implements EmployerService {
 
     private EmployerRepository emplRepo;
 
+    public EmployerServiceImpl(EmployerRepository emplRepo) {
+        this.emplRepo = emplRepo;
+    }
+
     @Override
     public Employer createEmployer(Employer empl) throws ItemAlreadyExisting {
         if (empl != null) {
-            if (emplRepo.findById(empl.getId()).isPresent()) {
+            Optional<Employer> existingEmpl = emplRepo.findById(empl.getId());
+            if (existingEmpl.isPresent()) {
                 throw new ItemAlreadyExisting("Employer with name: " + empl.getName() + "| with id: " + empl.getId() + "| Already exists!");
             } else {
                 this.emplRepo.save(empl);
@@ -68,18 +76,20 @@ public class EmployerServiceImpl implements EmployerService {
     }
 
     @Override
-    public Employer updatePatient(Employer empl) throws ItemNotFoundException{
+    public Employer updateEmployer(Employer empl) throws ItemNotFoundException{
         if (empl != null) {
             if (emplRepo.findById(empl.getId()).isPresent()) {
                 emplRepo.deleteById(empl.getId());
                 emplRepo.save(empl);
                 return empl;
             } else {
-                throw new ItemNotFoundException("updatePatient: Patient not found!");
+                throw new ItemNotFoundException("updateEmployer: Employer not found!");
             }
 
         }
         throw new NullPointerException("createEmployer: Argument null exception!");
     }
+
+    
     
 }

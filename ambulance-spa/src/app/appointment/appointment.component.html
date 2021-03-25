@@ -118,6 +118,15 @@
                 </mat-radio-group>                    
             </div>
         </div>
+
+        <div class="row">
+            <p class="col-md">
+                <select class="form-control" formControlName="patientEmployer" required>
+                    <option disabled selected>--Vyberte vašeho zamestnávateľa--</option>
+                    <option *ngFor="let empl of employers" [ngValue]="empl.id">{{empl.name}}</option>
+                </select>
+            </p>
+        </div>
         
         <div class="button">
             <button id="rezervacia" mat-raised-button [disabled]="myForm.invalid" color="warn" (click)="this.addAppointment()">Rezervuj</button>

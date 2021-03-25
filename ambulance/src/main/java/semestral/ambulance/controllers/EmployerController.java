@@ -57,7 +57,7 @@ public class EmployerController {
 				Employer emplToStore = employerService.createEmployer(modelMapper.map(employer, Employer.class));
 				return ResponseEntity.accepted().body(emplToStore);
 			} catch (Exception e) {
-				return ResponseEntity.badRequest().body("Pacient s týmto rodným číslom už existuje!");
+				return ResponseEntity.badRequest().body("Zamestnávateľ s týmto číslom už existuje!");
 			}
 		} else {
 			return ResponseEntity.badRequest().body("postPatient: null argument");
@@ -88,10 +88,10 @@ public class EmployerController {
 		
 	}
 
-	@PostMapping("/update/patient")
+	@PostMapping("/update/employer")
 	public ResponseEntity updateEmployer(@RequestBody DBOEmployer employer) {
 		try {
-            return ResponseEntity.ok().body(employerService.updatePatient(modelMapper.map(employer, Employer.class)));
+            return ResponseEntity.ok().body(employerService.updateEmployer(modelMapper.map(employer, Employer.class)));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }		

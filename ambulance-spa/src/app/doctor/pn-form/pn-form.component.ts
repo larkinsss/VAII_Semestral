@@ -1,7 +1,9 @@
+import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
 import { WaitingListEntry } from './../../model/patient';
 import { PnFormService } from './../../services/pn-form/pn-form.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { PnFormDataService } from 'src/app/services/pn-form-data/pn-form-data.service';
 
 @Component({
   selector: 'app-pn-form',
@@ -11,7 +13,8 @@ import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 export class PnFormComponent implements OnInit {
 
   patient: WaitingListEntry;
-  private pnFormServ: PnFormService;
+  pnFormServ: PnFormService;
+  private pnFormDataService: PnFormDataService;
   dateBeginnig: Date;
   dateEnding: Date;
   diagnoseMark: number;
@@ -19,21 +22,42 @@ export class PnFormComponent implements OnInit {
   pnForm: FormGroup;
   diagnoseCategory = '--Vyberte jednu z moznosti--';
   isChecked = false;
+  // localData: WaitingListEntry;
 
-  diagnoses = ['Choroba', 'Karantenne opatrenie', 'Uraz',
-  'Choroba z povolania', 'Pracovny uraz', 'Uraz zav. inou osobou',
-  'Pozitie alkoholu alebo zneuzitie inych navykovych latok'];
+  diagnoses = [{ code: 1, name: 'Choroba' }, { code: 2 , name: 'Karantenne opatrenie' }, { code: 3, name: 'Uraz' }, { code: 4, name: 'Choroba z povolania' },
+  { code: 5, name: 'Pracovny uraz' }, { code: 6, name: 'Uraz zav. inou osobou' }, { code: 7, name: 'Pozitie alkoholu alebo zneuzitie inych navykovych latok' }];
 
   @ViewChild('pnFormDirective') private formDirective: NgForm;
 
-  constructor(pnService: PnFormService, private formBuilder: FormBuilder, ) {
+  constructor(pnService: PnFormService,
+              private formBuilder: FormBuilder,
+              pnFormDataService: PnFormDataService,
+              private patientService: WaitingListService) {
     this.pnFormServ = pnService;
+    this.pnFormDataService = pnFormDataService;
   }
 
   ngOnInit(): void {
-    this.patient = history.state.data;
-    console.log(this.patient);
+    // this.patient = history.state.data;
+    // console.log(this.patient);
+    this.pnFormDataService.currentData.subscribe(data => {
+      if (data != null) {
+        this.patient = data;
+        localStorage.setItem('patient-id', data.id);
+        this.setForm();
+      } else {
+        const patientId = localStorage.getItem('patient-id');
+        if (patientId != null) {
+          this.patientService.getPatient(patientId).subscribe(response => {
+            this.patient = response;
+            this.setForm();
+          });
+        }
+      }
+    });
+  }
 
+  private setForm(): void {
     this.pnForm = this.formBuilder.group({
       patientName: this.patient.firstname + ' ' + this.patient.lastname,
       patientBirthNumber: this.patient.id,
