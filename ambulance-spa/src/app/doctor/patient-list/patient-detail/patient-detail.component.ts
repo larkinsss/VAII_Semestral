@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { PnFormService } from './../../../services/pn-form/pn-form.service';
-import { WaitingListEntry } from '../../../model/patient';
+import { Patient } from '../../../model/patient';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PatientDetailDialogData } from 'src/app/model/patient-detail-dialog-data';
@@ -13,9 +13,9 @@ import { PnFormDataService } from 'src/app/services/pn-form-data/pn-form-data.se
 })
 export class PatientDetailComponent implements OnInit {
 
-  patient: WaitingListEntry;
+  patient: Patient;
   pnFormDataService: PnFormDataService;
-  localData: WaitingListEntry;
+  localData: Patient;
 
   constructor(public dialogRef: MatDialogRef<PatientDetailComponent>,
               @Inject(MAT_DIALOG_DATA) public data: PatientDetailDialogData,
@@ -31,7 +31,7 @@ export class PatientDetailComponent implements OnInit {
     this.pnFormDataService.currentData.subscribe(data => this.localData = data);
   }
 
-  createPN(patient: WaitingListEntry): void{
+  createPN(patient: Patient): void{
     this.pnFormDataService.changeData(patient);
     this.router.navigate(['user/pn-form']);
     this.dialogRef.close();

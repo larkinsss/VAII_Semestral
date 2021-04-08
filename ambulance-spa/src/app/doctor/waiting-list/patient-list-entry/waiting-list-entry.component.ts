@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { WaitingListEntry } from 'src/app/model/patient';
+import { Patient } from 'src/app/model/patient';
 
 @Component({
   selector: 'app-waiting-list-entry',
@@ -10,13 +10,13 @@ export class WaitingListEntryComponent {
   arrivalDate: Date;
 
   @Input()
-  public data: WaitingListEntry;
+  public data: Patient;
 
   @Output()
-  public delete = new EventEmitter<WaitingListEntry>();
+  public delete = new EventEmitter<Patient>();
 
   @Output()
-  public update = new EventEmitter<WaitingListEntry>();
+  public update = new EventEmitter<Patient>();
 
   onUpdate() {
     this.update.emit(this.data);
@@ -37,11 +37,11 @@ export class WaitingListEntryComponent {
     return false;
   }
 
-  public change(data: WaitingListEntry): void
+  public change(data: Patient): void
   {
     if (this.arrivalDate != null)
     {
-      this.data.dateOfArrival = this.arrivalDate;
+      this.data.dateOfBirth = this.arrivalDate;
     }
     this.update.next(this.data);
   }

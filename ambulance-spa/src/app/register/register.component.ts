@@ -1,6 +1,6 @@
 import { LoginService } from '../services/login/login.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { WaitingListEntry } from 'src/app/model/patient';
+import { Patient } from 'src/app/model/patient';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
 import { User } from '../model/user';

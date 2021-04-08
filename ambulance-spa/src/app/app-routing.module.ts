@@ -1,3 +1,4 @@
+import { PnListComponent } from './doctor/pn-list/pn-list.component';
 import { PnFormComponent } from './doctor/pn-form/pn-form.component';
 import { PatientListComponent } from './doctor/patient-list/patient-list.component';
 import { RequestsComponent } from './admin/requests/requests.component';
@@ -6,12 +7,10 @@ import { AdminComponent } from './admin/admin/admin.component';
 import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
 import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
 import { LoginComponent } from './login/login.component';
-import { WaitingListComponent } from './doctor/waiting-list/waiting-list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './doctor/home/home.component';
 import { AppointmentComponent } from './appointment/appointment.component';
-import { AmbulanceComponent } from './ambulance/ambulance.component';
 import { AuthGuard } from './authguard/auth.guard';
 import { UserComponent } from './doctor/user.component';
 
@@ -40,12 +39,8 @@ const routes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'ambulance',
-        component: AmbulanceComponent,
-      },
-      {
-        path: 'waiting-list',
-        component: WaitingListComponent
+        path: 'pn-list',
+        component: PnListComponent
       },
       {
         path: 'patient-list',

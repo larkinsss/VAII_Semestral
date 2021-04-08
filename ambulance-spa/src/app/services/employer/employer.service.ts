@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { identifierName } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -18,6 +19,13 @@ export class EmployerService {
     const url = `${environment.baseUrl}/get/employer/all`;
     const apiCall = this.httpClient.get(url);
     return apiCall.pipe(map(response => (response as Employer[])));
+  }
+  
+  public getEmployer(id: number): Observable<Employer> {
+    const url = `${environment.baseUrl}/get/employer/${id}`;
+    this.setAuthHeader();
+    const apiCall = this.httpClient.get(url, { headers : this.authHeader });
+    return apiCall.pipe(map(response => (response as Employer)));
   }
 
   public postEmployer(employer: Employer): Observable<any> {

@@ -1,4 +1,4 @@
-import { WaitingListEntry } from 'src/app/model/patient';
+import { Patient } from 'src/app/model/patient';
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,26 +11,26 @@ import { environment } from 'src/environments/environment';
 export class WaitingListService {
 
   private IdBoundary = 0;
-  private entryList: WaitingListEntry[];
+  private entryList: Patient[];
   private authHeader: HttpHeaders;
 
   constructor(private httpClient: HttpClient) {}
 
-  public getWaitingList(): Observable<WaitingListEntry[]> {
+  public getWaitingList(): Observable<Patient[]> {
     const url = `${environment.baseUrl}/get/all`;
     this.setAuthHeader();
     const apiCall = this.httpClient.get(url, { headers : this.authHeader });
-    return apiCall.pipe(map(response => (response as WaitingListEntry[])));
+    return apiCall.pipe(map(response => (response as Patient[])));
   }
 
-  public getPatient(id: string): Observable<WaitingListEntry> {
+  public getPatient(id: string): Observable<Patient> {
     const url = `${environment.baseUrl}/get/patient/${id}`;
     this.setAuthHeader();
     const apiCall = this.httpClient.get(url, { headers : this.authHeader });
-    return apiCall.pipe(map(response => (response as WaitingListEntry)));
+    return apiCall.pipe(map(response => (response as Patient)));
   }
 
-  public updateList(waitingListEntry: WaitingListEntry): Observable<any> {
+  public updateList(waitingListEntry: Patient): Observable<any> {
     const url = `${environment.baseUrl}/post/patient`;
     return this.httpClient.post(url, waitingListEntry);
   }
@@ -47,7 +47,7 @@ export class WaitingListService {
     return this.httpClient.delete(url, { headers : this.authHeader });
   }
 
-  public updateEntry(waitingListEntry: WaitingListEntry): Observable<any> {
+  public updateEntry(waitingListEntry: Patient): Observable<any> {
     const url = `${environment.baseUrl}/update/patient`;
     this.setAuthHeader();
     return this.httpClient.post(url, waitingListEntry, { headers : this.authHeader });

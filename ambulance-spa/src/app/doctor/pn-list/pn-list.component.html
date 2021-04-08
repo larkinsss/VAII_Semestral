@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8"/>
+    <title>A document with a short head</title>
+  </head>
+
+<ng-container *ngFor="let entry of pnFormList">
+        <app-pn-list-entry [data]="entry">
+        </app-pn-list-entry>
+</ng-container>

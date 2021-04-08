@@ -15,14 +15,13 @@ import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { WaitingListComponent } from './doctor/waiting-list/waiting-list.component';
 import { HomeComponent } from './doctor/home/home.component';
-import { AmbulanceComponent } from './ambulance/ambulance.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { WaitingListEntryComponent } from './doctor/waiting-list/waiting-list-entry/waiting-list-entry.component';
+import { WaitingListEntryComponent } from './doctor/waiting-list/patient-list-entry/waiting-list-entry.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule} from '@angular/material/button';
@@ -44,14 +43,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PnFormComponent } from './doctor/pn-form/pn-form.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { PnListComponent } from './doctor/pn-list/pn-list.component';
+import { PnListEntryComponent } from './doctor/pn-list/pn-list-entry/pn-list-entry.component';
+import { Guid } from 'guid-typescript';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    WaitingListComponent,
     HomeComponent,
-    AmbulanceComponent,
     AppointmentComponent,
     WaitingListEntryComponent,
     UserComponent,
@@ -65,7 +65,9 @@ import { MatRadioModule } from '@angular/material/radio';
     PatientListComponent,
     FilterPipe,
     PatientDetailComponent,
-    PnFormComponent
+    PnFormComponent,
+    PnListComponent,
+    PnListEntryComponent
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,7 @@
     <mat-icon class="appIcon">medical_services</mat-icon>
     <div fxShow="true" fxHide.lt-sm>
         <a mat-button class="navButton" [routerLink] = "['home']" routerLinkActive="active-link">Úvod</a>
-        <a id="wait_button" mat-button class="navButton" [routerLink] = "['waiting-list']" routerLinkActive="active-link">Čakáreň</a>
+        <a id="wait_button" mat-button class="navButton" [routerLink] = "['pn-list']" routerLinkActive="active-link">Aktívne PN</a>
         <a id="pat_button" mat-button class="navButton" [routerLink] = "['patient-list']" routerLinkActive="active-link" >Zoznam pacientov</a>
     </div>
 
@@ -24,7 +24,7 @@
           <br>
         </div>
         <div class="row">
-          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['waiting-list']" routerLinkActive="active-link">Čakáreň</a>
+          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['pn-list']" routerLinkActive="active-link">Aktívne PN</a>
         <br>
         </div>
         <div class="row" id="obj_button">

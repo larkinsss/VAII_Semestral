@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
-import { WaitingListEntry } from 'src/app/model/patient';
+import { Patient } from 'src/app/model/patient';
 import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
 
 @Component({
@@ -9,14 +9,14 @@ import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.s
   styleUrls: ['./waiting-list.component.scss']
 })
 export class WaitingListComponent implements OnInit {
-  public waitingList: WaitingListEntry[];
+  public waitingList: Patient[];
 
   constructor(private service: WaitingListService, private snackBar: MatSnackBar) {
     this.service.getWaitingList().subscribe((result) => {
       this.waitingList = result;
       this.waitingList.sort((a, b) => {
-        const dateA = a.dateOfArrival;
-        const dateB = b.dateOfArrival;
+        const dateA = a.dateOfBirth;
+        const dateB = b.dateOfBirth;
         if (dateA < dateB) {
           return -1;
         }

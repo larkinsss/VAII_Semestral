@@ -57,7 +57,7 @@ public class PnFormController {
 				PnForm pnFromToStore = pnFormService.createPnForm(modelMapper.map(pnForm, PnForm.class));
 				return ResponseEntity.accepted().body(pnFromToStore);
 			} catch (Exception e) {
-				return ResponseEntity.badRequest().body("SA-Form with this id already exists");
+				return ResponseEntity.badRequest().body(e.getMessage());
 			}
 		} else {
 			return ResponseEntity.badRequest().body("postEmployer: Null argument");

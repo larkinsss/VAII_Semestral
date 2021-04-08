@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { WaitingListEntry } from 'src/app/model/patient';
+import { Patient } from 'src/app/model/patient';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PnFormDataService {
 
-  private dataSource = new  BehaviorSubject<WaitingListEntry>(null);
+  private dataSource = new  BehaviorSubject<Patient>(null);
   currentData = this.dataSource.asObservable();
 
   constructor() { }
 
-  changeData(data: WaitingListEntry): void {
+  changeData(data: Patient): void {
     this.dataSource.next(data);
   }
 }
