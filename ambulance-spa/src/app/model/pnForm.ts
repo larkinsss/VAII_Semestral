@@ -10,4 +10,5 @@ export class PnForm {
     patientBirthNumber: string;
     doctorId: number;
     tempAddressPSC: string;
+    status: number;
 }

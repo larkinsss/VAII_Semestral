@@ -233,6 +233,7 @@ export class PnFormComponent implements OnInit {
       endDiagnose: null,
       patientBirthNumber: this.patient.id,
       doctorId: 4,
+      status: 0
     };
 
     if (!this.tempAddressCheckbox) {

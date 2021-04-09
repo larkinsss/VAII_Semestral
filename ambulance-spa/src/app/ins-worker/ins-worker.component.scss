@@ -1,0 +1,112 @@
+.textToBody {
+    background-image: url("../../../bckg.jpg");
+    /* Full height */
+    height: 100%;
+    width: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navbar-brand {
+    padding-left: 15px;
+    font-size: 24px;
+}
+
+.nav-link {
+    font-size: 24px;
+}
+
+mat-toolbar {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+mat-drawer-content {
+    top: 50px;
+}
+
+mat-toolbar mat-icon {
+    background: transparent;
+}
+
+.navButton {
+    color: coral;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.separator {
+    margin-top: 0%;
+    margin-bottom: 0%;
+    color: #aaaaaa;
+    opacity: 80%;
+    
+}
+
+.menuIcon {
+    align-items: center;
+    padding-top: 5px;
+}
+
+.app-content
+{
+    margin: 0.5em;
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    margin-top: 100px;
+}
+
+.mat-button {
+    height: 100%;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .mat-drawer{
+        margin-top: 56px;
+    }
+
+    .mat-button {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .appIcon {
+        padding-left: 15px;
+    }
+ 
+    .menuIcon {
+        align-items: center;
+        padding-top: 5px;
+    }
+
+    .notif-icon{
+        padding-right: 15px !important;
+        padding-top: 5px !important;
+    }
+
+    .navButton {
+        margin: 15px;
+        width: 100%;
+    }
+
+    .app-content {
+        margin-top: 100px;
+        position: absolute;
+        left: 5px;
+        right: 5px;
+    }
+
+  }

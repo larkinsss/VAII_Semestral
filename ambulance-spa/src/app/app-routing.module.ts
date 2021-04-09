@@ -13,6 +13,7 @@ import { HomeComponent } from './doctor/home/home.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { AuthGuard } from './authguard/auth.guard';
 import { UserComponent } from './doctor/user.component';
+import { InsWorkerComponent } from './ins-worker/ins-worker.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,25 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'ambulance',
+        pathMatch: 'full',
+      },
+    ],
+  },
+  {
+    path: 'ins-worker',
+    component: InsWorkerComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'PSP',
+    },
+    children:  [
+      {
+        path: 'evidence',
+        component: PnListComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'evidence',
         pathMatch: 'full',
       },
     ],

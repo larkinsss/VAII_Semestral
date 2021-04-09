@@ -41,9 +41,12 @@ public class PnForm {
     @Column(name = "doctor_id")
     private Integer doctorId;
 
+    @Column(name = "status")
+    private Integer status;
+
     public PnForm(String id, String streetName, Integer streetNumber, Date beginningDate, Date endDate,
             Integer diagnoseCategory, Integer diagnoseNumber, Integer endDiagnose, String patientBirthNumber,
-            Integer doctorId, String psc) {
+            Integer doctorId, String psc, Integer status) {
         this.id = id;
         this.streetName = streetName;
         this.streetNumber = streetNumber;
@@ -55,10 +58,13 @@ public class PnForm {
         this.patientBirthNumber = patientBirthNumber;
         this.doctorId = doctorId;
         this.tempAddressPSC = psc;
+        this.status = status;
     }
 
     public PnForm() {
     }
+
+    
 
     public String getId() {
         return id;
@@ -146,6 +152,14 @@ public class PnForm {
 
     public void setTempAddressPSC(String tempAddressPSC) {
         this.tempAddressPSC = tempAddressPSC;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     

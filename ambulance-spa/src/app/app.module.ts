@@ -46,6 +46,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PnListComponent } from './doctor/pn-list/pn-list.component';
 import { PnListEntryComponent } from './doctor/pn-list/pn-list-entry/pn-list-entry.component';
 import { Guid } from 'guid-typescript';
+import { InsWorkerComponent } from './ins-worker/ins-worker.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { Guid } from 'guid-typescript';
     PatientDetailComponent,
     PnFormComponent,
     PnListComponent,
-    PnListEntryComponent
+    PnListEntryComponent,
+    InsWorkerComponent
   ],
   imports: [
     BrowserModule,

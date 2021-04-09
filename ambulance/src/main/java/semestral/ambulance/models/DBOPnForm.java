@@ -14,4 +14,5 @@ public class DBOPnForm {
     public String patientBirthNumber;
     public Integer doctorId;
     public String tempAddressPSC;
+    public Integer status;
 }
