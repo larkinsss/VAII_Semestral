@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8"/>
+    <title>A document with a short head</title>
+  </head>
+
+<ng-container *ngFor="let entry of dataList">
+        <app-pn-list-entry [data]="entry" (delete)="onDelete($event)" (update)="updatePnForm($event)">
+        </app-pn-list-entry>
+</ng-container>

@@ -25,6 +25,8 @@ import semestral.ambulance.models.Role;
 import semestral.ambulance.models.User;
 import semestral.ambulance.restservices.UserService;
 import semestral.ambulance.util.JwtUtil;
+import semestral.ambulance.util.PdfClass;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +53,6 @@ public class AuthController {
         this.passwordEncoder = encoder;
         this.jwtTokenUtil = util;
     }
-
     
     @RequestMapping(value = "/register", method = { RequestMethod.POST })
     public ResponseEntity<User> registerUser(@RequestBody DBOUser user) {
@@ -69,8 +70,8 @@ public class AuthController {
         }
     }
 
-    @GetMapping(value = "/user/get")
-    public ResponseEntity<User> getUserById(@RequestParam Long id) {
+    @GetMapping(value = "/user/get/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         User user = this.userService.getUserById(id);
         if (user == null) {
             return ResponseEntity.badRequest().body(null);
@@ -106,7 +107,7 @@ public class AuthController {
 
         final User userForResponse = userService.getUserByUsername(userDetail.getUsername());
 
-        if(userForResponse.getRole() == Role.ADMIN || userForResponse.getRole() == Role.DOCTOR) {
+        if(userForResponse.getRole() == Role.ADMIN || userForResponse.getRole() == Role.DOCTOR || userForResponse.getRole() == Role.PSP) {
             final String jwt = jwtTokenUtil.generateToken(userDetail);
             return ResponseEntity.ok(new AuthenticationResponse(jwt, userForResponse));
         } else {

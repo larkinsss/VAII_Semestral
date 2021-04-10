@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['user/home']);
         break;
       case 'PSP':
-        this.router.navigate(['socp/home']);
+        this.router.navigate(['ins-worker']);
         break;
     }
   }

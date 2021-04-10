@@ -8,6 +8,11 @@
     min-width: 30%;
 }
 
+.col-md-4 {
+    padding: 20px;
+    min-width: 30%;
+}
+
 .row{
     min-width: 20%;
 
@@ -55,10 +60,10 @@
     width: 100%;
 }
 
-.checkbox-label{
+.radio-label{
     padding-left: 5px;
     display: inline;
-    white-space: normal;
+    white-space: pre-wrap;
 }
 
 .checkbox-input{

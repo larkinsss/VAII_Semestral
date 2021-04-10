@@ -27,12 +27,6 @@ public class PatientController {
 		this.modelMapper = modelMapper;
 	}
 
-	
-	@GetMapping("/get/patient/default")
-	public Patient getPatient(@RequestParam(value = "firstname", defaultValue = "Patient") String firstname) {
-		return new Patient("9901011004");
-	}
-
 	@DeleteMapping("/delete/patient")
 	public ResponseEntity<Patient> deletePatient(@RequestParam(value = "id") String id) throws Exception {
 		if (id != null) {

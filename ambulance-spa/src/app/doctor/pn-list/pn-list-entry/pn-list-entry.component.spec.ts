@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AmbulanceComponent } from './ambulance.component';
+import { PnListEntryComponent } from './pn-list-entry.component';
 
-describe('AmbulanceComponent', () => {
-  let component: AmbulanceComponent;
-  let fixture: ComponentFixture<AmbulanceComponent>;
+describe('PnListEntryComponent', () => {
+  let component: PnListEntryComponent;
+  let fixture: ComponentFixture<PnListEntryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AmbulanceComponent ]
+      declarations: [ PnListEntryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AmbulanceComponent);
+    fixture = TestBed.createComponent(PnListEntryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

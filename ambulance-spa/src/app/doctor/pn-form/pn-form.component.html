@@ -1,6 +1,5 @@
-
-
-
+<html>
+    
 <h1 class="header" name="nadpis">
     Legitimácia dočasne práceneschopného poistenca
 </h1>
@@ -37,15 +36,31 @@
         </div>
         <mat-checkbox color="warn" formControlName="sameAdress" [(ngModel)]="isChecked" (change)="onCheckboxChange($event)">Pacient sa bude zdrziavat v mieste trvaleho bydliska</mat-checkbox>
         
-        <div class="row" *ngIf="!sameAdress; else elseBlock">
+        <mat-label>
+            Presna adresa kde sa bude poistenec zdrziavat v case docasnej pracovnej neschopnosti, vratane poschodia
+        </mat-label>
+        <div class="row" *ngIf="!tempAddressCheckbox; else elseBlock">
             <mat-form-field appearance="outline" class="col-sm">
-                <mat-label>Presna adresa kde sa bude poistenec zdrziavat v case docasnej pracovnej neschopnosti, vratane poschodia</mat-label>
+                <mat-label>Ulica</mat-label>
                 <input
                   matInput 
-                  formControlName = "prechAdresa"
-                  required
+                  formControlName = "temp_address_street"
                 />
             </mat-form-field> 
+            <mat-form-field appearance="outline" class="col-sm">
+                <mat-label>Číslo domu</mat-label>
+                <input
+                  matInput 
+                  formControlName = "temp_address_number"
+                />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-sm">
+                <mat-label>PSČ</mat-label>
+                <input
+                  matInput 
+                  formControlName = "temp_address_psc"
+                />
+            </mat-form-field>
         </div>
         <ng-template #elseBlock>
             <div class="row">
@@ -109,7 +124,7 @@
             <div class="col-sm-8">
                 <select class="form-control" formControlName="diagnoseCat" [(ngModel)]="diagnoseCategory" required>
                     <option disabled selected>--Vyberte jednu z moznosti--</option>
-                    <option *ngFor="let entry of diagnoses" [ngValue]="entry">{{entry}}</option>
+                    <option *ngFor="let entry of diagnoses" [ngValue]="entry.code">{{entry.name}}</option>
                 </select>
             </div>
         </div>
@@ -125,11 +140,16 @@
             </mat-form-field>
 
         </div>
-        <div class="button">
-            <button id="pnFormButton" mat-raised-button [disabled]="pnForm.invalid" color="warn" (click)="this.saveForm()">Rezervuj</button>
+        <div>
+            <button id="pnFormButton" class="button" mat-raised-button [disabled]="pnForm.invalid" color="warn" (click)="this.saveForm()">Uložiť</button>
+            <button id="pdfSaveButton" class="button" mat-raised-button [disabled]="pnForm.invalid" color="warn" (click)="this.uploadPdf()">Stiahnuť</button>
         </div>
+        
     </form>
 </div>
+<br>
+</html>
+
 
 
 

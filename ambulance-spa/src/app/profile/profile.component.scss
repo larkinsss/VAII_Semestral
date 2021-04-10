@@ -1,0 +1,193 @@
+.login {
+ 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.mat-card {
+    background: #fff;
+    color: rgba(0,0,0,.87);
+    padding: 20px;   
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.mat-form-field { 
+    display: block;    
+}
+
+body {
+    background-color: gray !important;
+    height: 100vh;
+}
+ 
+a {
+    font-size: 10px;
+}
+ 
+.logo {
+    background-repeat: no-repeat;
+    display: inline;
+    fill: currentColor;
+    font-size: 65px;
+}
+
+.textPage{ 
+    color: #BDBDBD;
+}
+ 
+p.textPage{
+ 
+    color: #BDBDBD;
+    font-size:  13px;
+    font-weight: bold;
+ 
+}
+ 
+::placeholder{
+color: #BDBDBD;
+opacity: 1;
+ 
+}
+    
+mat-error{
+    
+    color:red;
+    font-weight: bold;
+}
+/* Border */
+.error_border {
+    border-radius: 1px !important;
+    border-bottom: 1px solid  red; 
+    transform: scale3d(1, 1.0001, 1);
+
+    }
+.editable{
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:  20px;
+    font-weight: normal;
+    /* text-align: justify; */
+    }
+
+.font{
+    justify-content: left;
+    text-align: justify;
+    font-size:  20px;
+    font-weight: bold;
+    /* margin-left: 30%; */
+}
+
+/* -------------------------------------------------------------- */
+
+.login{
+ 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-card {
+    background: #fff;
+    color: rgba(0,0,0,.87);
+}
+
+body{
+    background-color: gray !important;
+    height: 100vh;
+}
+
+.mat-form-field { 
+    display: block;
+}
+
+p.textBody{
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+
+a{
+    font-size: 10px;
+}
+ 
+.logo {
+ 
+    background-repeat: no-repeat;
+    display: inline;
+    fill: currentColor;
+    font-size: 65px;
+}
+
+.textPage{ 
+    color: #BDBDBD;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+ 
+p.textPage{
+ 
+    color: #BDBDBD;
+    font-size:  10px;
+    font-weight: bold;
+ 
+}
+ 
+::placeholder{
+color: #BDBDBD;
+opacity: 1;
+ 
+}
+
+.example-card{
+    width: 30%;
+}
+	
+mat-error{
+	
+    color:red;
+    font-weight: bold;
+}
+/* Border */
+.error_border {
+    border-radius: 1px !important;
+    border-bottom: 1px solid  red; 
+    transform: scale3d(1, 1.0001, 1);            
+}
+
+.input_field{
+    /* padding-right: 30%; */
+    align-content: center;
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
+@media only screen and (max-width: 700px) {
+    .input_field{
+        margin-left: 0px;
+    margin-right: 0px;
+    }  
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 700px) {
+    .input_field{
+        margin-left: 25%;
+        margin-right: 25%;
+    }  
+}
+
+.font.separator{
+    width: 50%;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: black !important;
+}
+
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: red !important;
+}

@@ -73,4 +73,8 @@
             <button mat-raised-button [disabled]="myForm.invalid" color="warn" (click)="this.registerNewUser()">Registruj</button>
         </div>
     </form>
+
+    <div class="button">
+        <button mat-raised-button color="warn" [routerLink] = "['/login']" routerLinkActive="active-link">Späť</button>
+    </div>
 </div>

@@ -8,28 +8,18 @@ import java.util.Date;
 public class Patient {
 
     @Id
-    //@NotEmpty
     @Column (name = "birth_number")
     private String id;
 
-    //NotEmpty
     @Column (name = "firstname")
     private String firstname;
 
-    //@NotEmpty
     @Column (name = "lastname")
     private String lastname;
 
-    //@NotEmpty
     @Column (name = "date_of_birth")
     private Date dateOfBirth;
 
-    //@NotEmpty
-    @Column (name = "date_of_arrival")
-    private Date dateOfArrival;
-
-    //@NotEmpty
-    //@Email
     @Column (name = "email")
     private String email;
 
@@ -48,34 +38,27 @@ public class Patient {
     @Column (name = "ins_rel")
     private String insuranceRelationship;
 
-    public Patient(String id, String firstname, String lastname,
-                   Date dateOfBirth, Date timeOfArrival, String email,
-                   String phoneNumber, Integer insuranceNum, String streetName, Integer streetNum, String insuranceRelString) {
+    @Column (name = "psc")
+    private String psc;
+
+    @Column (name = "id_employer")
+    private Integer idEmployer;
+
+    public Patient(String id, String firstname, String lastname, Date dateOfBirth, String email, String phoneNumber,
+            Integer insuranceNumber, String streetName, Integer streetNumber, String insuranceRelationship, String psc,
+            Integer idEmployer) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.dateOfBirth = dateOfBirth;
-        this.dateOfArrival = timeOfArrival;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.insuranceNumber = insuranceNum;
+        this.insuranceNumber = insuranceNumber;
         this.streetName = streetName;
-        this.streetNumber = streetNum;
-        this.insuranceRelationship = insuranceRelString;
-    }
-
-    public Patient(String id) {
-        this.id = id;
-        this.firstname = "Tester";
-        this.lastname = "Subject";
-        this.dateOfBirth = new Date();
-        this.dateOfArrival = new Date();
-        this.email = "random@email.com";
-        this.phoneNumber="0000000000";
-        this.insuranceNumber = 24;
-        this.streetName = "streetName";
-        this.streetNumber = 5;
-        this.insuranceRelationship = "insuranceRelString";
+        this.streetNumber = streetNumber;
+        this.insuranceRelationship = insuranceRelationship;
+        this.psc = psc;
+        this.idEmployer = idEmployer;
     }
 
     public Patient(){}
@@ -86,10 +69,6 @@ public class Patient {
 
     public Date getDateOfBirth() {
         return dateOfBirth;
-    }
-
-    public Date getDateOfArrival() {
-        return dateOfArrival;
     }
 
     public String getEmail() {
@@ -114,10 +93,6 @@ public class Patient {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setDateOfArrival(Date timeOfArrival) {
-        this.dateOfArrival = timeOfArrival;
     }
 
     public void setEmail(String email) {
@@ -167,4 +142,22 @@ public class Patient {
     public void setInsuranceRelationship(String insuranceRelationship) {
         this.insuranceRelationship = insuranceRelationship;
     }
+
+    public String getPsc() {
+        return psc;
+    }
+
+    public void setPsc(String psc) {
+        this.psc = psc;
+    }
+
+    public Integer getIdEmployer() {
+        return idEmployer;
+    }
+
+    public void setIdEmployer(Integer idEmployer) {
+        this.idEmployer = idEmployer;
+    }
+
+    
 }

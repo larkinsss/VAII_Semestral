@@ -70,6 +70,15 @@
                 </mat-form-field>
             </p>
         </div>
+
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>PSČ</mat-label>
+                  <input matInput placeholder="01234" formControlName="pscValue" id="psc">
+                </mat-form-field>
+            </p>
+        </div>
     
         <div class="row">
             
@@ -94,47 +103,37 @@
                   </mat-form-field>
             </p>
         </div>
-    
+
         <div class="row">
+            <p class="col-md-4">
+                <select class="form-control" formControlName="insuranceCompNumber" required>
+                    <option disabled selected>--Vyberte jednu z moznosti--</option>
+                    <option *ngFor="let entry of poistovne" [ngValue]="entry.code">{{entry.name}}</option>
+                </select>
+                <!-- <mat-form-field appearance="outline" class="input-area">
+                    <input matInput placeholder="24" formControlName="insuranceCompNumber" id="insuranceNumber">
+                </mat-form-field> -->
+            </p>
+
             <div class="col-md">
                 <label>
                     Poistný vzťah:
                 </label>
-                <div *ngFor="let rel of relationships; let i=index">
-                    <label>
-                      <input type="checkbox" [value]="rel" (change)="onCheckboxChange($event)" />
-                      {{rel}}
-                    </label>
-                  </div>
-                  {{arrayOfChecks.value}}
-                <!-- <div *ngFor="let control of insuranceRelationships.controls; let i = index;">
-                    <input class="checkbox-input" type="checkbox" [formControl]="control" id="checkbox{{i}}" value="option1">
-                    <label class="checkbox-label" for="checkbox{{i}}">{{relationships[i]}}</label> -->
-                    <!-- {{relationships[i]}} -->
-                <!-- </div>
-                <mat-checkbox color="warn" formControlName="sameAdress" [(ngModel)]="isChecked" (change)="onCheckboxChange($event)">Pacient sa bude zdrziavat v mieste trvaleho bydliska</mat-checkbox>
-                <section>
-                    <mat-checkbox [checked]="employee" color="warn">
-                        Zamestnanec
-                    </mat-checkbox>
-                    <mat-checkbox [checked]="employee" color="warn">
-                        <label>
-                            <span>
-                                Povinne nemocensky poistená samostatne zárobkovo činná osoba
-                            </span>
-                        </label>
-                    </mat-checkbox>
-                    <mat-checkbox [checked]="employee" color="warn">
-                        Dobrovoľne nemocensky poistená osoba
-                    </mat-checkbox>
-                </section> -->
-                    
+                <br>
+                <mat-radio-group formControlName="insuranceRelationship">
+                    <mat-radio-button class="radio-label" *ngFor="let relation of relationships" [value]="relation">
+                        {{relation}}
+                    </mat-radio-button>
+                </mat-radio-group>                    
             </div>
+        </div>
 
+        <div class="row">
             <p class="col-md">
-                <mat-form-field appearance="outline" class="input-area">
-                    <input matInput placeholder="24" formControlName="insuranceCompNumber" id="insuranceNumber">
-                </mat-form-field>
+                <select class="form-control" formControlName="patientEmployer" required>
+                    <option disabled selected>--Vyberte vašeho zamestnávateľa--</option>
+                    <option *ngFor="let empl of employers" [ngValue]="empl.id">{{empl.name}}</option>
+                </select>
             </p>
         </div>
         
@@ -143,5 +142,6 @@
         </div>
     </form>
 </div>
+<br>
 </html>
   

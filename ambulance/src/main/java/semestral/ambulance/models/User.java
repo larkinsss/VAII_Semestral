@@ -29,7 +29,7 @@ public class User implements UserDetails {
 
     @Email
     @Column(name = "user_email")
-    private String userEmail;
+    private String email;
 
     @Column(name = "user_firstname")
     private String firstname;
@@ -50,7 +50,7 @@ public class User implements UserDetails {
             String password, String role) {
         this.id = id;
         this.username = userName;
-        this.userEmail = email;
+        this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthdate = birthdate;
@@ -72,7 +72,7 @@ public class User implements UserDetails {
     public User(User user, String hashedPasswd) {
         this.id = user.id;
         this.username = user.username;
-        this.userEmail = user.userEmail;
+        this.email = user.email;
         this.firstname = user.firstname;
         this.lastname = user.lastname;
         this.birthdate = user.birthdate;
@@ -100,11 +100,11 @@ public class User implements UserDetails {
     }
 
     public String getEmail() {
-        return userEmail;
+        return email;
     }
 
     public void setEmail(String userEmail) {
-        this.userEmail = userEmail;
+        this.email = userEmail;
     }
 
     public String getFirstname() {

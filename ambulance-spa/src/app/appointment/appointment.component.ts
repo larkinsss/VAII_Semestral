@@ -1,7 +1,9 @@
+import { Employer } from './../model/employer';
+import { EmployerService } from './../services/employer/employer.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { WaitingListEntry } from 'src/app/model/patient';
+import { Patient } from 'src/app/model/patient';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm, FormArray } from '@angular/forms';
 import { WaitingListService } from '../services/waiting-list/waiting-list.service';
@@ -18,10 +20,15 @@ export class AppointmentComponent implements OnInit {
   willingIns = false;
   showWarning = false;
   relationships: Array<string> = ['Zamestnanec', 'Povinne nemocensky poistená samostatne zárobkovo činná osoba', 'Dobrovoľne nemocensky poistená osoba' ];
+  poistovne = [{code: 25, name: 'VšZP'}, {code: 24, name: 'Dôvera'}, {code: 27, name: 'UNION'}];
+  employers: Array<Employer>;
 
   @ViewChild('appointmentForm') private formDirective: NgForm;
 
-  constructor(private service: WaitingListService, private snackBar: MatSnackBar, private fb: FormBuilder) {
+  constructor(private service: WaitingListService,
+              private snackBar: MatSnackBar,
+              private fb: FormBuilder,
+              private employerService: EmployerService) {
   }
 
   ngOnInit(): void {
@@ -62,12 +69,25 @@ export class AppointmentComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^-?(0|[1-9]\d*)?$/)
       ]],
-      insuranceRel: this.addInsRelControls(),
-      insuranceCompNumber: ['', [
+      insuranceCompNumber: ['--Vyberte jednu z moznosti--', [
         Validators.required,
-        Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        Validators.maxLength(2)
       ]],
-      checkArray: this.fb.array([])
+      insuranceRelationship: ['Zamestnanec', [Validators.required]],
+      patientEmployer: ['--Vyberte vašeho zamestnávateľa--', [Validators.required]],
+      pscValue: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(5)
+      ]]
+    });
+
+    this.employerService.getEmployers().subscribe((response) => {
+      this.employers = response;
+    },
+    (err: HttpErrorResponse) => {
+      console.error(err.message);
     });
   }
 
@@ -114,12 +134,16 @@ export class AppointmentComponent implements OnInit {
     return this.myForm.get('insuranceCompNumber').value;
   }
 
-  public get insuranceRelationships(): any {
-    return  this.myForm.get('insuranceRel') as FormArray;
+  public get relationship(): any {
+    return this.myForm.get('insuranceRelationship').value;
   }
 
-  public get arrayOfChecks(): any {
-    return this.myForm.get('checkArray') as FormArray;
+  public get patientEmployer(): any {
+    return this.myForm.get('patientEmployer').value;
+  }
+
+  public get psc(): any {
+    return this.myForm.get('pscValue').value;
   }
 
   dateValueValidation(control: FormControl): Observable<any> {
@@ -142,27 +166,11 @@ export class AppointmentComponent implements OnInit {
     return isValid;
   }
 
-  private getInsuranceRel(): string{
-    let insureRel = '';
-    let i = 0;
-    this.arrayOfChecks.value.forEach(element => {
-      if (element !== 'undefined'){
-        if (i > 0) {
-          insureRel += ', ';
-        }
-        insureRel += element;
-        i++;
-      }
-    });
-    return insureRel;
-  }
-
   addAppointment(): void {
     if (this.firstnameValue !== undefined &&
       this.lastnameValue !== undefined &&
       this.emailValue !== undefined &&
       this.phonenumberValue !== undefined) {
-      const timeOfArrival = new Date();
       const entry = {
         id: this.birthnumberValue,
         firstname: this.firstnameValue,
@@ -170,20 +178,21 @@ export class AppointmentComponent implements OnInit {
         dateOfBirth: this.dateValue,
         phoneNumber: this.phonenumberValue,
         email: this.emailValue,
-        dateOfArrival: timeOfArrival,
         streetName: this.streetNameValue,
         streetNumber: this.streetNumberValue,
         insuranceNumber: this.insuranceCompNumber,
-        insuranceRelationship: this.getInsuranceRel()
+        insuranceRelationship: this.relationship,
+        psc: this.psc,
+        idEmployer: this.patientEmployer
       };
-      this.service.updateList(entry as WaitingListEntry).subscribe((response) => {
-        this.snackBar.open('Your appointment was saved!', 'Hide', {
+      this.service.updateList(entry as Patient).subscribe((response) => {
+        this.snackBar.open('Vaša požiadavka bola uložená', 'Hide', {
           duration: 15000,
         });
         this.resetForm();
       },
       (httpError: HttpErrorResponse) => {
-        this.snackBar.open(httpError.error, 'Hide', {
+        this.snackBar.open(httpError.error, 'Zavrieť', {
           duration: 15000,
         });
       });
@@ -194,23 +203,6 @@ export class AppointmentComponent implements OnInit {
     this.formDirective.resetForm();
     this.myForm.reset();
     this.ngOnInit();
-  }
-
-  onCheckboxChange(e): void {
-    const checkArray: FormArray = this.myForm.get('checkArray') as FormArray;
-
-    if (e.target.checked) {
-      checkArray.push(new FormControl(e.target.value));
-    } else {
-      let i = 0;
-      checkArray.controls.forEach((item: FormControl) => {
-        if (item.value === e.target.value) {
-          checkArray.removeAt(i);
-          return;
-        }
-        i++;
-      });
-    }
   }
 
 }

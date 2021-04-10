@@ -1,5 +1,5 @@
-import { WaitingListEntry } from './patient';
+import { Patient } from './patient';
 
 export class PatientDetailDialogData {
-    patientData: WaitingListEntry
+    patientData: Patient;
 }

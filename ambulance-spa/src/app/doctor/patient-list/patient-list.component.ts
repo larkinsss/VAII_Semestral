@@ -1,4 +1,5 @@
-import { WaitingListEntry } from '../../model/patient';
+import { PnFormDataService } from './../../services/pn-form-data/pn-form-data.service';
+import { Patient } from '../../model/patient';
 import { PatientDetailComponent } from './patient-detail/patient-detail.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -14,22 +15,26 @@ import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.s
 export class PatientListComponent implements OnInit {
 
   searchText: string;
-  patients: WaitingListEntry[];
+  patients: Patient[];
   waitingListService: WaitingListService;
   dialogSubscription: Subscription;
+  pnFormDataService;
+  currentData: Patient;
 
-  constructor(waitingService: WaitingListService, public dialog: MatDialog) {
+  constructor(waitingService: WaitingListService, public dialog: MatDialog, pnFormDataService: PnFormDataService) {
     this.waitingListService = waitingService;
-
+    this.pnFormDataService = pnFormDataService;
   }
 
   ngOnInit(): void {
     this.waitingListService.getWaitingList().subscribe(response => {
       this.patients = response;
     });
+
+    //this.pnFormDataService.currentData.subscribe(data => this.currentData = data);
   }
 
-  public openPatientDetail(patient: WaitingListEntry): any {
+  public openPatientDetail(patient: Patient): any {
     const dialogRef = this.dialog.open(PatientDetailComponent, {
       panelClass: ['custom-dialog-container', 'custom-form-field-infix'],
       width: '700px',

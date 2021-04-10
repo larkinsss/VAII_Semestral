@@ -1,6 +1,7 @@
+import { PasswordChangeRequest } from './../../model/password-change-request';
 import { Observable, of } from 'rxjs';
 import { AuthRequest } from '../../model/auth-request';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AuthResponse } from '../../model/auth-response';
@@ -17,6 +18,7 @@ export class LoginService {
   authResponse: AuthResponse;
   isLogin = false;
   roleAs: string;
+  private authHeader: HttpHeaders;
 
   constructor(private http: HttpClient) {
     this.authRequest = new AuthRequest;
@@ -33,6 +35,8 @@ export class LoginService {
               localStorage.setItem('ROLE', this.checkRole(this.authResponse.user));
               localStorage.setItem('STATE', 'true');
               localStorage.setItem('AUTHENTICATED', 'true');
+              localStorage.setItem('USER_ID', this.authResponse.user.id.toString());
+              localStorage.setItem('USERNAME', this.authResponse.user.username);
               this.authenticated = true;
             } else {
               this.authenticated = false;
@@ -45,10 +49,36 @@ export class LoginService {
 
   }
 
-  public getNewUserId(): Observable<number> {
+
+
+  public getUserById(id: string): Observable<User> {
+    const url = `${environment.baseUrl}/user/get/${+id}`;
+    this.setAuthHeader();
+    const apiCall = this.http.get(url, { headers :  this.authHeader});
+    return apiCall.pipe(map(response => (response as User)));
+  }
+
+  public upsertUser(user: User): Observable<User> {
+    const url = `${environment.baseUrl}/user/post`;
+    this.setAuthHeader();
+    return this.http.post(url, user, {headers : this.authHeader}) as Observable<User>;
+  }
+
+  public getNewUserId(): Observable<any> {
     const url = `${environment.baseUrl}/user/get/newId`;
     const apiCall = this.http.get(url);
     return apiCall.pipe(map(response => (response as number)));
+  }
+
+  public changeUserPassword(request: PasswordChangeRequest): Observable<string> {
+    const url = `${environment.baseUrl}/user/password/change`;
+    this.setAuthHeader();
+    return this.http.post(url, request, {headers: this.authHeader, responseType: 'text'}) as Observable<string>;
+  }
+
+  private setAuthHeader(): void {
+    const jwt = localStorage.getItem('JWT');
+    this.authHeader = new HttpHeaders({​​ Authorization: 'Bearer ' + jwt, 'Content-type': 'application/json'}​​);
   }
 
   public register(user: User): Observable<any> {
@@ -72,6 +102,9 @@ export class LoginService {
     localStorage.setItem('USERNAME', '');
     localStorage.setItem('JWT', '');
     localStorage.setItem('AUTHENTICATED', 'false');
+    localStorage.setItem('USER_ID', '');
+    localStorage.setItem('USERNAME', '');
+    localStorage.setItem('patient-id', '');
     return of({ success: this.isLogin, role: '' });
   }
 

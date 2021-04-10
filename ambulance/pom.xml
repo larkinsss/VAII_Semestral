@@ -62,7 +62,7 @@
 		<dependency>
     		<groupId>org.springframework.security</groupId>
     		<artifactId>spring-security-core</artifactId>
-    		<version>5.4.2</version>
+    		<version>5.4.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -87,7 +87,7 @@
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>6.0.13.Final</version>
+			<version>7.0.1.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.modelmapper</groupId>
@@ -108,6 +108,16 @@
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.pdfbox</groupId>
+    		<artifactId>pdfbox</artifactId>
+    		<version>2.0.23</version>
+		</dependency>
+		<dependency>
+    		<groupId>net.sf.cssbox</groupId>
+    		<artifactId>pdf2dom</artifactId>
+    		<version>1.6</version>
 		</dependency>
 	</dependencies>
 
