@@ -9,9 +9,22 @@
         <a mat-button class="navButton" [routerLink] = "['requests']" routerLinkActive="active-link">Žiadosti o registráciu</a>
     </div>
 
-    <div *ngIf="this.authGuard.checkIfUserLoggedIn()">
-        <button style="margin-left:20px" mat-raised-button color="warn" class="logout" (click)="logout()">Log out</button>
+    <div fxFlex fxLayoutAlign="flex-end center">
+      
+      <button mat-button [matMenuTriggerFor]="menu" class="menu_button">
+        <mat-icon>account_circle</mat-icon>
+        {{ this.username }}
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openProfile()" >Profil</button>
+        <button mat-menu-item>Nastavenia</button>
+      </mat-menu>
+      
+      <div *ngIf="this.authGuard.checkIfUserLoggedIn()">
+        <button mat-raised-button color="warn" class="logout" (click)="logout()">Log out</button>
+      </div>
     </div>
+
     
     <span class="menu-spacer"></span>
 </mat-toolbar>

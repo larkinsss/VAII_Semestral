@@ -1,4 +1,7 @@
 <div class="request">
+    <div *ngIf="this.listLength == 0">
+        <mat-label>Aktuálne nie sú nové žiadosti o registráciu</mat-label>
+    </div>
     <ng-container *ngFor="let request of this.requestList">
         <mat-card>
             <mat-card-title>{{request.firstname}} {{request.lastname}}

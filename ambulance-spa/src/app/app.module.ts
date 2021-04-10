@@ -34,7 +34,7 @@ import { AdminComponent } from './admin/admin/admin.component';
 import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
 import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
 import { RegisterComponent } from './register/register.component';
-import { ProcedureEntryComponent } from './admin/procedure-entry/procedure-entry.component';
+import { ProcedureEntryComponent } from './admin/procedures-editor/procedure-entry/procedure-entry.component';
 import { RequestsComponent } from './admin/requests/requests.component';
 import { MatCardModule } from '@angular/material/card';
 import { PatientListComponent } from './doctor/patient-list/patient-list.component';
@@ -47,7 +47,9 @@ import { PnListComponent } from './doctor/pn-list/pn-list.component';
 import { PnListEntryComponent } from './doctor/pn-list/pn-list-entry/pn-list-entry.component';
 import { Guid } from 'guid-typescript';
 import { InsWorkerComponent } from './ins-worker/ins-worker.component';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { ProfileComponent } from './profile/profile.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { InsWorkerComponent } from './ins-worker/ins-worker.component';
     PnFormComponent,
     PnListComponent,
     PnListEntryComponent,
-    InsWorkerComponent
+    InsWorkerComponent,
+    ProfileComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +100,8 @@ import { InsWorkerComponent } from './ins-worker/ins-worker.component';
     MatCardModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatMenuModule
   ],
   providers: [MatSnackBar, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   entryComponents: [PatientDetailComponent],

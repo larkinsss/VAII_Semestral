@@ -1,0 +1,78 @@
+<div align="center" class="dialogWindow" id="htmlData" #htmlData>
+    <!-- <ngx-spinner bdColor="rgba(0,0,0,0.70)" size="medium" color="#e74e0c" type="square-jelly-box" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner> -->
+    <button type="button" class="close" aria-label="Close" aria-checked="false" (click)="closeDialog()">
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+
+    <div class="Header">
+        <h1 mat-dialog-title>{{this.data.user.firstname}} {{this.data.user.lastname}}</h1>
+
+        <h1 mat-dialog-title>
+            {{userName}}
+        </h1>
+        
+        <h1 mat-dialog-title> {{this.data.user.email}} </h1>
+        <hr class="separator">
+    </div>
+    <h1>Personal details</h1>
+    <div class="font" >
+        <form (ngSubmit)="registerForm.form.valid" [formGroup]="profileForm" #registerForm="ngForm">
+            
+            <mat-form-field class="input_field">
+                <mat-label>Meno:</mat-label>
+                <input matInput type="text" [(ngModel)]="changeFirstName" class="editable" formControlName="firstnameValue" >
+            </mat-form-field>
+            
+            <mat-form-field class="input_field">
+                <mat-label>Priezvisko:</mat-label>
+                <input matInput type="text" [(ngModel)]="changeLastName" class="editable" formControlName="lastnameValue" >
+            </mat-form-field>
+            
+            <mat-form-field class="input_field">
+                <mat-label>E-mail address:</mat-label>
+                <input matInput type="text" [ngStyle]="{'color': !emailValue.errors?.pattern? 'black' : 'red'}"  
+                [(ngModel)]="changeEmail" formControlName="emailValue" class="editable">
+            </mat-form-field>
+
+        </form>
+    </div>
+    
+    <button mat-raised-button clas="button" [disabled]="userName==changeUserName && 
+                                                        this.data.user.firstname==changeFirstName &&
+                                                        this.data.user.lastname==changeLastName &&
+                                                        email==changeEmail||emailValue.errors?.pattern" 
+    color="warn"  routerLinkActive="active-link" (click)="updateProfile()">Save</button>
+
+    <hr class="separator">
+        <h1>Change your password</h1>
+            <form class="example-form" [formGroup]="myForm" (keydown.enter)="$event.preventDefault()" #passwordForm="ngForm">
+                <div class="textPage">Use at least one uppercase letter,at least one
+                    <br>lowercase letter and at least one number</div>
+                <br>
+                <mat-form-field class="input_field">
+                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Current password" type="password" name="password" formControlName="password1" required (keydown.enter)="$event.preventDefault()">
+                    <button mat-button *ngIf="password1" matSuffix mat-icon-button aria-label="Clear" (click)="password3=''" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon >{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field class="input_field">
+                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="New password" type="password" name="password" formControlName="password2" required (keydown.enter)="$event.preventDefault()">
+                    <button mat-button *ngIf="password2" matSuffix mat-icon-button aria-label="Clear" (click)="password1=''" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon >{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field class="input_field">
+                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Repeat new password" type="password" name="password" formControlName="password3" required (keydown.enter)="$event.preventDefault()">
+                    <button mat-button *ngIf="password3" matSuffix mat-icon-button aria-label="Clear" (click)="password2=''" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon >{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <button mat-raised-button [disabled]="myForm.invalid || password2!=password3" type="Set password" color="warn" (click)="changePassword()">Save</button>
+            </form>
+
+</div>

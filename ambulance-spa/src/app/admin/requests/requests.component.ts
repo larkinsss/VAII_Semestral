@@ -22,6 +22,7 @@ export class RequestsComponent implements OnInit {
     {value: 3, viewValue: 'PSP'}
   ];
   selected: string;
+  listLength: number = 0;
 
   constructor(requestServ: RequestService) {
     this.requestService = requestServ;
@@ -31,7 +32,9 @@ export class RequestsComponent implements OnInit {
   ngOnInit(): void {
     this.requestService.getRequest().subscribe(response => {
       this.requestList = response;
+      this.listLength = this.requestList.length;
     });
+
   }
 
   onAccept(user: User, role: number): void{

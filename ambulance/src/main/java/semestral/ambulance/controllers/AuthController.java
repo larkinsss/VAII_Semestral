@@ -70,8 +70,8 @@ public class AuthController {
         }
     }
 
-    @GetMapping(value = "/user/get")
-    public ResponseEntity<User> getUserById(@RequestParam Long id) {
+    @GetMapping(value = "/user/get/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         User user = this.userService.getUserById(id);
         if (user == null) {
             return ResponseEntity.badRequest().body(null);
