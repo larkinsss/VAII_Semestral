@@ -1,19 +1,21 @@
-import { Employer } from './../model/employer';
-import { EmployerService } from './../services/employer/employer.service';
+import { Employer } from './../../model/employer';
+import { EmployerModalComponent } from './employer-modal/employer-modal.component';
+import { EmployerService } from '../../services/employer/employer.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Patient } from 'src/app/model/patient';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm, FormArray } from '@angular/forms';
-import { WaitingListService } from '../services/waiting-list/waiting-list.service';
+import { WaitingListService } from '../../services/waiting-list/waiting-list.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-appointment',
-  templateUrl: './appointment.component.html',
-  styleUrls: ['./appointment.component.scss']
+  templateUrl: './patient-record.component.html',
+  styleUrls: ['./patient-record.component.scss']
 })
-export class AppointmentComponent implements OnInit {
+export class PatientRecordComponent implements OnInit {
   myForm: FormGroup;
   employee = false;
   hospIns = false;
@@ -22,46 +24,61 @@ export class AppointmentComponent implements OnInit {
   relationships: Array<string> = ['Zamestnanec', 'Povinne nemocensky poistená samostatne zárobkovo činná osoba', 'Dobrovoľne nemocensky poistená osoba' ];
   poistovne = [{code: 25, name: 'VšZP'}, {code: 24, name: 'Dôvera'}, {code: 27, name: 'UNION'}];
   employers: Array<Employer>;
+  newEmployer: Employer;
 
   @ViewChild('appointmentForm') private formDirective: NgForm;
+  dialogSubscription: any;
 
   constructor(private service: WaitingListService,
               private snackBar: MatSnackBar,
               private fb: FormBuilder,
-              private employerService: EmployerService) {
+              private employerService: EmployerService,
+               public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    this.initForm();
+    this.employerService.getEmployers().subscribe((response) => {
+      this.employers = response;
+    },
+    (err: HttpErrorResponse) => {
+      console.error(err.message);
+    });
+  }
+
+  initForm(): any {
     this.myForm = this.fb.group({
       firstnameValue: ['',
       [Validators.required,
         Validators.maxLength(50),
         Validators.minLength(2),
-        Validators.pattern('^[a-zA-Z]+$')
+        Validators.pattern('^[a-zA-ZÀ-ÿÀ-ʯ\u00f1\u00d1]*$')
       ]],
       lastnameValue: ['',
       [Validators.required,
         Validators.maxLength(50),
         Validators.minLength(2),
-        Validators.pattern('^[a-zA-Z]+$')
+        Validators.pattern('^[a-zA-ZÀ-ÿÀ-ʯ\u00f1\u00d1]*$')
       ]],
       emailValue: ['', [Validators.required,
         Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
       ]],
       phonenumberValue: ['',
       [Validators.required,
-        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')
+        Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)
       ]],
       dateValue: [null, [
         Validators.required
       ]],
       birthnumberValue: ['', [
         Validators.required,
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         Validators.minLength(9),
         Validators.maxLength(10),
       ]],
       streetNameValue: ['', [
         Validators.required,
+        Validators.pattern('^[ a-zA-ZÀ-ÿÀ-ʯ\u00f1\u00d1]*$'),
         Validators.minLength(4),
         Validators.maxLength(30),
       ]],
@@ -74,20 +91,19 @@ export class AppointmentComponent implements OnInit {
         Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         Validators.maxLength(2)
       ]],
-      insuranceRelationship: ['Zamestnanec', [Validators.required]],
-      patientEmployer: ['--Vyberte vašeho zamestnávateľa--', [Validators.required]],
+      insuranceRelationship: ['Zamestnanec', [
+        Validators.required
+      ]],
+      patientEmployer: ['--Vyberte vašeho zamestnávateľa--', [
+        Validators.required,  
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+      ]],
       pscValue: ['', [
         Validators.required,
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         Validators.minLength(5),
         Validators.maxLength(5)
       ]]
-    });
-
-    this.employerService.getEmployers().subscribe((response) => {
-      this.employers = response;
-    },
-    (err: HttpErrorResponse) => {
-      console.error(err.message);
     });
   }
 
@@ -146,6 +162,8 @@ export class AppointmentComponent implements OnInit {
     return this.myForm.get('pscValue').value;
   }
 
+  
+
   dateValueValidation(control: FormControl): Observable<any> {
     if (this.validateDatepicker(this.dateValue))
     {
@@ -166,26 +184,10 @@ export class AppointmentComponent implements OnInit {
     return isValid;
   }
 
-  addAppointment(): void {
-    if (this.firstnameValue !== undefined &&
-      this.lastnameValue !== undefined &&
-      this.emailValue !== undefined &&
-      this.phonenumberValue !== undefined) {
-      const entry = {
-        id: this.birthnumberValue,
-        firstname: this.firstnameValue,
-        lastname: this.lastnameValue,
-        dateOfBirth: this.dateValue,
-        phoneNumber: this.phonenumberValue,
-        email: this.emailValue,
-        streetName: this.streetNameValue,
-        streetNumber: this.streetNumberValue,
-        insuranceNumber: this.insuranceCompNumber,
-        insuranceRelationship: this.relationship,
-        psc: this.psc,
-        idEmployer: this.patientEmployer
-      };
-      this.service.updateList(entry as Patient).subscribe((response) => {
+  addPatient(): void {
+    if (true) {
+      let patient = this.createPatient();
+      this.service.updateList(patient).subscribe((response) => {
         this.snackBar.open('Vaša požiadavka bola uložená', 'Hide', {
           duration: 15000,
         });
@@ -199,10 +201,64 @@ export class AppointmentComponent implements OnInit {
     }
   }
 
-  private resetForm(): void {
+
+  public resetForm(): void {
     this.formDirective.resetForm();
     this.myForm.reset();
     this.ngOnInit();
+  }
+
+  createEmployer(): void {
+
+    let newId = 0;
+    this.employers.forEach(employer => {
+      if (employer.id > newId) {
+        newId = employer.id;
+      }
+    });
+    newId++;
+
+    this.newEmployer = {
+      id: newId,
+      name:null,
+      adressNumber:null,
+      adressStreet:null,
+      psc: null
+    };
+
+    const dialogRef = this.dialog.open(EmployerModalComponent, {
+      panelClass: ['custom-dialog-container', 'custom-form-field-infix'],
+      width: '700px',
+      height: '500px',
+      data: this.newEmployer,
+    });
+
+    this.dialogSubscription = dialogRef.afterClosed().subscribe(result => {
+      this.catchEmployer(this.newEmployer);
+      console.log('The dialog was closed');
+    });
+  }
+
+  catchEmployer(employer: Employer) {
+    this.employers.push(employer);
+  }
+
+  createPatient() {
+    const entry = {
+      id: this.birthnumberValue,
+      firstname: this.firstnameValue,
+      lastname: this.lastnameValue,
+      dateOfBirth: this.dateValue,
+      phoneNumber: this.phonenumberValue,
+      email: this.emailValue,
+      streetName: this.streetNameValue,
+      streetNumber: this.streetNumberValue,
+      insuranceNumber: this.insuranceCompNumber,
+      insuranceRelationship: this.relationship,
+      psc: this.psc,
+      idEmployer: this.patientEmployer
+    };
+    return entry as Patient;
   }
 
 }

@@ -1,3 +1,4 @@
+import { PatientRecordComponent } from './doctor/patient-record/patient-record.component';
 import { PnListComponent } from './doctor/pn-list/pn-list.component';
 import { PnFormComponent } from './doctor/pn-form/pn-form.component';
 import { PatientListComponent } from './doctor/patient-list/patient-list.component';
@@ -10,7 +11,6 @@ import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './doctor/home/home.component';
-import { AppointmentComponent } from './appointment/appointment.component';
 import { AuthGuard } from './authguard/auth.guard';
 import { UserComponent } from './doctor/user.component';
 import { InsWorkerComponent } from './ins-worker/ins-worker.component';
@@ -23,10 +23,6 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  {
-    path: 'appointment', // child route path
-    component: AppointmentComponent, // child route component that the router renders
-  },
   {
     path: 'user',
     component: UserComponent,
@@ -46,6 +42,10 @@ const routes: Routes = [
       {
         path: 'patient-list',
         component: PatientListComponent
+      },
+      {
+        path: 'patient-record',
+        component: PatientRecordComponent
       },
       {
         path: 'pn-form',

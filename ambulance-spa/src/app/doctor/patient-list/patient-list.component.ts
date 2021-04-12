@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { PnFormDataService } from './../../services/pn-form-data/pn-form-data.service';
 import { Patient } from '../../model/patient';
 import { PatientDetailComponent } from './patient-detail/patient-detail.component';
@@ -21,7 +22,7 @@ export class PatientListComponent implements OnInit {
   pnFormDataService;
   currentData: Patient;
 
-  constructor(waitingService: WaitingListService, public dialog: MatDialog, pnFormDataService: PnFormDataService) {
+  constructor(waitingService: WaitingListService, public dialog: MatDialog, pnFormDataService: PnFormDataService, private router: Router) {
     this.waitingListService = waitingService;
     this.pnFormDataService = pnFormDataService;
   }
@@ -45,6 +46,10 @@ export class PatientListComponent implements OnInit {
     this.dialogSubscription = dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  createNewPatient(): void {
+    this.router.navigate(['user/patient-record']);
   }
 
 }

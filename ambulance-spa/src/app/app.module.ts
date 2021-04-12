@@ -15,7 +15,6 @@ import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { WaitingListComponent } from './doctor/waiting-list/waiting-list.component';
 import { HomeComponent } from './doctor/home/home.component';
-import { AppointmentComponent } from './appointment/appointment.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -39,7 +38,7 @@ import { RequestsComponent } from './admin/requests/requests.component';
 import { MatCardModule } from '@angular/material/card';
 import { PatientListComponent } from './doctor/patient-list/patient-list.component';
 import { FilterPipe } from './patient-filter.pipe';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PnFormComponent } from './doctor/pn-form/pn-form.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -50,12 +49,13 @@ import { InsWorkerComponent } from './ins-worker/ins-worker.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfileComponent } from './profile/profile.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { PatientRecordComponent } from './doctor/patient-record/patient-record.component';
+import { EmployerModalComponent } from './doctor/patient-record/employer-modal/employer-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AppointmentComponent,
     WaitingListEntryComponent,
     UserComponent,
     LoginComponent,
@@ -73,7 +73,9 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     PnListEntryComponent,
     InsWorkerComponent,
     ProfileComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    PatientRecordComponent,
+    EmployerModalComponent
   ],
   imports: [
     BrowserModule,

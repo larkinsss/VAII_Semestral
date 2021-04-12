@@ -1,0 +1,52 @@
+<button type="button" class="close" aria-label="Close" aria-checked="false" (click)="closeDialog()">
+    <mat-icon>exit_to_app</mat-icon>
+</button>
+
+<mat-card class="container">
+    <form (ngSubmit)="appointmentForm.form.valid" [formGroup]="employerForm" #appointmentForm="ngForm">
+
+        <div class="row">
+            <p class="col">
+                <mat-form-field appearance="outline">
+                  <mat-label>Názov zamestnávateľa</mat-label>
+                  <input matInput placeholder="Firma s.r.o." formControlName="employerName" required>
+                </mat-form-field>
+            </p>
+        </div>
+    
+    
+        <div class="row">
+    
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Ulica</mat-label>
+                  <input matInput placeholder="Hrašková" formControlName="employerStreetValue" required>
+                </mat-form-field>
+            </p>
+    
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Číslo</mat-label>
+                  <input matInput placeholder="1" formControlName="employerStreetNumberValue" required>
+                </mat-form-field>
+            </p>
+    
+            
+            
+        </div>
+        
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>PSČ</mat-label>
+                  <input matInput placeholder="01234" formControlName="employerPscValue" required>
+                </mat-form-field>
+            </p>
+        </div>
+
+        <div class="button">
+            <button id="rezervacia" mat-raised-button [disabled]="employerForm.invalid" color="warn" (click)="this.createEmployer()">Rezervuj</button>
+        </div>
+    </form>
+</mat-card>
+

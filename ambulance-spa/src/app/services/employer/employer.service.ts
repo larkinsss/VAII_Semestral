@@ -30,7 +30,8 @@ export class EmployerService {
 
   public postEmployer(employer: Employer): Observable<any> {
     const url = `${environment.baseUrl}/post/employer`;
-    return this.httpClient.post(url, employer);
+    this.setAuthHeader();
+    return this.httpClient.post(url, employer, { headers : this.authHeader });
   }
 
   public deleteEmployer(id: number): Observable<any> {

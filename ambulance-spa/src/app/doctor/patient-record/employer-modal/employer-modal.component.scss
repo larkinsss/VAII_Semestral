@@ -1,0 +1,18 @@
+.container {
+    box-sizing: border-box;
+    max-width: inherit;
+    min-width: inherit;
+}
+
+.row{
+    min-width: 20%;
+}
+
+.col-md {
+    padding-top: 20px;
+    min-width: 30%;
+}
+
+.mat-form-field {
+    width: 100%;
+}
