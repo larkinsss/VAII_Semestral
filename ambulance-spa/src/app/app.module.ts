@@ -31,7 +31,7 @@ import { LoginComponent } from './login/login.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { AdminComponent } from './admin/admin/admin.component';
 import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
-import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
+import { UserEditorComponent } from './admin/user-editor/user-editor.component';
 import { RegisterComponent } from './register/register.component';
 import { ProcedureEntryComponent } from './admin/procedures-editor/procedure-entry/procedure-entry.component';
 import { RequestsComponent } from './admin/requests/requests.component';
@@ -51,6 +51,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { PatientRecordComponent } from './doctor/patient-record/patient-record.component';
 import { EmployerModalComponent } from './doctor/patient-record/employer-modal/employer-modal.component';
+import { UserEntryComponent } from './admin/user-editor/user-entry/user-entry.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { EmployerModalComponent } from './doctor/patient-record/employer-modal/e
     LoginComponent,
     AdminComponent,
     ProceduresEditorComponent,
-    AmbulanceEditorComponent,
+    UserEditorComponent,
     RegisterComponent,
     ProcedureEntryComponent,
     RequestsComponent,
@@ -75,7 +76,8 @@ import { EmployerModalComponent } from './doctor/patient-record/employer-modal/e
     ProfileComponent,
     PasswordResetComponent,
     PatientRecordComponent,
-    EmployerModalComponent
+    EmployerModalComponent,
+    UserEntryComponent
   ],
   imports: [
     BrowserModule,

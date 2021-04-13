@@ -1,7 +1,7 @@
 import { PasswordChangeRequest } from './../../model/password-change-request';
 import { Observable, of } from 'rxjs';
 import { AuthRequest } from '../../model/auth-request';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AuthResponse } from '../../model/auth-response';
@@ -70,10 +70,23 @@ export class LoginService {
     return apiCall.pipe(map(response => (response as number)));
   }
 
+  public getAllUsers(): Observable<User[]> {
+    const url = `${environment.baseUrl}/user/get/all`;
+    this.setAuthHeader();
+    const apiCall = this.http.get(url, { headers : this.authHeader });
+    return apiCall.pipe(map(response => (response as User[])));
+  }
+
   public changeUserPassword(request: PasswordChangeRequest): Observable<string> {
     const url = `${environment.baseUrl}/user/password/change`;
     this.setAuthHeader();
     return this.http.post(url, request, {headers: this.authHeader, responseType: 'text'}) as Observable<string>;
+  }
+
+  public deleteUser(id: number) {
+    const url = `${environment.baseUrl}/user/delete/${id}`;
+    this.setAuthHeader();
+    return this.http.delete(url, { headers : this.authHeader });
   }
 
   private setAuthHeader(): void {

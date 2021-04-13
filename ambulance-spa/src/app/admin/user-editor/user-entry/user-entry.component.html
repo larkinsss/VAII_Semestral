@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8"/>
+    <title>A document with a short head</title>
+  </head>
+
+
+  <!-- id: number;
+    username: string;
+    email: string;
+    firstname: string;
+    lastname: string;
+    birthdate: Date;
+    password: string;
+    role: string; -->
+  
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title class="exp_header">
+        <mat-icon>account_circle</mat-icon>
+        <mat-label class="label"> {{ data.username }} </mat-label>
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ data.id }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field appearance="outline">
+      <mat-label>Dátum narodenia</mat-label>
+      <input
+        matInput 
+        [ngModel] ="data.birthdate | date:'dd-MM-yyyy'"
+        readonly
+      />
+    </mat-form-field> 
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Meno</mat-label>
+        <input matInput [value]="data.firstname" readonly/>
+      </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+      <mat-label>Priezvisko</mat-label>
+      <input matInput [value]="data.lastname" readonly/>
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput [value]="data.email" readonly/>
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Rola</mat-label>
+        <input matInput [value]="data.role" readonly/>
+      </mat-form-field>
+  
+
+    <mat-action-row>
+      <button mat-button (click)="delete.next(data)" id="remove_button_{{data.id}}" class="button">Odstrániť záznam</button>
+    </mat-action-row>
+
+  </mat-expansion-panel>
+  

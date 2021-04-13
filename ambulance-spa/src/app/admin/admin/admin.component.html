@@ -4,8 +4,8 @@
     </button>
     <mat-icon class="appIcon">medical_services</mat-icon>
     <div fxShow="true" fxHide.lt-sm>
-        <a id="pat_button" mat-button class="navButton" [routerLink] = "['ambulance']" routerLinkActive="active-link">Pacienti</a>
-        <a id="proc_button" mat-button class="navButton" [routerLink] = "['procedures']" routerLinkActive="active-link">Zoznam zákrokov</a>
+        <a id="pat_button" mat-button class="navButton" [routerLink] = "['users']" routerLinkActive="active-link">Používatelia</a>
+        <!-- <a id="proc_button" mat-button class="navButton" [routerLink] = "['procedures']" routerLinkActive="active-link">Zoznam zákrokov</a> -->
         <a mat-button class="navButton" [routerLink] = "['requests']" routerLinkActive="active-link">Žiadosti o registráciu</a>
     </div>
 
@@ -33,13 +33,13 @@
     <mat-sidenav #sidenav>
       <mat-nav-list>
         <div class="row">
-          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['ambulance']" routerLinkActive="active-link">Pacienti</a>
+          <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['users']" routerLinkActive="active-link">Používatelia</a>
           <br>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['procedures']" routerLinkActive="active-link">Zoznam zákrokov</a>
         <br>
-        </div> 
+        </div>  -->
         <div class="row">
           <a mat-button class="navButton" (click)="sidenav.toggle()" fxShow="true" [routerLink] = "['requests']" routerLinkActive="active-link">Žiadosti</a>
         <br>

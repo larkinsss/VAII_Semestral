@@ -176,9 +176,14 @@ export class PnFormComponent implements OnInit {
     return  this.pnForm.get('temp_address_psc').value;
   }
 
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
   uploadPdf() {
-    this.pnFormServ.uploadDataToPdf(this.createPnForm()).subscribe(response => {
+    this.pnFormServ.uploadDataToPdf(this.createPnForm()).subscribe(async response => {
       console.log(response);
+      await this.delay(1000);
       this.savePdf();
     },
     (err: HttpErrorResponse) => {

@@ -65,4 +65,28 @@ export class PnListComponent implements OnInit {
     });
   }
 
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  uploadPdf(pnForm: PnForm) {
+    this.pnFormService.uploadDataToPdf(pnForm).subscribe(async response => {
+      console.log(response);
+      await this.delay(1000);
+      this.pnFormService.downloadPnForm().subscribe((data) => {
+        let pdfFile = new Blob([data], {type: 'application/pdf'});
+        let downloadURL = URL.createObjectURL(pdfFile);
+        let link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = 'pn_form.pdf';
+        link.click();
+        URL.revokeObjectURL(downloadURL);
+      });
+    },
+    (err: HttpErrorResponse) => {
+      console.error(err.message);
+    });
+  }
+
+
 }

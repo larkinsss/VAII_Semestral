@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8"/>
+    <title>A document with a short head</title>
+  </head>
+
+<ng-container *ngFor="let entry of userList">
+        <app-user-entry [data]="entry" (delete)="onDelete($event)" (update)="onUpdate($event)">
+        </app-user-entry>
+</ng-container>
+<button mat-stroked-button color="warn">Vyprázdniť zoznam</button>

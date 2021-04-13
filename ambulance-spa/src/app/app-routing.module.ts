@@ -6,7 +6,7 @@ import { RequestsComponent } from './admin/requests/requests.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
-import { AmbulanceEditorComponent } from './admin/ambulance-editor/ambulance-editor.component';
+import { UserEditorComponent } from './admin/user-editor/user-editor.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -67,8 +67,8 @@ const routes: Routes = [
     },
     children:  [
       {
-        path: 'ambulance',
-        component: AmbulanceEditorComponent,
+        path: 'users',
+        component: UserEditorComponent,
       },
       {
         path: 'procedures', // child route path
@@ -80,7 +80,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'ambulance',
+        redirectTo: 'users',
         pathMatch: 'full',
       },
     ],

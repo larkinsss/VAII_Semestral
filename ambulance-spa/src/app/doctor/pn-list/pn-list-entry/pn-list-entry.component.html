@@ -69,9 +69,13 @@
       </mat-form-field>
     </div>
 
-    <mat-action-row *ngIf='showToAdmin()'>
+    <mat-action-row *ngIf='showToSocWork()'>
       <button id="chng_proc_{{data.pnForm.id}}" mat-raised-button color="warn" (click)="onUpdate(2)">Evidovať</button>
       <button id="rem_proc_{{data.pnForm.id}}" mat-raised-button color="warn" (click)="onUpdate(1)">Zamietnuť</button>      
+    </mat-action-row>
+
+    <mat-action-row *ngIf='showToUser()'>
+      <button mat-raised-button color="warn" (click)="onPrint(this.data.pnForm)">Vytlačiť PDF</button>     
     </mat-action-row>
 
 

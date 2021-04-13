@@ -5,6 +5,7 @@ import { PnListComponent } from './../pn-list.component';
 import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
 import { PnForm } from './../../../model/pnForm';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PnFormService } from 'src/app/services/pn-form/pn-form.service';
 
 @Component({
   selector: 'app-pn-list-entry',
@@ -25,12 +26,19 @@ export class PnListEntryComponent{
   @Output()
   public update = new EventEmitter<PnForm>();
 
+  @Output()
+  public print = new EventEmitter<PnForm>();
+
   onUpdate(status: number) {
     this.data.pnForm.status = status;
     this.update.emit(this.data.pnForm);
   }
 
-  showToAdmin() {
+  onPrint(pnForm: PnForm) {
+    this.print.emit(pnForm);
+  }
+
+  showToSocWork() {
     if (localStorage.getItem('ROLE') === 'PSP') {
       return true;
     } else {
@@ -70,7 +78,4 @@ export class PnListEntryComponent{
         return '27 - UNION';
     }
   }
-
-
-
 }

@@ -25,8 +25,8 @@ public class PdfClass {
 
     
 
-    private static String original = "C:/Users/petla/git/VAII_Semestral/ambulance/src/main/resources/pn_form.pdf";
-    private static String target = "C:/Users/petla/git/VAII_Semestral/ambulance/src/main/resources/pn_form_filled.pdf";
+    private static String original = "C:/Users/petla/git/bakalarska_praca_ambulancia/ambulance/src/main/resources/pn_form.pdf";
+    private static String target = "C:/Users/petla/git/bakalarska_praca_ambulancia/ambulance/src/main/resources/pn_form_filled.pdf";
     //private static PDDocument pdfDocument;
 
     public void doMagic(DBOPnForm pnForm) {
@@ -53,7 +53,7 @@ public class PdfClass {
             Employer employer = this.employerService.getEmployerById(patient.getIdEmployer());
 
             setField("id", pnForm.id, pdfDocument);
-            setField("name_field", patient.getFirstname() + patient.getLastname(), pdfDocument);
+            setField("name_field", patient.getFirstname() + " " + patient.getLastname(), pdfDocument);
             setField("birthnumber", patient.getId(), pdfDocument);
             setField("address", patient.getStreetName() + " " + patient.getStreetNumber() + ", " + patient.getPsc(), pdfDocument);
             setField("employer", employer.getName() + ", " +  employer.getAdressStreet() + " " + employer.getAdressNumber() + ", " + employer.getPsc(), pdfDocument);
@@ -117,7 +117,20 @@ public class PdfClass {
 		
         
         pdfDocument.save(targetPdf);
-		pdfDocument.close();
+		
+        
+
+        pdfDocument.close();
+
+        PDDocument check = PDDocument.load(new File(targetPdf));
+
+        while(!getField("id", check).equals(pnForm.id)) {
+            System.err.println("Not saved yet!");
+        }
+
+        check.close();
+
+
     }
     
 
@@ -131,6 +144,13 @@ public class PdfClass {
         else {
             System.err.println( "No field found with name:" + name );
         }
+    }
+
+    public static String getField(String name, PDDocument document) throws IOException {
+        PDDocumentCatalog docCatalog = document.getDocumentCatalog();
+        PDAcroForm acroForm = docCatalog.getAcroForm();
+        PDField field = acroForm.getField( name );
+        return field.getValueAsString();
     }
 
 
