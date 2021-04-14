@@ -1,7 +1,10 @@
 package semestral.ambulance.controllers;
 
 import java.io.IOException;
+import java.sql.Array;
+import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +12,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import semestral.ambulance.models.DBOPnForm;
+import semestral.ambulance.models.DBOPsc;
 import semestral.ambulance.util.PdfClass;
+import semestral.ambulance.models.ZipPostal;
+import semestral.ambulance.restservices.impl.PscServiceImpl;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,9 +34,13 @@ import org.springframework.web.bind.annotation.*;
 public class FileController {
 
     private PdfClass pdfClass;
+    private final PscServiceImpl pscServ;
+	private final ModelMapper modelMapper;
 
-    public FileController(PdfClass pdfClass) {
+    public FileController(PdfClass pdfClass, PscServiceImpl pscService, ModelMapper modelMapper) {
         this.pdfClass = pdfClass;
+        this.pscServ = pscService;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -40,9 +51,22 @@ public class FileController {
             return ResponseEntity.accepted().body(form);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
+        }        
+    }
+
+    @PostMapping(value = "/psc/post")
+    public ResponseEntity pscMapping(@RequestBody List<DBOPsc> list) {
+        try {
+            for (DBOPsc psc : list) {
+                if (psc.psc != null) {
+                    this.pscServ.insertPsc(modelMapper.map(psc, ZipPostal.class));
+                }                
+            } 
+            return ResponseEntity.ok().body(true);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        
-        
+              
         
     }
 

@@ -52,6 +52,7 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import { PatientRecordComponent } from './doctor/patient-record/patient-record.component';
 import { EmployerModalComponent } from './doctor/patient-record/employer-modal/employer-modal.component';
 import { UserEntryComponent } from './admin/user-editor/user-entry/user-entry.component';
+import { EndDialogComponent } from './doctor/pn-list/end-dialog/end-dialog.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { UserEntryComponent } from './admin/user-editor/user-entry/user-entry.co
     PasswordResetComponent,
     PatientRecordComponent,
     EmployerModalComponent,
-    UserEntryComponent
+    UserEntryComponent,
+    EndDialogComponent
   ],
   imports: [
     BrowserModule,

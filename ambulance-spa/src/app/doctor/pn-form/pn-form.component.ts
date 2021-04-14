@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PnForm } from 'src/app/model/pnForm';
 import { Employer } from 'src/app/model/employer';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -29,6 +30,7 @@ export class PnFormComponent implements OnInit {
   diagnoseCategory = '--Vyberte jednu z moznosti--';
   isChecked = false;
   patientEmployer: Employer;
+  now = new Date;
 
   diagnoses = [{ code: 1, name: 'Choroba' }, { code: 2 , name: 'Karantenne opatrenie' }, { code: 3, name: 'Uraz' }, { code: 4, name: 'Choroba z povolania' },
   { code: 5, name: 'Pracovny uraz' }, { code: 6, name: 'Uraz zav. inou osobou' }, { code: 7, name: 'Pozitie alkoholu alebo zneuzitie inych navykovych latok' }];
@@ -39,7 +41,8 @@ export class PnFormComponent implements OnInit {
               private formBuilder: FormBuilder,
               pnFormDataService: PnFormDataService,
               private patientService: WaitingListService,
-              private employerService: EmployerService) {
+              private employerService: EmployerService,
+              private snackBar: MatSnackBar) {
     this.pnFormServ = pnService;
     this.pnFormDataService = pnFormDataService;
   }
@@ -144,11 +147,11 @@ export class PnFormComponent implements OnInit {
     return  this.pnForm.get('kod').value;
   }
 
-  public get dateBeg(): any {
+  public get dateBeg(): Date {
     return  this.pnForm.get('dateBegValue').value;
   }
 
-  public get dateEnd(): any {
+  public get dateEnd(): Date {
     return  this.pnForm.get('dateEndValue').value;
   }
 
@@ -208,10 +211,16 @@ export class PnFormComponent implements OnInit {
   saveForm(): any{
     this.pnFormServ.postPnForm(this.createPnForm()).subscribe(response => {
       console.log(response);
+      this.snackBar.open('Formulár bol uložený', 'Zatvoriť', {
+        duration: 10000,
+      });
       this.resetForm();
     },
     (err: HttpErrorResponse) => {
       console.error(err.message);
+      this.snackBar.open(err.message, 'Zatvoriť', {
+        duration: 10000,
+      });
     });
   }
 

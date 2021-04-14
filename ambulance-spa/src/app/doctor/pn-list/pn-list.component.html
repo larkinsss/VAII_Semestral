@@ -5,7 +5,23 @@
     <title>A document with a short head</title>
   </head>
 
-<ng-container *ngFor="let entry of dataList">
-        <app-pn-list-entry [data]="entry" (delete)="onDelete($event)" (update)="updatePnForm($event)" (print)="uploadPdf($event)">
+  <div class="alert warning" *ngIf="dataListInactive.length != 0">
+    <span class="closebtn" (click)="onClick($event.target)">&times;</span>  
+    <strong>Warning!</strong> V systéme sú potvrdenia dočasnej pracovnej neschopni ktoré si vyžadujú akciu.
+  </div>
+
+  <h2 class="header" *ngIf="dataListActive.length == 0 && dataListInactive.length == 0">
+    Aktuálne nie sú v systéme žiadne PN
+  </h2>
+  
+<h3 class="header" *ngIf="dataListActive.length != 0">Aktívne PN</h3>
+<ng-container *ngFor="let entry of dataListActive">
+        <app-pn-list-entry [data]="entry" (update)="updatePnForm($event)" (print)="uploadPdf($event)" (open)="openEndDialog($event)">
         </app-pn-list-entry>
+</ng-container>
+
+<h3 class="header" *ngIf="dataListInactive.length != 0">Vyžadujúce ukončenie alebo predĺženie</h3>
+<ng-container *ngFor="let entry of dataListInactive">
+  <app-pn-list-entry [data]="entry" (update)="updatePnForm($event)" (print)="uploadPdf($event)" (open)="openEndDialog($event)">
+  </app-pn-list-entry>
 </ng-container>

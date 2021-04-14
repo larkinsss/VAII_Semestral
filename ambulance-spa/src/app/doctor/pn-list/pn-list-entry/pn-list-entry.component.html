@@ -75,7 +75,8 @@
     </mat-action-row>
 
     <mat-action-row *ngIf='showToUser()'>
-      <button mat-raised-button color="warn" (click)="onPrint(this.data.pnForm)">Vytlačiť PDF</button>     
+      <button mat-raised-button color="warn" (click)="onOpen(this.data.pnForm)">Ukončiť PN</button>
+      <button mat-raised-button color="warn" (click)="onPrint(this.data.pnForm)">Vytlačiť PDF</button>
     </mat-action-row>
 
 

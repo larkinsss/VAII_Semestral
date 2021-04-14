@@ -1,0 +1,29 @@
+<mat-card class="container">
+    
+    <form (ngSubmit)="endForm.valid" [formGroup]="endForm">
+
+        <button type="button" class="close" aria-label="Close" aria-checked="false" (click)="closeDialog()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                  <mat-label>Konečná diagnóza:</mat-label>
+                  <input matInput placeholder="D-15" formControlName="endDiagnoseValue" required>
+                </mat-form-field>
+            </p>
+            
+            <mat-form-field appearance="outline" class="col-md">
+                <mat-label>Schopný práce od:</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="endDateValue">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <button class="button" mat-raised-button [disabled]="endForm.invalid" color="warn" (click)="this.saveForm()">Uložiť</button>
+
+    </form>
+
+</mat-card>>

@@ -29,6 +29,9 @@ export class PnListEntryComponent{
   @Output()
   public print = new EventEmitter<PnForm>();
 
+  @Output()
+  public open = new EventEmitter<PnForm>();
+
   onUpdate(status: number) {
     this.data.pnForm.status = status;
     this.update.emit(this.data.pnForm);
@@ -36,6 +39,10 @@ export class PnListEntryComponent{
 
   onPrint(pnForm: PnForm) {
     this.print.emit(pnForm);
+  }
+
+  onOpen(pnForm: PnForm) {
+    this.open.emit(pnForm);
   }
 
   showToSocWork() {

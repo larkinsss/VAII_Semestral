@@ -1,13 +1,15 @@
-<button type="button" class="close" aria-label="Close" aria-checked="false" (click)="closeDialog()">
-    <mat-icon>exit_to_app</mat-icon>
-</button>
+
 
 <mat-card class="container">
-    <form (ngSubmit)="appointmentForm.form.valid" [formGroup]="employerForm" #appointmentForm="ngForm">
+    <form (ngSubmit)="employerForm.form.valid" [formGroup]="employerForm" #employerForm="ngForm">
+
+        <button type="button" class="close" aria-label="Close" aria-checked="false" (click)="closeDialog()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
 
         <div class="row">
-            <p class="col">
-                <mat-form-field appearance="outline">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
                   <mat-label>Názov zamestnávateľa</mat-label>
                   <input matInput placeholder="Firma s.r.o." formControlName="employerName" required>
                 </mat-form-field>

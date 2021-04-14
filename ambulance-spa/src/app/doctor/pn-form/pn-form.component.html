@@ -105,6 +105,12 @@
             </mat-form-field> 
         </div>
 
+        <!-- {{((now.getTime() - this.dateBeg.getTime()) / (1000 * 3600 * 24)) > 3}} -->
+        <div class="alert" *ngIf="this.dateBeg != null && ((now.getTime() - this.dateBeg.getTime()) / (1000 * 3600 * 24)) > 3">
+            <span class="closebtn" (click)="onClick($event.target)">&times;</span>  
+            <strong>Warning!</strong> Zadávate dátum začiatku starší ako tri dni!
+          </div>
+
         <div class="row">
             <mat-form-field appearance="outline" class="col-sm-4">
                 <mat-label>Neschopny prace od:</mat-label>

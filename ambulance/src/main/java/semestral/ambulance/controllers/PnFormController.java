@@ -1,6 +1,8 @@
 package semestral.ambulance.controllers;
 
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -93,4 +95,23 @@ public class PnFormController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }		
 	}
+
+	@GetMapping(value ="/database/update")
+    public ResponseEntity updateDatabase() {
+		try {
+			List<PnForm> list = this.pnFormService.getAllPnForms();
+			for (PnForm pnForm : list) {
+				Date now = new Date();
+				long diffInMillies = Math.abs(now.getTime() - pnForm.getBeginningDate().getTime());
+    			long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+				if (diff > 10) {
+					pnForm.setEndDate(now);
+					this.pnFormService.updatePnForm(pnForm);
+				}
+			}
+			return ResponseEntity.ok().body(null);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+    }
 }
