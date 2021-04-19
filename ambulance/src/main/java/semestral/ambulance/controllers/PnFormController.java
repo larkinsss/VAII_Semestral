@@ -3,6 +3,7 @@ package semestral.ambulance.controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.modelmapper.ModelMapper;
@@ -103,7 +104,11 @@ public class PnFormController {
 	@PostMapping("/update/pnform")
 	public ResponseEntity updatePnForm(@RequestBody DBOPnForm pnForm) {
 		try {
-            return ResponseEntity.ok().body(pnFormService.updatePnForm(modelMapper.map(pnForm, PnForm.class)));
+			Patient patient = this.patientServ.getById(pnForm.patientBirthNumber);
+			PnForm form = modelMapper.map(pnForm, PnForm.class);
+			form.setPatient(patient);
+			return ResponseEntity.ok().body(pnFormService.updatePnForm(form));
+            
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }		
