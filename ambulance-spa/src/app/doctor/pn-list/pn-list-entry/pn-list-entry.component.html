@@ -70,13 +70,35 @@
     </div>
 
     <mat-action-row *ngIf='showToSocWork()'>
-      <button id="chng_proc_{{data.pnForm.id}}" mat-raised-button color="warn" (click)="onUpdate(2)">Evidovať</button>
-      <button id="rem_proc_{{data.pnForm.id}}" mat-raised-button color="warn" (click)="onUpdate(1)">Zamietnuť</button>      
+      <button mat-raised-button color="warn" (click)="onUpdate(2)">Evidovať</button>
+      <button mat-raised-button color="warn" (click)="onUpdate(1)">Zamietnuť</button>      
     </mat-action-row>
 
     <mat-action-row *ngIf='showToUser()'>
       <button mat-raised-button color="warn" (click)="onOpen(this.data.pnForm)">Ukončiť PN</button>
-      <button mat-raised-button color="warn" (click)="onPrint(this.data.pnForm)">Vytlačiť PDF</button>
+      <button mat-raised-button color="warn" (click)="onPrint(this.data.pnForm)">Stiahnuť PDF</button>
+
+      <input type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload>
+
+      <div class="file-upload">
+
+        <mat-label *ngIf="this.data.attachments.length == 0; else elseBlock">Bez príloh</mat-label>
+
+        <ng-template #elseBlock>
+
+          <button mat-raised-button color="warn" [matMenuTriggerFor]="menu" class="menu_button">
+            Stiahnuť prílohu
+          </button>
+          <mat-menu #menu="matMenu">
+            <button *ngFor="let attachment of this.data.attachments" mat-menu-item (click)="downloadFile(attachment.name)" >{{attachment.name}}</button>
+          </mat-menu>
+        </ng-template>        
+
+        <button mat-mini-fab color="warn" class="upload-btn" (click)="fileUpload.click()">
+        <mat-icon matBadge={{this.data.attachments.length}} matBadgeColor="accent">attach_file</mat-icon>
+        </button>
+      </div>
     </mat-action-row>
 
 

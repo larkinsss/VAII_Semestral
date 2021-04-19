@@ -276,4 +276,10 @@ export class PnFormComponent implements OnInit {
     this.ngOnInit();
   }
 
+  onClick(target: HTMLElement) {
+    let div = target.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+
 }

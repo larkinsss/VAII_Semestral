@@ -5,7 +5,6 @@ import { PatientListComponent } from './doctor/patient-list/patient-list.compone
 import { RequestsComponent } from './admin/requests/requests.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin/admin.component';
-import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
 import { UserEditorComponent } from './admin/user-editor/user-editor.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -69,10 +68,6 @@ const routes: Routes = [
       {
         path: 'users',
         component: UserEditorComponent,
-      },
-      {
-        path: 'procedures', // child route path
-        component: ProceduresEditorComponent, // child route component that the router renders
       },
       {
         path: 'requests', // child route path

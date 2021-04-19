@@ -1,3 +1,4 @@
+import { UploadedFile } from './../../../model/uploadedFile';
 import { PnEntryData } from './../../../model/pnEntryData';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Patient } from 'src/app/model/patient';
@@ -32,6 +33,16 @@ export class PnListEntryComponent{
   @Output()
   public open = new EventEmitter<PnForm>();
 
+  @Output()
+  public change = new EventEmitter<UploadedFile>();
+
+  @Output()
+  public download = new EventEmitter<String>();
+
+  downloadFile(name: string) {
+    this.download.emit(name);
+  }
+
   onUpdate(status: number) {
     this.data.pnForm.status = status;
     this.update.emit(this.data.pnForm);
@@ -43,6 +54,10 @@ export class PnListEntryComponent{
 
   onOpen(pnForm: PnForm) {
     this.open.emit(pnForm);
+  }
+
+  onFileSelected(file: File, pn: PnForm) {
+    this.change.emit({'file': file, 'pnForm': this.data.pnForm  });
   }
 
   showToSocWork() {
@@ -85,4 +100,7 @@ export class PnListEntryComponent{
         return '27 - UNION';
     }
   }
+
+  
+
 }

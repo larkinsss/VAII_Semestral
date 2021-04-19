@@ -8,11 +8,11 @@
 		<version>2.4.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>semestral</groupId>
+	<groupId>bachelors</groupId>
 	<artifactId>ambulance</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ambulance-app</name>
-	<description>SemestralProject </description>
+	<description>Bachelor project</description>
 
 	<properties>
 		<java.version>15</java.version>

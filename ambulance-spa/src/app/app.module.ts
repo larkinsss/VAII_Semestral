@@ -13,14 +13,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { WaitingListComponent } from './doctor/waiting-list/waiting-list.component';
 import { HomeComponent } from './doctor/home/home.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { WaitingListEntryComponent } from './doctor/waiting-list/patient-list-entry/waiting-list-entry.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule} from '@angular/material/button';
@@ -30,10 +28,8 @@ import { UserComponent } from './doctor/user.component';
 import { LoginComponent } from './login/login.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { AdminComponent } from './admin/admin/admin.component';
-import { ProceduresEditorComponent } from './admin/procedures-editor/procedures-editor.component';
 import { UserEditorComponent } from './admin/user-editor/user-editor.component';
 import { RegisterComponent } from './register/register.component';
-import { ProcedureEntryComponent } from './admin/procedures-editor/procedure-entry/procedure-entry.component';
 import { RequestsComponent } from './admin/requests/requests.component';
 import { MatCardModule } from '@angular/material/card';
 import { PatientListComponent } from './doctor/patient-list/patient-list.component';
@@ -44,7 +40,6 @@ import { PnFormComponent } from './doctor/pn-form/pn-form.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { PnListComponent } from './doctor/pn-list/pn-list.component';
 import { PnListEntryComponent } from './doctor/pn-list/pn-list-entry/pn-list-entry.component';
-import { Guid } from 'guid-typescript';
 import { InsWorkerComponent } from './ins-worker/ins-worker.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfileComponent } from './profile/profile.component';
@@ -53,19 +48,18 @@ import { PatientRecordComponent } from './doctor/patient-record/patient-record.c
 import { EmployerModalComponent } from './doctor/patient-record/employer-modal/employer-modal.component';
 import { UserEntryComponent } from './admin/user-editor/user-entry/user-entry.component';
 import { EndDialogComponent } from './doctor/pn-list/end-dialog/end-dialog.component';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    WaitingListEntryComponent,
     UserComponent,
     LoginComponent,
     AdminComponent,
-    ProceduresEditorComponent,
     UserEditorComponent,
     RegisterComponent,
-    ProcedureEntryComponent,
     RequestsComponent,
     PatientListComponent,
     FilterPipe,
@@ -107,7 +101,9 @@ import { EndDialogComponent } from './doctor/pn-list/end-dialog/end-dialog.compo
     MatDialogModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatMenuModule
+    MatMenuModule,
+    MatBadgeModule,
+    MatProgressSpinnerModule
   ],
   providers: [MatSnackBar, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   entryComponents: [PatientDetailComponent],

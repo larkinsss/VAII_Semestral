@@ -10,18 +10,42 @@
     <strong>Warning!</strong> V systéme sú potvrdenia dočasnej pracovnej neschopni ktoré si vyžadujú akciu.
   </div>
 
-  <h2 class="header" *ngIf="dataListActive.length == 0 && dataListInactive.length == 0">
-    Aktuálne nie sú v systéme žiadne PN
-  </h2>
-  
-<h3 class="header" *ngIf="dataListActive.length != 0">Aktívne PN</h3>
-<ng-container *ngFor="let entry of dataListActive">
-        <app-pn-list-entry [data]="entry" (update)="updatePnForm($event)" (print)="uploadPdf($event)" (open)="openEndDialog($event)">
-        </app-pn-list-entry>
-</ng-container>
+  <div *ngIf="this.loading; else elseBlock" class="spinner">
+    <mat-progress-spinner
+        color="warn"
+        mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
 
-<h3 class="header" *ngIf="dataListInactive.length != 0">Vyžadujúce ukončenie alebo predĺženie</h3>
-<ng-container *ngFor="let entry of dataListInactive">
-  <app-pn-list-entry [data]="entry" (update)="updatePnForm($event)" (print)="uploadPdf($event)" (open)="openEndDialog($event)">
-  </app-pn-list-entry>
-</ng-container>
+  <ng-template #elseBlock>
+    
+    
+    <h3 class="header" *ngIf="dataListActive.length != 0">Aktívne PN</h3>
+    <ng-container *ngFor="let entry of dataListActive">
+            <app-pn-list-entry [data]="entry" 
+              (update)="updatePnForm($event)" 
+              (print)="uploadPdf($event)" 
+              (open)="openEndDialog($event)" 
+              (change)="onFileUpload($event)"
+              (download)="onFileDownload($event)">
+            </app-pn-list-entry>
+    </ng-container>
+  
+    <h3 class="header" *ngIf="dataListInactive.length != 0">Vyžadujúce ukončenie alebo predĺženie</h3>
+    <ng-container *ngFor="let entry of dataListInactive">
+      <app-pn-list-entry [data]="entry" 
+        (update)="updatePnForm($event)" 
+        (print)="uploadPdf($event)" 
+        (open)="openEndDialog($event)" 
+        (change)="onFileUpload($event)"
+        (download)="onFileDownload($event)">
+      </app-pn-list-entry>
+    </ng-container>
+
+    <h2 class="header" *ngIf="dataListActive.length == 0 && dataListInactive.length == 0 && !this.loading">
+      Aktuálne nie sú v systéme žiadne PN
+    </h2>
+
+  </ng-template>
+
+  

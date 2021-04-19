@@ -11,11 +11,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import semestral.ambulance.repository.EmployerRepository;
 import semestral.ambulance.repository.PatientRepository;
 import semestral.ambulance.repository.PnFormRepository;
-import semestral.ambulance.repository.ProcedureRepository;
 import semestral.ambulance.repository.UserRepostory;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackageClasses = {UserRepostory.class, ProcedureRepository.class, PatientRepository.class, EmployerRepository.class, PnFormRepository.class})
+@EnableJpaRepositories(basePackageClasses = {UserRepostory.class, PatientRepository.class, EmployerRepository.class, PnFormRepository.class})
 public class AmbulanceApplication {
 
 	public static void main(String[] args) {

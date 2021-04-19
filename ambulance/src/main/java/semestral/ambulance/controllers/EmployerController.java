@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import semestral.ambulance.models.DBOEmployer;
+import semestral.ambulance.models.DatabaseObjectModels.*;
 import semestral.ambulance.models.Employer;
 import semestral.ambulance.restservices.EmployerService;
 import semestral.ambulance.util.ItemNotFoundException;

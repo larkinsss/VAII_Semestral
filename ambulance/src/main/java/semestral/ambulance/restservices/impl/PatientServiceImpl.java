@@ -5,8 +5,10 @@ import semestral.ambulance.models.Patient;
 import semestral.ambulance.repository.PatientRepository;
 import semestral.ambulance.restservices.PatientService;
 import semestral.ambulance.util.ItemAlreadyExisting;
+import semestral.ambulance.util.ItemNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientServiceImpl implements PatientService{
@@ -31,8 +33,16 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public Patient getById(String id) {
-        return patientRepository.findById(id).orElse(null);
+    public Patient getById(String id) throws ItemNotFoundException {
+        if (id != null) {
+            Optional<Patient> dbResponse = this.patientRepository.findById(id);
+            if (dbResponse.isPresent()) {
+                return dbResponse.get();
+            } else {
+                throw new ItemNotFoundException("getPatientById: Patient with this birthnumber was not found!");
+            }
+        }
+        throw new NullPointerException("getPatientById: Argument id passed was null!");
     }
 
     @Override

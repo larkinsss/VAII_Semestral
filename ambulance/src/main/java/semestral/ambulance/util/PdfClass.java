@@ -8,10 +8,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import semestral.ambulance.models.DBOPnForm;
+import semestral.ambulance.models.DatabaseObjectModels.DBOPnForm;
 import semestral.ambulance.models.Employer;
 import semestral.ambulance.models.Patient;
 import semestral.ambulance.restservices.EmployerService;
@@ -23,11 +22,8 @@ public class PdfClass {
     private PatientService patientService;
     private EmployerService employerService;
 
-    
-
     private static String original = "C:/Users/petla/git/bakalarska_praca_ambulancia/ambulance/src/main/resources/pn_form.pdf";
     private static String target = "C:/Users/petla/git/bakalarska_praca_ambulancia/ambulance/src/main/resources/pn_form_filled.pdf";
-    //private static PDDocument pdfDocument;
 
     public void doMagic(DBOPnForm pnForm) {
         try {

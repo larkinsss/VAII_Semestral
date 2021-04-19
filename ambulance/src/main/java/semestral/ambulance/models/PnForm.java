@@ -35,8 +35,9 @@ public class PnForm {
     @Column(name = "end_diagnose")
     private Integer endDiagnose;
 
-    @Column(name = "patient_birth_number")
-    private String patientBirthNumber;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_birth_number")
+    private Patient patient;
 
     @Column(name = "doctor_id")
     private Integer doctorId;
@@ -44,27 +45,33 @@ public class PnForm {
     @Column(name = "status")
     private Integer status;
 
-    public PnForm(String id, String streetName, Integer streetNumber, Date beginningDate, Date endDate,
-            Integer diagnoseCategory, Integer diagnoseNumber, Integer endDiagnose, String patientBirthNumber,
-            Integer doctorId, String psc, Integer status) {
+    public PnForm() {
+    }
+
+    public PnForm(String id, String streetName, Integer streetNumber, String tempAddressPSC, Date beginningDate,
+            Date endDate, Integer diagnoseCategory, Integer diagnoseNumber, Integer endDiagnose, Patient patient,
+            Integer doctorId, Integer status) {
         this.id = id;
         this.streetName = streetName;
         this.streetNumber = streetNumber;
+        this.tempAddressPSC = tempAddressPSC;
         this.beginningDate = beginningDate;
         this.endDate = endDate;
         this.diagnoseCategory = diagnoseCategory;
         this.diagnoseNumber = diagnoseNumber;
         this.endDiagnose = endDiagnose;
-        this.patientBirthNumber = patientBirthNumber;
+        this.patient = patient;
         this.doctorId = doctorId;
-        this.tempAddressPSC = psc;
         this.status = status;
     }
 
-    public PnForm() {
+    public Patient getPatient() {
+        return patient;
     }
 
-    
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
 
     public String getId() {
         return id;
@@ -128,14 +135,6 @@ public class PnForm {
 
     public void setEndDiagnose(Integer endDiagnose) {
         this.endDiagnose = endDiagnose;
-    }
-
-    public String getPatientBirthNumber() {
-        return patientBirthNumber;
-    }
-
-    public void setPatientBirthNumber(String patientBirthNumber) {
-        this.patientBirthNumber = patientBirthNumber;
     }
 
     public Integer getDoctorId() {

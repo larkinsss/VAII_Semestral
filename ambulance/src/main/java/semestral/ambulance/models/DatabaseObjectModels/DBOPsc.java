@@ -1,4 +1,5 @@
-package semestral.ambulance.models;
+package semestral.ambulance.models.DatabaseObjectModels;
+
 
 public class DBOPsc {
     public String name;

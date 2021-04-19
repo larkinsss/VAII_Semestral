@@ -1,5 +1,6 @@
 package semestral.ambulance.controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -17,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import semestral.ambulance.models.DBOPnForm;
+import semestral.ambulance.models.DatabaseObjectModels.DBOPnForm;
+import semestral.ambulance.models.Patient;
 import semestral.ambulance.models.PnForm;
-import semestral.ambulance.repository.PnFormRepository;
+import semestral.ambulance.restservices.PatientService;
 import semestral.ambulance.restservices.PnFormService;
 import semestral.ambulance.util.ItemNotFoundException;
 import semestral.ambulance.util.NoItemsFoundException;
@@ -33,10 +35,12 @@ import semestral.ambulance.util.NoItemsFoundException;
 public class PnFormController {
     private final PnFormService pnFormService;
     private final ModelMapper modelMapper;
+	private final PatientService patientServ;
 
-    public PnFormController(PnFormService pnFormService, ModelMapper modelMapper) {
+    public PnFormController(PnFormService pnFormService, ModelMapper modelMapper, PatientService patientService) {
 		this.pnFormService = pnFormService;
         this.modelMapper = modelMapper;
+		this.patientServ = patientService;
 	}
 
 	@DeleteMapping("/delete/pnform")
@@ -56,7 +60,10 @@ public class PnFormController {
 	public ResponseEntity postPnForm(@RequestBody DBOPnForm pnForm) {
 		if (pnForm != null) {
 			try {
-				PnForm pnFromToStore = pnFormService.createPnForm(modelMapper.map(pnForm, PnForm.class));
+				Patient patientOfPn = this.patientServ.getById(pnForm.patientBirthNumber);
+				PnForm pnFromToStore = modelMapper.map(pnForm, PnForm.class);
+				pnFromToStore.setPatient(patientOfPn);
+				pnFormService.createPnForm(pnFromToStore);
 				return ResponseEntity.accepted().body(pnFromToStore);
 			} catch (Exception e) {
 				return ResponseEntity.badRequest().body(e.getMessage());
@@ -80,7 +87,13 @@ public class PnFormController {
 	public ResponseEntity getAllPnForms() {
         try {
             List<PnForm> pnFormList = this.pnFormService.getAllPnForms();
-		    return ResponseEntity.accepted().body(pnFormList);
+			List<DBOPnForm> dboPnForms = new ArrayList<>();
+			for (PnForm pnForm : pnFormList) {
+				DBOPnForm formToPass = modelMapper.map(pnForm, DBOPnForm.class);
+				formToPass.patientBirthNumber = pnForm.getPatient().getId();
+				dboPnForms.add(formToPass);
+			}
+		    return ResponseEntity.accepted().body(dboPnForms);
         } catch (NoItemsFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

@@ -1,4 +1,5 @@
-package semestral.ambulance.models;
+package semestral.ambulance.models.DatabaseObjectModels;
+
 
 import java.util.Date;
 

@@ -1,5 +1,3 @@
-import { Procedure } from '../../model/procedure';
-import { ProcedureService } from '../../services/procedure/procedure.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,18 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public listOfProcedures: Procedure[];
-  get entriesOfProcedures() { return (this.listOfProcedures ) ? this.listOfProcedures : [] }
+  entriesOfProcedures = [{procedureName:"prehlidka", procedureRestriction:"do 18 rokov", procedurePrice:19.99}]
 
-  constructor(private procedureService: ProcedureService) {}
-
-  getListOfProcedures(): Procedure[]{
-    return (this.listOfProcedures) ? this.listOfProcedures : null;
-  }
+  constructor() {}
 
   ngOnInit(): void {
-    this.procedureService.getProcedureList().subscribe((response) => {
-      this.listOfProcedures = response;
-    });
   }
 }

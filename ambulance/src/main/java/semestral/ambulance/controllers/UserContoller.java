@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import semestral.ambulance.models.AuthenticationRequest;
-import semestral.ambulance.models.DBOUser;
+import semestral.ambulance.models.DatabaseObjectModels.DBOUser;
 import semestral.ambulance.models.PasswordChangeRequest;
 import semestral.ambulance.models.User;
 import semestral.ambulance.restservices.UserService;

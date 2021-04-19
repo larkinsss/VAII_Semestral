@@ -1,5 +1,5 @@
-import { Observable, pipe } from 'rxjs';
-import { Patient } from './../../model/patient';
+import { Attachment } from './../../model/attachment';
+import { Observable} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -58,6 +58,29 @@ export class PnFormService {
     const url = `${environment.baseUrl}/pdf/fill`;
     this.setAuthHeader();
     return this.httpClient.post(url, pnForm, { headers : this.authHeader });
+  }
+
+  public uploadFile(file: File, pnFormId: string): Observable<any> {
+    const url = `${environment.baseUrl}/file/upload/${pnFormId}`;
+    const jwt = localStorage.getItem('JWT');
+    let uploadHeaders = new HttpHeaders({Authorization: 'Bearer ' + jwt})
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    console.log(this.authHeader);
+    return this.httpClient.post(url, formData, { headers : uploadHeaders, responseType: 'text'});
+  }
+
+  public getAllFiles(): Observable<Attachment[]> {
+    const url = `${environment.baseUrl}/file/get/all`;
+    this.setAuthHeader();
+    const apiCall = this.httpClient.get(url, { headers : this.authHeader });
+    return apiCall.pipe(map(response => (response as Attachment[])));
+  }
+
+  public getFileByName(name: string):  any {
+    const url = `${environment.baseUrl}/file/get/${name}`;
+    this.setAuthHeader();
+    return  this.httpClient.get(url, { headers : this.authHeader, responseType: 'blob' });
   }
 
   private setAuthHeader(): void {

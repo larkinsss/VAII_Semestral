@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import semestral.ambulance.models.DBOPatient;
+import semestral.ambulance.models.DatabaseObjectModels.DBOPatient;
 import semestral.ambulance.models.Patient;
 import semestral.ambulance.restservices.PatientService;
 import semestral.ambulance.util.ItemNotFoundException;
