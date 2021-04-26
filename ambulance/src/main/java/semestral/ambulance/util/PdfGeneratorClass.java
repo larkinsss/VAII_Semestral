@@ -16,8 +16,11 @@ import semestral.ambulance.models.Patient;
 import semestral.ambulance.restservices.EmployerService;
 import semestral.ambulance.restservices.PatientService;
 
+/**
+ * This class presents methods and logic for generating pdf documents
+ */
 @Service
-public class PdfClass {
+public class PdfGeneratorClass {
 
     private PatientService patientService;
     private EmployerService employerService;
@@ -25,21 +28,32 @@ public class PdfClass {
     private static String original = "C:/Users/petla/git/bakalarska_praca_ambulancia/ambulance/src/main/resources/pn_form.pdf";
     private static String target = "C:/Users/petla/git/bakalarska_praca_ambulancia/ambulance/src/main/resources/pn_form_filled.pdf";
 
-    public void doMagic(DBOPnForm pnForm) {
+    /**
+     * This method tries to populate fields of predefined pdf document with data from SicknessLeave form
+     * @param pnForm sickness leave form data (PN)
+     */
+    public void fillPdfWithFormData(DBOPnForm pnForm) {
         try {
-			populateAndCopy(original, target, pnForm);
+			populateSicknessLeave(original, target, pnForm);
 		} catch (Exception e) {
-			System.err.println(e);;
+			System.err.println(e);
 		}
     }
 
-    public PdfClass(PatientService patientService, EmployerService employerService) {
+    public PdfGeneratorClass(PatientService patientService, EmployerService employerService) {
         this.patientService = patientService;
         this.employerService = employerService;
     }
 
-    
-    private void populateAndCopy(String originalPdf, String targetPdf, DBOPnForm pnForm) throws IOException {
+    /**
+     * Method that takes predefined pdf document, creates a copy of it 
+     * Populates it's fields and saves it to specified location
+     * @param originalPdf original document
+     * @param targetPdf new document filled out 
+     * @param pnForm sickness leave form data
+     * @throws IOException throws exception if population of field fails
+     */
+    private void populateSicknessLeave(String originalPdf, String targetPdf, DBOPnForm pnForm) throws IOException {
         
         PDDocument pdfDocument = PDDocument.load(new File(originalPdf));
 
@@ -71,7 +85,7 @@ public class PdfClass {
                     setField(rel, "2", pdfDocument);
                     break;
                 default:
-                    System.err.println("Doesnt match");
+                    throw new DocumentPopulationException("Program could not map value of Insurance relationship to field in document");
             }
 
             String group = "Group2";
@@ -98,38 +112,31 @@ public class PdfClass {
                     setField(group, "6", pdfDocument);   
                     break;
                 default:
-                    System.err.println("Doesnt match");
+                throw new DocumentPopulationException("Program could not map value of diagnose category to field in document");
             }
             setField("insurance_code", patient.getInsuranceNumber().toString(), pdfDocument);
-            setField("start_date", pnForm.beginningDate.toString(), pdfDocument);
+            setField("start_date", pnForm.beginningDate.toGMTString(), pdfDocument);
             setField("diagnose", pnForm.diagnoseNumber.toString(), pdfDocument);
-            setField("today_date", new Date(System.currentTimeMillis()).toString(), pdfDocument);
+            setField("today_date", new Date(System.currentTimeMillis()).toGMTString(), pdfDocument);
 
         } catch (Exception e) {
-            System.err.println(e);
+            throw new DocumentPopulationException(e.getMessage());
         }
-        
-
-		
         
         pdfDocument.save(targetPdf);
-		
-        
 
         pdfDocument.close();
-
-        PDDocument check = PDDocument.load(new File(targetPdf));
-
-        while(!getField("id", check).equals(pnForm.id)) {
-            System.err.println("Not saved yet!");
-        }
-
-        check.close();
-
-
     }
     
 
+    /**
+     * Method that tries to find field with specified name in specified document
+     * If field is found value is inserted in the field
+     * @param name name of the field in document
+     * @param value value to be stored in the field
+     * @param document document where field is supposed to be
+     * @throws IOException Exception when field not found, or processing fails
+     */
     public static void setField(String name, String value, PDDocument document) throws IOException {
         PDDocumentCatalog docCatalog = document.getDocumentCatalog();
         PDAcroForm acroForm = docCatalog.getAcroForm();
@@ -138,10 +145,17 @@ public class PdfClass {
             field.setValue(value);
         }
         else {
-            System.err.println( "No field found with name:" + name );
+            throw new DocumentPopulationException( "No field found with name:" + name );
         }
     }
 
+    /**
+     * Method that returns field with specified name
+     * @param name name of the field
+     * @param document document where field should be
+     * @return returns 
+     * @throws IOException
+     */
     public static String getField(String name, PDDocument document) throws IOException {
         PDDocumentCatalog docCatalog = document.getDocumentCatalog();
         PDAcroForm acroForm = docCatalog.getAcroForm();

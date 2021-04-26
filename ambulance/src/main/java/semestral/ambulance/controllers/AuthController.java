@@ -52,7 +52,7 @@ public class AuthController {
         this.jwtTokenUtil = util;
     }
     
-    @RequestMapping(value = "/register", method = { RequestMethod.POST })
+    @PostMapping(value = "/register")
     public ResponseEntity<User> registerUser(@RequestBody DBOUser user) {
         if (user == null) {
             return ResponseEntity.badRequest().body(null);
@@ -90,7 +90,7 @@ public class AuthController {
         return ResponseEntity.ok().body(newId);
     }
 
-    @RequestMapping(value = "/authenticate", method = { RequestMethod.POST })
+    @PostMapping(value = "/authenticate")
     public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
             throws Exception {
 

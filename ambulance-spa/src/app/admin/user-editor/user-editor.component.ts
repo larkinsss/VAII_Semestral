@@ -1,9 +1,10 @@
+import { UserService } from './../../services/user/user.service';
 import { LoginService } from '../../services/login/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Patient } from 'src/app/model/patient';
-import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 import { User } from 'src/app/model/user';
 
 @Component({
@@ -14,7 +15,7 @@ import { User } from 'src/app/model/user';
 export class UserEditorComponent implements OnInit {
   public userList: User[];
 
-  constructor(private userService: LoginService, private snackBar: MatSnackBar) {
+  constructor(private userService: UserService, private snackBar: MatSnackBar) {
     this.userService.getAllUsers().subscribe((result) => {
       this.userList = result;
       this.userList.sort((a, b) => {

@@ -1,5 +1,6 @@
 package semestral.ambulance.restservices.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ public class PscServiceImpl {
             }
         }
         return false;
+    }
+
+    public List<ZipPostal> getAllZips() {
+        return this.pscRepo.findAll();
     }
 
     

@@ -5,16 +5,16 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import semestral.ambulance.models.File;
+import semestral.ambulance.models.AttachmentFile;
 
 public interface FileService {
 
-    public File saveFile(MultipartFile file, String idForm) throws IOException;
+    public AttachmentFile saveFile(MultipartFile file, String idForm) throws IOException;
     
-    public File getFileById(String id) throws Exception;
+    public AttachmentFile getFileById(String id) throws Exception;
 
-    public List<File> getAllFiles();
+    public List<AttachmentFile> getAllFiles();
 
-    public File getFileByName(String name) throws Exception;
+    public AttachmentFile getFileByName(String name) throws Exception;
     
 }

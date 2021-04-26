@@ -1,3 +1,4 @@
+import { ZipService } from './../../services/zip/zip.service';
 import { Employer } from './../../model/employer';
 import { EmployerModalComponent } from './employer-modal/employer-modal.component';
 import { EmployerService } from '../../services/employer/employer.service';
@@ -7,8 +8,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Patient } from 'src/app/model/patient';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm, FormArray } from '@angular/forms';
-import { WaitingListService } from '../../services/waiting-list/waiting-list.service';
+import { PatientService } from '../../services/patient/patient.service';
 import { MatDialog } from '@angular/material/dialog';
+import { Zip } from 'src/app/model/zip';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-appointment',
@@ -25,15 +28,19 @@ export class PatientRecordComponent implements OnInit {
   poistovne = [{code: 25, name: 'VšZP'}, {code: 24, name: 'Dôvera'}, {code: 27, name: 'UNION'}];
   employers: Array<Employer>;
   newEmployer: Employer;
+  zipCodes: Zip[];
+  filteredOptions: Observable<Zip[]>;
+  pscControl = new FormControl();
 
   @ViewChild('appointmentForm') private formDirective: NgForm;
   dialogSubscription: any;
 
-  constructor(private service: WaitingListService,
+  constructor(private service: PatientService,
               private snackBar: MatSnackBar,
               private fb: FormBuilder,
               private employerService: EmployerService,
-               public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private zipService: ZipService) {
   }
 
   ngOnInit(): void {
@@ -43,6 +50,18 @@ export class PatientRecordComponent implements OnInit {
     },
     (err: HttpErrorResponse) => {
       console.error(err.message);
+    });
+
+    this.zipService.getAllZips().subscribe((zips) => {
+      this.zipCodes = zips;
+      this.filteredOptions = this.myForm.get('pscValue').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.status + error.message);
     });
   }
 
@@ -95,16 +114,22 @@ export class PatientRecordComponent implements OnInit {
         Validators.required
       ]],
       patientEmployer: ['--Vyberte vašeho zamestnávateľa--', [
-        Validators.required,  
+        Validators.required,
         Validators.pattern(/^-?(0|[1-9]\d*)?$/),
       ]],
       pscValue: ['', [
         Validators.required,
-        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        Validators.pattern(/^-?(0|[0-9]\d*)?$/),
         Validators.minLength(5),
         Validators.maxLength(5)
       ]]
     });
+  }
+
+  private _filter(value: string): Zip[] {
+    const filterValue = value.toLowerCase();
+
+    return this.zipCodes.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
   addInsRelControls(): any{
@@ -162,8 +187,6 @@ export class PatientRecordComponent implements OnInit {
     return this.myForm.get('pscValue').value;
   }
 
-  
-
   dateValueValidation(control: FormControl): Observable<any> {
     if (this.validateDatepicker(this.dateValue))
     {
@@ -186,7 +209,7 @@ export class PatientRecordComponent implements OnInit {
 
   addPatient(): void {
     if (true) {
-      let patient = this.createPatient();
+      const patient = this.createPatient();
       this.service.updateList(patient).subscribe((response) => {
         this.snackBar.open('Vaša požiadavka bola uložená', 'Hide', {
           duration: 15000,
@@ -194,7 +217,7 @@ export class PatientRecordComponent implements OnInit {
         this.resetForm();
       },
       (httpError: HttpErrorResponse) => {
-        this.snackBar.open(httpError.error, 'Zavrieť', {
+        this.snackBar.open(httpError.status.toString(), 'Zavrieť', {
           duration: 15000,
         });
       });
@@ -220,9 +243,9 @@ export class PatientRecordComponent implements OnInit {
 
     this.newEmployer = {
       id: newId,
-      name:null,
-      adressNumber:null,
-      adressStreet:null,
+      name: null,
+      adressNumber: null,
+      adressStreet: null,
       psc: null
     };
 
@@ -241,6 +264,10 @@ export class PatientRecordComponent implements OnInit {
 
   catchEmployer(employer: Employer) {
     this.employers.push(employer);
+  }
+
+  controlButton(): void {
+    console.log(this.createPatient());
   }
 
   createPatient() {

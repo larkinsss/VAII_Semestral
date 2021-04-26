@@ -3,6 +3,7 @@ package semestral.ambulance.controllers;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,16 +38,17 @@ public class PatientController {
 	}
 
 	@RequestMapping(value = "/post/patient", produces = "application/json", method = {RequestMethod.POST})
-	public ResponseEntity postPatient(@RequestBody DBOPatient patient) {
+	public ResponseEntity<Patient> postPatient(@RequestBody DBOPatient patient) {
 		if (patient != null) {
 			try {
 				Patient storedPatient = patientService.createPatient(modelMapper.map(patient, Patient.class));
 				return ResponseEntity.accepted().body(storedPatient);
 			} catch (Exception e) {
-				return ResponseEntity.badRequest().body("Pacient s týmto rodným číslom už existuje!");
+				System.err.println(e.getMessage());;
+				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 			}
 		} else {
-			return ResponseEntity.badRequest().body("postPatient: null argument");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
 	}
 

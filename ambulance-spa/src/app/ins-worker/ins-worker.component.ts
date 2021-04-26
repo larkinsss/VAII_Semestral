@@ -1,3 +1,4 @@
+import { UserService } from './../services/user/user.service';
 import { AuthGuard } from './../authguard/auth.guard';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login/login.service';
@@ -17,10 +18,14 @@ export class InsWorkerComponent implements OnInit {
   loggedUser: User;
   dialogSubscription: any;
 
-  constructor(public authGuard: AuthGuard, public authServ: LoginService, public router: Router, public dialog: MatDialog) {
+  constructor(public authGuard: AuthGuard, 
+    private userService: UserService, 
+    public router: Router, 
+    public dialog: MatDialog,
+    private loginService: LoginService) {
     this.username = localStorage.getItem('USERNAME');
     let userID = localStorage.getItem('USER_ID');
-    this.authServ.getUserById(userID).subscribe(response => {
+    this.userService.getUserById(userID).subscribe(response => {
       this.loggedUser = response;
     },
     (error: HttpErrorResponse) => {
@@ -33,7 +38,7 @@ export class InsWorkerComponent implements OnInit {
   }
 
   logout(): void {
-    this.authServ.logout();
+    this.loginService.logout();
     this.router.navigate(['login']);
   }
 

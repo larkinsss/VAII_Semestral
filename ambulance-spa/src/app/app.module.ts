@@ -48,8 +48,10 @@ import { PatientRecordComponent } from './doctor/patient-record/patient-record.c
 import { EmployerModalComponent } from './doctor/patient-record/employer-modal/employer-modal.component';
 import { UserEntryComponent } from './admin/user-editor/user-entry/user-entry.component';
 import { EndDialogComponent } from './doctor/pn-list/end-dialog/end-dialog.component';
-import {MatBadgeModule} from '@angular/material/badge';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DeleteDialogComponent } from './doctor/patient-list/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     PatientRecordComponent,
     EmployerModalComponent,
     UserEntryComponent,
-    EndDialogComponent
+    EndDialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatRadioModule,
     MatMenuModule,
     MatBadgeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatAutocompleteModule
   ],
   providers: [MatSnackBar, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   entryComponents: [PatientDetailComponent],

@@ -8,9 +8,9 @@ import { PnEntryData } from './../../model/pnEntryData';
 import { PnFormService } from './../../services/pn-form/pn-form.service';
 import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/model/patient';
-import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
 import { HtmlParser } from '@angular/compiler';
 import { MatDialog } from '@angular/material/dialog';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'app-pn-list',
@@ -24,16 +24,16 @@ export class PnListComponent implements OnInit {
   public dataListActive: PnEntryData[] = [];
   public dataListInactive: PnEntryData[] = [];
   dialogSubscription: any;
-  attachmentList: import("c:/Users/petla/git/bakalarska_praca_ambulancia/ambulance-spa/src/app/model/attachment").Attachment[];
+  attachmentList: import('c:/Users/petla/git/bakalarska_praca_ambulancia/ambulance-spa/src/app/model/attachment').Attachment[];
   public loading;
 
-  constructor(private pnFormService: PnFormService, 
-              private patientService: WaitingListService, 
+  constructor(private pnFormService: PnFormService,
+              private patientService: PatientService,
               public dialog: MatDialog,
               private snackBar: MatSnackBar) {
-    
+
     this.loading = true;
-    
+
     this.pnFormService.getAllPnForms().subscribe((result) => {
       this.pnFormList = result;
 
@@ -42,13 +42,13 @@ export class PnListComponent implements OnInit {
 
         allPatients = response;
 
-        this.pnFormService.getAllFiles().subscribe(response => {
-          this.attachmentList = response;
+        this.pnFormService.getAllFiles().subscribe(files => {
+          this.attachmentList = files;
           console.log(this.attachmentList);
 
           this.pnFormList.forEach(element => {
 
-            let attachments: Attachment[] = [];
+            const attachments: Attachment[] = [];
 
             this.attachmentList.forEach(att => {
               if (att.pnForm === element.id) {
@@ -59,20 +59,20 @@ export class PnListComponent implements OnInit {
             const entry = {
               pnForm: element,
               patient: allPatients.find(patient =>  patient.id === element.patientBirthNumber),
-              attachments: attachments
+              attachments
             };
 
-            let now = new Date;
-            let pnDate = new Date(element.beginningDate);
-            let difference = now.getTime() - pnDate.getTime();
-            let numOfDays = difference / (1000 * 3600 * 24);
+            const now = new Date;
+            const pnDate = new Date(element.beginningDate);
+            const difference = now.getTime() - pnDate.getTime();
+            const numOfDays = difference / (1000 * 3600 * 24);
             if (numOfDays < 11) {
               this.dataListActive.push(entry);
             } else {
               this.dataListInactive.push(entry);
             }
           });
-          
+
           this.dataListActive.sort((a, b) => {
             const dateA = a.pnForm.beginningDate;
             const dateB = b.pnForm.beginningDate;
@@ -86,22 +86,16 @@ export class PnListComponent implements OnInit {
           });
 
           this.loading = false;
-        
+
         });
       });
-
-      
-
-      
     });
-
-
   }
 
   ngOnInit(): void {
   }
 
-  updatePnForm(pnForm: PnForm) {
+  updatePnForm(pnForm: PnForm): void {
     this.pnFormService.updatePnForm(pnForm).subscribe(response => {
     },
     (error: HttpErrorResponse) => {
@@ -113,14 +107,14 @@ export class PnListComponent implements OnInit {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
-  uploadPdf(pnForm: PnForm) {
+  uploadPdf(pnForm: PnForm): void {
     this.pnFormService.uploadDataToPdf(pnForm).subscribe(async response => {
       console.log(response);
       await this.delay(1000);
       this.pnFormService.downloadPnForm().subscribe((data) => {
-        let pdfFile = new Blob([data], {type: 'application/pdf'});
-        let downloadURL = URL.createObjectURL(pdfFile);
-        let link = document.createElement('a');
+        const pdfFile = new Blob([data], {type: 'application/pdf'});
+        const downloadURL = URL.createObjectURL(pdfFile);
+        const link = document.createElement('a');
         link.href = downloadURL;
         link.download = 'pn_form.pdf';
         link.click();
@@ -132,13 +126,13 @@ export class PnListComponent implements OnInit {
     });
   }
 
-  onClick(target: HTMLElement) {
-    let div = target.parentElement;
-    div.style.opacity = "0";
-    setTimeout(function(){ div.style.display = "none"; }, 600);
+  onClick(target: HTMLElement): void {
+    const div = target.parentElement;
+    div.style.opacity = '0';
+    setTimeout(function(){ div.style.display = 'none'; }, 600);
   }
 
-  openEndDialog(pnForm: PnForm) {
+  openEndDialog(pnForm: PnForm): void {
     const dialogRef = this.dialog.open(EndDialogComponent, {
       panelClass: ['custom-dialog-container', 'custom-form-field-infix'],
       width: '700px',
@@ -151,8 +145,8 @@ export class PnListComponent implements OnInit {
     });
   }
 
-  onFileUpload(files: UploadedFile) {
-    const file:File = files.file.target.files[0];
+  onFileUpload(files: UploadedFile): void {
+    const file: File = files.file.target.files[0];
     console.log(file);
     if (file) {
         this.pnFormService.uploadFile(file, files.pnForm.id).subscribe(response => {
@@ -170,11 +164,11 @@ export class PnListComponent implements OnInit {
     }
   }
 
-  onFileDownload(name: string) {
+  onFileDownload(name: string): void {
     this.pnFormService.getFileByName(name).subscribe((data) => {
-      let pdfFile = new Blob([data], {type: 'application/pdf'});
-      let downloadURL = URL.createObjectURL(pdfFile);
-      let link = document.createElement('a');
+      const pdfFile = new Blob([data], {type: 'application/pdf'});
+      const downloadURL = URL.createObjectURL(pdfFile);
+      const link = document.createElement('a');
       link.href = downloadURL;
       link.download = name;
       link.click();

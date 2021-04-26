@@ -13,7 +13,7 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "files_data")
-public class File {
+public class AttachmentFile {
 
     @Id
     @Column(name = "id")
@@ -36,10 +36,10 @@ public class File {
     @Column(name = "id_form")
     private String pnForm;
 
-    public File() {
+    public AttachmentFile() {
     }
 
-    public File(String id, byte[] data, String name, String type, String patient, String pnForm) {
+    public AttachmentFile(String id, byte[] data, String name, String type, String patient, String pnForm) {
         this.id = id;
         this.data = data;
         this.name = name;

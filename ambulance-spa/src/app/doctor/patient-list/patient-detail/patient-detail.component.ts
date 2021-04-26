@@ -1,8 +1,10 @@
+import { DeleteDialogComponent } from './../delete-dialog/delete-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { PnFormService } from './../../../services/pn-form/pn-form.service';
 import { Patient } from '../../../model/patient';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PatientDetailDialogData } from 'src/app/model/patient-detail-dialog-data';
 import { PnFormDataService } from 'src/app/services/pn-form-data/pn-form-data.service';
 
@@ -21,7 +23,8 @@ export class PatientDetailComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: PatientDetailDialogData,
               public pnformService: PnFormService,
               public router: Router,
-              pnFormDataService: PnFormDataService
+              pnFormDataService: PnFormDataService,
+              public deleteDialog: MatDialog
   ) {
     this.patient = data.patientData;
     this.pnFormDataService = pnFormDataService;
@@ -34,6 +37,13 @@ export class PatientDetailComponent implements OnInit {
   createPN(patient: Patient): void{
     this.pnFormDataService.changeData(patient);
     this.router.navigate(['user/pn-form']);
+    this.dialogRef.close();
+  }
+
+  openDeleteDialog(patient: Patient): void {
+    this.deleteDialog.open(DeleteDialogComponent, {
+      data: patient,
+    });
     this.dialogRef.close();
   }
 }

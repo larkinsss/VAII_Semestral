@@ -1,3 +1,4 @@
+import { UserService } from './../services/user/user.service';
 import { ProfileComponent } from './../profile/profile.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoginService } from '../services/login/login.service';
@@ -21,14 +22,18 @@ export class UserComponent implements OnInit {
   username: string;
   dialogSubscription: any;
 
-  constructor(authGuard: AuthGuard, authServ: LoginService, router: Router, public dialog: MatDialog) {
-    this.authGuard = authGuard;
-    this.authServ = authServ;
-    this.router = router;
+  constructor(authGuard: AuthGuard,
+              private userService: UserService, 
+              router: Router,
+              public dialog: MatDialog,
+              private loginServ: LoginService) {
 
+    this.authGuard = authGuard;
+    this.userService = userService;
+    this.router = router;
     this.username = localStorage.getItem('USERNAME');
     const userID = localStorage.getItem('USER_ID');
-    this.authServ.getUserById(userID).subscribe(response => {
+    this.userService.getUserById(userID).subscribe(response => {
       this.loggedUser = response;
     },
     (error: HttpErrorResponse) => {
@@ -41,7 +46,7 @@ export class UserComponent implements OnInit {
   }
 
   logout(): void {
-    this.authServ.logout();
+    this.loginServ.logout();
     this.router.navigate(['login']);
   }
 

@@ -63,7 +63,7 @@ export class PnFormService {
   public uploadFile(file: File, pnFormId: string): Observable<any> {
     const url = `${environment.baseUrl}/file/upload/${pnFormId}`;
     const jwt = localStorage.getItem('JWT');
-    let uploadHeaders = new HttpHeaders({Authorization: 'Bearer ' + jwt})
+    const uploadHeaders = new HttpHeaders({Authorization: 'Bearer ' + jwt});
     const formData = new FormData();
     formData.append('file', file, file.name);
     console.log(this.authHeader);
@@ -77,7 +77,7 @@ export class PnFormService {
     return apiCall.pipe(map(response => (response as Attachment[])));
   }
 
-  public getFileByName(name: string):  any {
+  public getFileByName(name: string): any {
     const url = `${environment.baseUrl}/file/get/${name}`;
     this.setAuthHeader();
     return  this.httpClient.get(url, { headers : this.authHeader, responseType: 'blob' });

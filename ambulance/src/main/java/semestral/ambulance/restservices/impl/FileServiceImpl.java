@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import semestral.ambulance.models.File;
+import semestral.ambulance.models.AttachmentFile;
 import semestral.ambulance.models.PnForm;
 import semestral.ambulance.repository.FileRepository;
 import semestral.ambulance.repository.PnFormRepository;
@@ -31,13 +31,13 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public File saveFile(MultipartFile file, String idForm) throws IOException {
+    public AttachmentFile saveFile(MultipartFile file, String idForm) throws IOException {
         if (file != null) {
             Optional<PnForm> form = pnRepo.findById(idForm);
             if (form.isPresent()) {
 
                 String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-                File fileToDatabase = new File(UUID.randomUUID().toString(), file.getBytes(), fileName, file.getContentType(), form.get().getPatient().getId(), form.get().getId());
+                AttachmentFile fileToDatabase = new AttachmentFile(UUID.randomUUID().toString(), file.getBytes(), fileName, file.getContentType(), form.get().getPatient().getId(), form.get().getId());
 
                 return this.fileRepo.save(fileToDatabase);
             }
@@ -47,9 +47,9 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public File getFileById(String id) throws Exception {
+    public AttachmentFile getFileById(String id) throws Exception {
         if (id != null) {
-            Optional<File> existing = this.fileRepo.findById(id);
+            Optional<AttachmentFile> existing = this.fileRepo.findById(id);
             if (existing.isPresent()) {
                 return existing.get();
             } else {
@@ -60,14 +60,14 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<File> getAllFiles() {
+    public List<AttachmentFile> getAllFiles() {
         return this.fileRepo.findAll();
     }
 
     @Override
-    public File getFileByName(String name) throws Exception {
+    public AttachmentFile getFileByName(String name) throws Exception {
         if (name != null) {
-            Optional<File> existing = this.fileRepo.findByName(name);
+            Optional<AttachmentFile> existing = this.fileRepo.findByName(name);
             if (existing.isPresent()) {
                 return existing.get();
             } else {

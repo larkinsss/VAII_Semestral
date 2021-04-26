@@ -1,9 +1,8 @@
-import { LoginService } from '../services/login/login.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Patient } from 'src/app/model/patient';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { User } from '../model/user';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +15,7 @@ export class RegisterComponent implements OnInit {
   showWarning = false;
   @ViewChild('registerForm') private formDirective: NgForm;
 
-  constructor(private service: LoginService, private snackBar: MatSnackBar, private fb: FormBuilder) {
+  constructor(private userService: UserService, private snackBar: MatSnackBar, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -99,11 +98,11 @@ export class RegisterComponent implements OnInit {
         role: 'UNREGISTERED'
       };
 
-      this.service.getNewUserId().subscribe(response =>
+      this.userService.getNewUserId().subscribe(response =>
         {
           const newId = response as number;
           entry.id = newId;
-          this.service.register(entry as User).subscribe(response =>
+          this.userService.register(entry as User).subscribe(response =>
           {
             this.snackBar.open('Vaša žiadosť bola spracovaná', 'Zatvoriť', {
               duration: 10000,

@@ -17,17 +17,17 @@ export class EmployerModalComponent implements OnInit {
   @Output() outputEmployer: EventEmitter<Employer> =   new EventEmitter();
 
   constructor(public dialogRef: MatDialogRef<EmployerModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Employer,
-    private fb: FormBuilder,
-    private emplServ: EmployerService,
-    private snackBar: MatSnackBar
+              @Inject(MAT_DIALOG_DATA) public data: Employer,
+              private fb: FormBuilder,
+              private emplServ: EmployerService,
+              private snackBar: MatSnackBar
     ) {
 
   }
 
   ngOnInit(): void {
     this.employerForm = this.fb.group({
-      employerName:['', [
+      employerName: ['', [
         Validators.required,
         Validators.pattern('^[ a-zA-ZÀ-ÿÀ-ʯ\u00f1\u00d1]*$'),
         Validators.minLength(2)
@@ -46,7 +46,7 @@ export class EmployerModalComponent implements OnInit {
         Validators.maxLength(5),
         Validators.pattern(/^-?(0|[1-9]\d*)?$/)
       ]]
-    })
+    });
   }
 
   public get newEmployerName(): any {
@@ -70,8 +70,8 @@ export class EmployerModalComponent implements OnInit {
   }
 
   createEmployer(): void {
-    this.data.name= this.newEmployerName;
-    this.data.adressStreet= this.newEmployerStreet;
+    this.data.name = this.newEmployerName;
+    this.data.adressStreet = this.newEmployerStreet;
     this.data.adressNumber = this.newEmployerStreetNumber;
     this.data.psc = this.newEmployerPsc;
 

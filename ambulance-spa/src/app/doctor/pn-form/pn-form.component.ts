@@ -3,7 +3,7 @@ import { PnForm } from 'src/app/model/pnForm';
 import { Employer } from 'src/app/model/employer';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EmployerService } from './../../services/employer/employer.service';
-import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 import { Patient } from './../../model/patient';
 import { PnFormService } from './../../services/pn-form/pn-form.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -20,8 +20,6 @@ export class PnFormComponent implements OnInit {
 
   declare require: any;
   patient: Patient;
-  pnFormServ: PnFormService;
-  private pnFormDataService: PnFormDataService;
   dateBeginnig: Date;
   dateEnding: Date;
   diagnoseMark: number;
@@ -37,14 +35,12 @@ export class PnFormComponent implements OnInit {
 
   @ViewChild('pnFormDirective') private formDirective: NgForm;
 
-  constructor(pnService: PnFormService,
+  constructor(private pnService: PnFormService,
               private formBuilder: FormBuilder,
-              pnFormDataService: PnFormDataService,
-              private patientService: WaitingListService,
+              private pnFormDataService: PnFormDataService,
+              private patientService: PatientService,
               private employerService: EmployerService,
               private snackBar: MatSnackBar) {
-    this.pnFormServ = pnService;
-    this.pnFormDataService = pnFormDataService;
   }
 
   ngOnInit(): void {
@@ -119,62 +115,107 @@ export class PnFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Getter for patient name
+   */
   public get patientName(): any {
     return this.pnForm.get('patientName').value;
   }
 
+  /**
+   * Getter for patient birthnumber
+   */
   public get patientBirthNumber(): any {
     return  this.pnForm.get('patientBirthNumber').value;
   }
 
+  /**
+   * Getter for patient address
+   */
   public get adress(): any {
     return this.pnForm.get('adresa').value;
   }
 
+  /**
+   * Getter for patient temporary address during sickness leave
+   */
   public get tempAdress(): string {
     return  this.pnForm.get('prechAdresa').value;
   }
 
+  /**
+   * Getter for patient employer
+   */
   public get employer(): any {
     return this.pnForm.get('zamestnavatel').value;
   }
 
+  /**
+   * Getter for patient insurance relationship
+   */
   public get insRel(): any {
     return  this.pnForm.get('poistnyVztah').value;
   }
 
+  /**
+   * Getter for patient insurance company code
+   */
   public get insCode(): any {
     return  this.pnForm.get('kod').value;
   }
 
+  /**
+   * Getter for sickness leave beginning date
+   */
   public get dateBeg(): Date {
     return  this.pnForm.get('dateBegValue').value;
   }
 
+  /**
+   * Getter for sickness leave beginning date
+   */
   public get dateEnd(): Date {
     return  this.pnForm.get('dateEndValue').value;
   }
 
+  /**
+   * Getter for diagnose number
+   */
   public get digNum(): any {
     return  this.pnForm.get('diagnoseNum').value;
   }
 
+  /**
+   * Getter for diagnose category
+   */
   public get digCategory(): any {
     return  this.pnForm.get('diagnoseCat').value;
   }
 
+  /**
+   * Getter for temporary address checkbox value
+   */
   public get tempAddressCheckbox(): any {
     return  this.pnForm.get('sameAdress').value;
   }
 
+  /**
+   * Getter for temporary address street name
+   */
   public get tempStreet(): any {
     return  this.pnForm.get('temp_address_street').value;
   }
 
+  /**
+   * Getter for temporary address street number
+   */
   public get tempNumber(): any {
     return  this.pnForm.get('temp_address_number').value;
   }
 
+  /**
+   * Getter for temporary address street postal code
+   */
   public get tempPsc(): any {
     return  this.pnForm.get('temp_address_psc').value;
   }
@@ -184,7 +225,7 @@ export class PnFormComponent implements OnInit {
   }
 
   uploadPdf() {
-    this.pnFormServ.uploadDataToPdf(this.createPnForm()).subscribe(async response => {
+    this.pnService.uploadDataToPdf(this.createPnForm()).subscribe(async response => {
       console.log(response);
       await this.delay(1000);
       this.savePdf();
@@ -196,7 +237,7 @@ export class PnFormComponent implements OnInit {
 
 
   savePdf() {
-    this.pnFormServ.downloadPnForm().subscribe((data) => {
+    this.pnService.downloadPnForm().subscribe((data) => {
       let pdfFile = new Blob([data], {type: 'application/pdf'});
       let downloadURL = URL.createObjectURL(pdfFile);
       let link = document.createElement('a');
@@ -209,7 +250,7 @@ export class PnFormComponent implements OnInit {
 
 
   saveForm(): any{
-    this.pnFormServ.postPnForm(this.createPnForm()).subscribe(response => {
+    this.pnService.postPnForm(this.createPnForm()).subscribe(response => {
       console.log(response);
       this.snackBar.open('Formulár bol uložený', 'Zatvoriť', {
         duration: 10000,
@@ -246,7 +287,7 @@ export class PnFormComponent implements OnInit {
       diagnoseNumber: this.digNum,
       endDiagnose: null,
       patientBirthNumber: this.patient.id,
-      doctorId: 4,
+      doctorId: +localStorage.getItem('USER_ID'),
       status: 0
     };
 

@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import semestral.ambulance.models.File;
+import semestral.ambulance.models.AttachmentFile;
 
 @Repository
-public interface FileRepository extends JpaRepository<File, String> {
-    Optional<File> findByData(byte[] data);
+public interface FileRepository extends JpaRepository<AttachmentFile, String> {
+    Optional<AttachmentFile> findByData(byte[] data);
 
-    Optional<File> findByName(String name);
+    Optional<AttachmentFile> findByName(String name);
 }

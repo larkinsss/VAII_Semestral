@@ -3,7 +3,7 @@ import { PnEntryData } from './../../../model/pnEntryData';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Patient } from 'src/app/model/patient';
 import { PnListComponent } from './../pn-list.component';
-import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 import { PnForm } from './../../../model/pnForm';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PnFormService } from 'src/app/services/pn-form/pn-form.service';
@@ -37,7 +37,7 @@ export class PnListEntryComponent{
   public change = new EventEmitter<UploadedFile>();
 
   @Output()
-  public download = new EventEmitter<String>();
+  public download = new EventEmitter<string>();
 
   downloadFile(name: string) {
     this.download.emit(name);

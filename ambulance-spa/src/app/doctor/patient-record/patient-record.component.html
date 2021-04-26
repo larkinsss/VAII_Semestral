@@ -72,10 +72,28 @@
         </div>
 
         <div class="row">
-            <p class="col-md">
+            <!-- <p class="col-md">
                 <mat-form-field appearance="outline" class="input-area">
                   <mat-label>PSČ</mat-label>
                   <input matInput placeholder="01234" formControlName="pscValue" id="psc">
+                </mat-form-field>
+            </p> -->
+
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                    <mat-label>PSČ</mat-label>
+                    <input type="text"
+                           placeholder="01234"
+                           aria-label="zip"
+                           matInput
+                           [formControl]="pscControl"
+                           [matAutocomplete]="auto"
+                           formControlName="pscValue">
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.psc">
+                        {{option.name}}-{{option.psc}}
+                      </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
             </p>
         </div>
@@ -143,6 +161,7 @@
 
         <div class="button">
             <button id="rezervacia" mat-raised-button [disabled]="myForm.invalid" color="warn" (click)="this.addPatient()">Rezervuj</button>
+            <button mat-raised-button color="warn" (click)="this.controlButton()">Control</button>
         </div>
 
         

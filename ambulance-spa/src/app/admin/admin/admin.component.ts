@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user/user.service';
 import { LoginService } from '../../services/login/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -13,22 +14,23 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-
-  authGuard: AuthGuard;
-  authServ: LoginService;
-  router: Router;
   loggedUser: User;
   username: string;
   dialogSubscription: any;
 
-  constructor(authGuard: AuthGuard, authServ: LoginService, router: Router, public dialog: MatDialog) {
+  constructor(public authGuard: AuthGuard,
+              private userService: UserService, 
+              private router: Router, 
+              public dialog: MatDialog, 
+              private loginService: LoginService) {
     this.authGuard = authGuard;
-    this.authServ = authServ;
+    this.userService = userService;
     this.router = router;
+    this.loginService = loginService;
 
     this.username = localStorage.getItem('USERNAME');
     let userID = localStorage.getItem('USER_ID');
-    this.authServ.getUserById(userID).subscribe(response => {
+    this.userService.getUserById(userID).subscribe(response => {
       this.loggedUser = response;
     },
     (error: HttpErrorResponse) => {
@@ -40,7 +42,7 @@ export class AdminComponent implements OnInit {
   }
 
   logout(): void {
-    this.authServ.logout();
+    this.loginService.logout();
     this.router.navigate(['login']);
   }
 

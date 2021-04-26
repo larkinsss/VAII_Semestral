@@ -1,5 +1,4 @@
 import { LoginService } from '../services/login/login.service';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -15,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginService: LoginService;
   loginCorrect: boolean = true;
 
-  constructor(private loginServ: LoginService, private http: HttpClient, private router: Router) { 
+  constructor(private loginServ: LoginService, private router: Router) { 
     this.loginService = loginServ;
   }
 

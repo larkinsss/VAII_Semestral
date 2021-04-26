@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WaitingListService } from 'src/app/services/waiting-list/waiting-list.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -17,12 +17,12 @@ export class PatientListComponent implements OnInit {
 
   searchText: string;
   patients: Patient[];
-  waitingListService: WaitingListService;
+  waitingListService: PatientService;
   dialogSubscription: Subscription;
   pnFormDataService;
   currentData: Patient;
 
-  constructor(waitingService: WaitingListService, public dialog: MatDialog, pnFormDataService: PnFormDataService, private router: Router) {
+  constructor(waitingService: PatientService, public dialog: MatDialog, pnFormDataService: PnFormDataService, private router: Router) {
     this.waitingListService = waitingService;
     this.pnFormDataService = pnFormDataService;
   }

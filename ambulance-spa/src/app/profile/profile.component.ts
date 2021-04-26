@@ -1,3 +1,4 @@
+import { UserService } from './../services/user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoginService } from './../services/login/login.service';
 import { ProfileData } from './../model/profile-data';
@@ -34,7 +35,7 @@ export class ProfileComponent implements OnInit {
     public dialogRef: MatDialogRef<ProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProfileData,
     private fb: FormBuilder,
-    private loginServ: LoginService,
+    private userService: UserService,
     private snackBar: MatSnackBar
   ) {
     this.emailPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -123,7 +124,7 @@ export class ProfileComponent implements OnInit {
     newUser.firstname = this.changeFirstName;
     newUser.lastname = this.changeLastName;
     newUser.email = this.changeEmail;
-    this.loginServ.upsertUser(newUser).subscribe(response => {
+    this.userService.upsertUser(newUser).subscribe(response => {
       this.snackBar.open('Vaše údaje boli zmenené', 'Zatvoriť', {
         duration: 10000,
       });
@@ -141,7 +142,7 @@ export class ProfileComponent implements OnInit {
       newPassword: this.password2,
       username: this.userName
     };
-    this.loginServ.changeUserPassword(request).subscribe(response => {
+    this.userService.changeUserPassword(request).subscribe(response => {
       this.resetForm();
       this.snackBar.open('Heslo úspešne zmenené', 'Zatvoriť', {
         duration: 10000,
