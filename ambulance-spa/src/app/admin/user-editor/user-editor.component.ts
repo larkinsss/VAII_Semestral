@@ -4,7 +4,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Patient } from 'src/app/model/patient';
-import { PatientService } from 'src/app/services/patient/patient.service';
 import { User } from 'src/app/model/user';
 
 @Component({
