@@ -23,6 +23,7 @@ export class PnListComponent implements OnInit {
   public patientList: Patient[];
   public dataListActive: PnEntryData[] = [];
   public dataListInactive: PnEntryData[] = [];
+  public dataListEnded: PnEntryData[] = [];
   dialogSubscription: any;
   attachmentList: import('c:/Users/petla/git/bakalarska_praca_ambulancia/ambulance-spa/src/app/model/attachment').Attachment[];
   public loading;
@@ -66,7 +67,9 @@ export class PnListComponent implements OnInit {
             const pnDate = new Date(element.beginningDate);
             const difference = now.getTime() - pnDate.getTime();
             const numOfDays = difference / (1000 * 3600 * 24);
-            if (numOfDays < 11) {
+            if (element.endDate != null) {
+              this.dataListEnded.push(entry);
+            } else if (numOfDays < 11) {
               this.dataListActive.push(entry);
             } else {
               this.dataListInactive.push(entry);

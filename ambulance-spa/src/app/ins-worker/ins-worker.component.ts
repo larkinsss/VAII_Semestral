@@ -1,3 +1,4 @@
+import { MessageComponent } from './message/message.component';
 import { UserService } from './../services/user/user.service';
 import { AuthGuard } from './../authguard/auth.guard';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../model/user';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileComponent } from '../profile/profile.component';
+import { PnForm } from '../model/pnForm';
 
 @Component({
   selector: 'app-ins-worker',
@@ -45,9 +47,22 @@ export class InsWorkerComponent implements OnInit {
   openProfile(): void {
     const dialogRef = this.dialog.open(ProfileComponent, {
       panelClass: ['custom-dialog-container', 'custom-form-field-infix'],
+      width: '980px',
+      height: '720px',
+      data: { user: this.loggedUser },
+    });
+
+    this.dialogSubscription = dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openEndDialog(pnForm: PnForm): void {
+    const dialogRef = this.dialog.open(MessageComponent, {
+      panelClass: ['custom-dialog-container', 'custom-form-field-infix'],
       width: '700px',
       height: '500px',
-      data: { user: this.loggedUser },
+      data: pnForm,
     });
 
     this.dialogSubscription = dialogRef.afterClosed().subscribe(result => {

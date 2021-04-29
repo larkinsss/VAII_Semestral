@@ -1,3 +1,6 @@
+import { MessageComponent } from './../../../ins-worker/message/message.component';
+import { Message } from './../../../model/message';
+import { MessageService } from './../../../services/message/message.service';
 import { UploadedFile } from './../../../model/uploadedFile';
 import { PnEntryData } from './../../../model/pnEntryData';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -5,18 +8,21 @@ import { Patient } from 'src/app/model/patient';
 import { PnListComponent } from './../pn-list.component';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { PnForm } from './../../../model/pnForm';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { PnFormService } from 'src/app/services/pn-form/pn-form.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-pn-list-entry',
   templateUrl: './pn-list-entry.component.html',
   styleUrls: ['./pn-list-entry.component.scss']
 })
-export class PnListEntryComponent{
+export class PnListEntryComponent implements OnInit{
 
   diagnoses = [{ code: 1, name: 'Choroba' }, { code: 2 , name: 'Karantenne opatrenie' }, { code: 3, name: 'Uraz' }, { code: 4, name: 'Choroba z povolania' },
   { code: 5, name: 'Pracovny uraz' }, { code: 6, name: 'Uraz zav. inou osobou' }, { code: 7, name: 'Pozitie alkoholu alebo zneuzitie inych navykovych latok' }];
+  message: Message;
+
 
   @Input()
   public data: PnEntryData;
@@ -38,14 +44,50 @@ export class PnListEntryComponent{
 
   @Output()
   public download = new EventEmitter<string>();
+  dialogSubscription: any;
+
+  constructor(private messageService: MessageService, public dialog: MatDialog, private messageServ: MessageService) {
+  }
+
+  ngOnInit(): void {
+    if (this.data.pnForm.status === 1) {
+      this.messageService.getMessage(this.data.pnForm.id).subscribe(response => {
+        this.message = response;
+      });
+    }
+  }
 
   downloadFile(name: string) {
     this.download.emit(name);
   }
 
   onUpdate(status: number) {
-    this.data.pnForm.status = status;
-    this.update.emit(this.data.pnForm);
+    if (status === 1) {
+      this.openMessageDialog();
+    } else {
+      if (this.data.pnForm.status === 1) {
+        this.messageServ.deleteMessage(this.data.pnForm.id).subscribe(response => {
+          this.data.pnForm.status = status;
+          this.update.emit(this.data.pnForm);
+        });
+      } else {
+        this.data.pnForm.status = status;
+        this.update.emit(this.data.pnForm);
+      }
+    }
+  }
+
+  openMessageDialog(): void {
+    const dialogRef = this.dialog.open(MessageComponent, {
+      panelClass: ['custom-dialog-container', 'custom-form-field-infix'],
+      width: '980px',
+      height: '300px',
+      data: this.data.pnForm,
+    });
+
+    this.dialogSubscription = dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   onPrint(pnForm: PnForm) {
@@ -57,7 +99,7 @@ export class PnListEntryComponent{
   }
 
   onFileSelected(file: File, pn: PnForm) {
-    this.change.emit({'file': file, 'pnForm': this.data.pnForm  });
+    this.change.emit({file, pnForm: this.data.pnForm  });
   }
 
   showToSocWork() {
@@ -90,7 +132,6 @@ export class PnListEntryComponent{
   }
 
   getInsuranceComp(): string {
-
     switch (this.data.patient.insuranceNumber) {
       case 24:
         return '24 - Dôvera';
@@ -101,6 +142,6 @@ export class PnListEntryComponent{
     }
   }
 
-  
+
 
 }

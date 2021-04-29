@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +53,15 @@ public class PscController {
             return ResponseEntity.ok().body(this.pscService.getAllZips()); 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
+        }
+    }
+
+    @GetMapping(value = "psc/get/{zip}")
+    public ResponseEntity<ZipPostal> getPostal(@PathVariable("zip") String postal) {
+        try {
+            return ResponseEntity.ok().body(this.pscService.getZipPostal(postal)); 
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build().status(HttpStatus.EXPECTATION_FAILED).body(null);
         }
     }
     

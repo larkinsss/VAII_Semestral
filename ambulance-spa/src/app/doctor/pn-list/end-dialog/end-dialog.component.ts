@@ -55,6 +55,7 @@ export class EndDialogComponent implements OnInit {
     this.data.endDate = this.endDate;
     this.data.endDiagnose = this.endDiagnose;
     this.pnFormServ.updatePnForm(this.data).subscribe(response => {
+      this.dialogRef.close();
       this.snackBar.open('Práceneschopnosť ukončená', 'Zatvoriť', {
         duration: 10000,
       });

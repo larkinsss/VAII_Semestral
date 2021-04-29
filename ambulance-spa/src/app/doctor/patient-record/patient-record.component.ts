@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ZipService } from './../../services/zip/zip.service';
 import { Employer } from './../../model/employer';
 import { EmployerModalComponent } from './employer-modal/employer-modal.component';
@@ -40,7 +41,8 @@ export class PatientRecordComponent implements OnInit {
               private fb: FormBuilder,
               private employerService: EmployerService,
               public dialog: MatDialog,
-              private zipService: ZipService) {
+              private zipService: ZipService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -251,8 +253,8 @@ export class PatientRecordComponent implements OnInit {
 
     const dialogRef = this.dialog.open(EmployerModalComponent, {
       panelClass: ['custom-dialog-container', 'custom-form-field-infix'],
-      width: '700px',
-      height: '500px',
+      width: '920px',
+      height: '700px',
       data: this.newEmployer,
     });
 
@@ -286,6 +288,10 @@ export class PatientRecordComponent implements OnInit {
       idEmployer: this.patientEmployer
     };
     return entry as Patient;
+  }
+
+  routeToList(): void {
+    this.router.navigate(['user/patient-list']);
   }
 
 }

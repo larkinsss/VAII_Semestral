@@ -6,3 +6,44 @@
     margin-left: 10px;
     margin-right: 10px
 }
+
+.col-md {
+    padding-top: 20px;
+    min-width: 30%;
+}
+
+.input-area {
+    width: 100%;
+    display: block;
+}
+
+.header {
+    width: 20%;
+    max-width: 20%;
+}
+
+.beginning-desc {
+    width: 20%;
+    max-width: 20%;
+}
+
+.end-desc {
+    width: 20%;
+    max-width: 20%;
+}
+
+@media (max-width: 620px) {
+    .header {
+        width: 50%;
+        min-width: 40%;
+    }
+    
+    .beginning-desc {
+        width: 30%;
+    }
+    
+    .end-desc {
+        width: 20%;
+        min-width: 30%;
+    }
+}

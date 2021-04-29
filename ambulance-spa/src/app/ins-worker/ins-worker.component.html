@@ -15,7 +15,6 @@
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="openProfile()" >Profil</button>
-        <button mat-menu-item>Nastavenia</button>
       </mat-menu>
       
       <div *ngIf="this.authGuard.checkIfUserLoggedIn()">

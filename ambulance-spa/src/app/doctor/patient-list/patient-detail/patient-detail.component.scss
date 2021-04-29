@@ -11,3 +11,20 @@
 .detail-button {
     margin: 10px;
 }
+
+.close {
+    margin-bottom: 15px;
+}
+
+.card {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .button-div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

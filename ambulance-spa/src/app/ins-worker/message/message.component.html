@@ -1,0 +1,23 @@
+<div class="close">
+    <button type="button" class="close" aria-label="Close" aria-checked="false" mat-dialog-close>
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</div>
+<h1 mat-dialog-title>Ukončenie práceneschopnosti</h1>
+
+<mat-card class="container">
+    <form (ngSubmit)="messageForm.valid" [formGroup]="messageForm">
+        <div class="row">
+            <p class="col-md">
+                <mat-form-field appearance="outline" class="input-area">
+                    <mat-label>Dôvod zamietnutia</mat-label>
+                    <input matInput maxlength="350" placeholder="Dôvod zamietnutia" formControlName="message">
+                </mat-form-field>
+            </p>
+        </div>
+
+        <div class="button">
+            <button mat-raised-button [disabled]="messageForm.invalid" color="warn" (click)="this.postMessage()">Evidova pacienta</button>
+        </div>
+    </form>
+</mat-card>

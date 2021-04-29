@@ -42,6 +42,17 @@
       </app-pn-list-entry>
     </ng-container>
 
+    <h3 class="header" *ngIf="dataListEnded.length != 0">Ukončené</h3>
+    <ng-container *ngFor="let entry of dataListEnded">
+      <app-pn-list-entry [data]="entry" 
+        (update)="updatePnForm($event)" 
+        (print)="uploadPdf($event)" 
+        (open)="openEndDialog($event)" 
+        (change)="onFileUpload($event)"
+        (download)="onFileDownload($event)">
+      </app-pn-list-entry>
+    </ng-container>
+
     <h2 class="header" *ngIf="dataListActive.length == 0 && dataListInactive.length == 0 && !this.loading">
       Aktuálne nie sú v systéme žiadne PN
     </h2>

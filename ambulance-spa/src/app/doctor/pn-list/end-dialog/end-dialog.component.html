@@ -1,10 +1,13 @@
+<div class="close">
+    <button type="button" class="close" aria-label="Close" aria-checked="false" mat-dialog-close>
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</div>
+<h1 mat-dialog-title>Ukončenie práceneschopnosti</h1>
+
 <mat-card class="container">
     
     <form (ngSubmit)="endForm.valid" [formGroup]="endForm">
-
-        <button type="button" class="close" aria-label="Close" aria-checked="false" (click)="closeDialog()">
-            <mat-icon>exit_to_app</mat-icon>
-        </button>
 
         <div class="row">
             <p class="col-md">
@@ -26,4 +29,4 @@
 
     </form>
 
-</mat-card>>
+</mat-card>

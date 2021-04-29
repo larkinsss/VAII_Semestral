@@ -7,11 +7,11 @@
  
 <div class= "homepage">
   <h1 class="text nadpis">
-    Vitajte v ambulancií doktora Mrkvičku
+    Vitajte v aplikácií Ambulancia
   </h1>
 
   <div class="text">
-      Na tejto stránke nájdete prehľad našej ambulancie s prehľadom čakajúcich pacientov a ďalšími informáciami.
+      Na tejto stránke nájdete prehľad našej aplikácie s prehľadom aktívnych záznamov PN a zoznamom pacientov.
   </div>
   
   <br>
@@ -22,8 +22,8 @@
         <img src="assets/doctor.jpg" alt="Random first slide">
       </div>
       <div class="text carousel-caption">
-        <h3 class="text nadpis">Doktor Mrkvička</h3>
-        <p>Akreditovaný praktický lekár</p>
+        <h3 class="text nadpis">Aplikácia Ambulancia</h3>
+        <p>Jednoduchý nástroj poskytujúci komunikáciu medzi pracoviskami poskytovareľa zdravotnej starostlivosti</p>
       </div>
     </ng-template>
     <ng-template ngbSlide>
@@ -31,8 +31,8 @@
         <img src="assets/patient.jpg" alt="Random second slide">
       </div>
       <div class="text carousel-caption">
-        <h3 class="text nadpis">Poradovník v čakárni</h3>
-        <p>Pozrite si kto čaká pred vami a kedy sa dostanete na rad</p>
+        <h3 class="text nadpis">Zoznam aktívnych záznamov PN</h3>
+        <p>Pozrite si aktívne PN, stihnite si ich prílohy, ukončite priebeh PN</p>
       </div>
     </ng-template>
     <ng-template ngbSlide>
@@ -40,8 +40,8 @@
         <img src="assets/appointment.jpg" alt="Random third slide">
       </div>
       <div class="text carousel-caption">
-        <h3 class="text nadpis">Appointment</h3>
-        <p>Jednoduchý systém objednania lekárskej prehliadky</p>
+        <h3 class="text nadpis">Profil</h3>
+        <p>Jednoduchý systém zmeny informácií užívateľského konta</p>
       </div>
     </ng-template>
       
@@ -50,19 +50,20 @@
         <img src="assets/ambulance.jpg" alt="Random fourth slide">
       </div>
       <div class="text carousel-caption">
-        <h3 class="text nadpis">Kontakt</h3>
-        <p>Kde a kedy nás nájdete na pracovisku</p>
+        <h3 class="text nadpis">Zoznam pacientov</h3>
+        <p>Prehľad evidovaných pacientov s funkciami jednoduchej manipulácie</p>
       </div>
     </ng-template>
   </ngb-carousel>
   
   <div class="row">
     <div class="text col-md-7">
-      V tejto jednoduchej aplikácií nájdete nástroje na rýchle objednanie na lekársku prehliadku. 
-      Stačí vyplniť základné údaje s krátkym popisom vašich ťažkostí a vaše miesto v čakárni je rezervované. 
-      Lekár si vašu žiadosť môže dopredu prezrieť a čo najlepšie sa pripraviť na poskytovanie korektných lekársky služieb.
-      V tabuľke nižšie nájdete aj prehľad lekárskych zákrokov, za ktoré si doktor mrkvička môže účtovať príslušný poplatok pokiaľ daný poplatok nie je hradený poisťovňou.
-      <table class="table table-striped">
+      V tejto jednoduchej aplikácií nájdete nástroje na rýchle vytvorenie záznamu práceneshopnosti. 
+      Systém automaticky vyplní informácie, čím vám uľahčí prácu. Vám neskôr stačí už iba zadať nutné detaily a PN je pripravená. 
+      Ostatní lekári si môžu záznamy prezrieť a prípadne k nim nahrať prílohy, pokiaľ napríklad lekár špecialista vykonal danému pacientovi na PN vyšetrenie na základe ktorého mu PN predĺžil.
+      Jednoducho si stiahnite PN vo formáte PDF a vytlačte si ho na fyzické tlačivo. Takto môžete mať záznam v elektronickej podobe a aj v karte pacienta priamo vo vašej ambulancií.
+
+      <!-- <table class="table table-striped">
         <thead>
         <tr>
           <th scope="col">#</th>
@@ -81,7 +82,7 @@
           <td>{{ procedure.procedurePrice | number }}€</td>
         </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
     <div class="col-md-5">
       <img src="assets/docPac.jpg" alt="Doctor and patients">

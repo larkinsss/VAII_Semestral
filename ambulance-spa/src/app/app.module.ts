@@ -52,6 +52,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DeleteDialogComponent } from './doctor/patient-list/delete-dialog/delete-dialog.component';
+import { MessageComponent } from './ins-worker/message/message.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { DeleteDialogComponent } from './doctor/patient-list/delete-dialog/delet
     EmployerModalComponent,
     UserEntryComponent,
     EndDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

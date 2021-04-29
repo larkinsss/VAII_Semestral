@@ -9,69 +9,110 @@
 
     <mat-expansion-panel-header>
 
-      <mat-panel-title class="exp_header">
+      <mat-panel-title class="header">
         <mat-icon class="logo" [ngbTooltip]="" [ngStyle]="{'color':'gray', 'padding-left':'5px', 'padding-right':'5px', 'font-size':'18px'}" *ngIf="this.data.pnForm.status == 0" placement="bottom">lens</mat-icon>
         <mat-icon class="logo" [ngbTooltip]="" [ngStyle]="{'color':'red', 'padding-left':'5px', 'padding-right':'5px',  'font-size':'18px'}" *ngIf="this.data.pnForm.status == 1" placement="bottom">lens</mat-icon>
         <mat-icon class="logo" [ngbTooltip]="" [ngStyle]="{'color':'lime', 'padding-left':'5px', 'padding-right':'5px', 'font-size':'18px'}" *ngIf="this.data.pnForm.status == 2" placement="bottom">lens</mat-icon>
         <mat-label class="label"> {{ data.patient.firstname }} {{ data.patient.lastname }} </mat-label>
       </mat-panel-title>
 
-      <mat-panel-description>
+      <mat-panel-description class="beginning-desc">
         {{ data.pnForm.beginningDate | date:'dd-MM-yyyy' }}
+      </mat-panel-description>
+
+      <mat-panel-description *ngIf="this.data.pnForm.endDate != null" style="color:red" class="end-desc">
+        Ukončená
       </mat-panel-description>
 
     </mat-expansion-panel-header>
 
     <div class="row">
 
-      <mat-form-field  appearance="outline">
+      <p class="col-md">
+        <mat-form-field  appearance="outline" class="input-area">
         <mat-label>Rodné číslo</mat-label>
         <input matInput [value]="data.patient.id" readonly/>
       </mat-form-field>
-
-      <mat-form-field  appearance="outline">
+      </p>
+      
+      <p class="col-md">
+        <mat-form-field  appearance="outline" class="input-area">
         <mat-label>Adresa pobytu počas práceneshopnosti</mat-label>
         <input matInput [value]="getTempAddress()" readonly/>
       </mat-form-field>
-
-    </div>
-
-    <div class="row">
-
-      <mat-form-field  appearance="outline">
-        <mat-label>Zdravotná poisťovňa</mat-label>
-        <input matInput [value]="getInsuranceComp()" readonly/>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Dátum začiatku práceneschopnosti</mat-label>
-        <input
-          matInput 
-          [ngModel] ="data.pnForm.beginningDate | date:'dd-MM-yyyy'"
-          readonly
-        />
-      </mat-form-field> 
-
+      </p>
       
     </div>
 
+    <div class="row">
+
+      <p class="col-md">
+        <mat-form-field  appearance="outline" class="input-area">
+          <mat-label>Zdravotná poisťovňa</mat-label>
+          <input matInput [value]="getInsuranceComp()" readonly/>
+        </mat-form-field>
+      </p>
+      
+      <p class="col-md">
+        <mat-form-field appearance="outline" class="input-area">
+          <mat-label>Dátum začiatku práceneschopnosti</mat-label>
+          <input
+            matInput 
+            [ngModel] ="data.pnForm.beginningDate | date:'dd-MM-yyyy'"
+            readonly
+          />
+        </mat-form-field> 
+      </p>
+    </div>
+
 
     <div class="row">
 
-      <mat-form-field  appearance="outline">
+      <p class="col-md">
+        <mat-form-field  appearance="outline" class="input-area">
         <mat-label>Kategoria diagnozy</mat-label>
         <input matInput [value]="mapDiagnose(this.data.pnForm.diagnoseCategory)" readonly/>
       </mat-form-field>
-
-      <mat-form-field  appearance="outline">
+      </p>
+      
+      <p class="col-md">
+        <mat-form-field  appearance="outline" class="input-area">
         <mat-label>Kód diagnózy - Štát. značka</mat-label>
         <input matInput [value]="this.data.pnForm.diagnoseNumber" readonly/>
       </mat-form-field>
+      </p>
+      
+    </div>
+
+    <div class="row" *ngIf="this.data.pnForm.endDate != null">
+      <p class="col-md">
+        <mat-form-field appearance="outline" class="input-area" style="color:red">
+          <mat-label>Dátum konca práceneschopnosti</mat-label>
+          <input
+            matInput 
+            [ngModel] ="this.data.pnForm.endDate | date:'dd-MM-yyyy'"
+            readonly
+          />
+        </mat-form-field> 
+      </p>
+    </div>
+
+    <div class="row" *ngIf="this.data.pnForm.status == 1">
+      <p class="col-md">
+        <mat-form-field appearance="outline" class="input-area" style="color:red">
+          <mat-label>Dôvod zamietnutia evidencie</mat-label>
+          <input
+            matInput 
+            [ngModel] ="this.message.text"
+            readonly
+          />
+        </mat-form-field> 
+      </p>
     </div>
 
     <mat-action-row *ngIf='showToSocWork()'>
       <button mat-raised-button color="warn" (click)="onUpdate(2)">Evidovať</button>
-      <button mat-raised-button color="warn" (click)="onUpdate(1)">Zamietnuť</button>      
+      <button mat-raised-button [disabled]="this.data.pnForm.status==1" color="warn" (click)="onUpdate(1)">Zamietnuť</button>      
     </mat-action-row>
 
     <mat-action-row *ngIf='showToUser()'>

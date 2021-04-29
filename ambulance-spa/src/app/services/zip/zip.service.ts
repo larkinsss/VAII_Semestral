@@ -25,4 +25,11 @@ export class ZipService {
     const jwt = localStorage.getItem('JWT');
     this.authHeader = new HttpHeaders({​​ Authorization: 'Bearer ' + jwt, 'Content-type': 'application/json'}​​);
   }
+
+  public getZip(zip: string ): Observable<Zip> {
+    const url = `${environment.baseUrl}/psc/get/${zip}`;
+    this.setAuthHeader();
+    const apiCall = this.httpClient.get(url, { headers : this.authHeader });
+    return apiCall.pipe(map(response => (response as Zip)));
+  }
 }

@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,13 +20,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import semestral.ambulance.models.DatabaseObjectModels.DBOMessage;
 import semestral.ambulance.models.DatabaseObjectModels.DBOPnForm;
+import semestral.ambulance.models.Message;
 import semestral.ambulance.models.Patient;
 import semestral.ambulance.models.PnForm;
+import semestral.ambulance.restservices.MessageService;
 import semestral.ambulance.restservices.PatientService;
 import semestral.ambulance.restservices.PnFormService;
 import semestral.ambulance.util.ItemNotFoundException;
 import semestral.ambulance.util.NoItemsFoundException;
+import java.util.UUID;
 
 @CrossOrigin(
 	origins = {"http://localhost:4200", "http://localhost:8080"}, 
@@ -37,11 +42,13 @@ public class PnFormController {
     private final PnFormService pnFormService;
     private final ModelMapper modelMapper;
 	private final PatientService patientServ;
+	private final MessageService messageServ;
 
-    public PnFormController(PnFormService pnFormService, ModelMapper modelMapper, PatientService patientService) {
+    public PnFormController(PnFormService pnFormService, ModelMapper modelMapper, PatientService patientService, MessageService messageService) {
 		this.pnFormService = pnFormService;
         this.modelMapper = modelMapper;
 		this.patientServ = patientService;
+		this.messageServ = messageService;
 	}
 
 	@DeleteMapping("/delete/pnform")
@@ -132,4 +139,54 @@ public class PnFormController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
     }
+
+	@GetMapping(value = "/message/get/all")
+	public ResponseEntity<List<Message>> getAllMessages() {
+		try {
+			return ResponseEntity.ok().body(this.messageServ.getAllMessages());
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(null);	
+		}
+	}
+
+	@PostMapping(value = "/message/post", produces = "application/json")
+	public ResponseEntity<Message> postPatient(@RequestBody DBOMessage message) {
+		if (message != null) {
+			try {
+				message.id = UUID.randomUUID().toString();
+				Message messageToDb = messageServ.createMessage(modelMapper.map(message, Message.class));
+				return ResponseEntity.accepted().body(messageToDb);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+	}
+
+	@GetMapping(value="/message/get/{id}")
+	public ResponseEntity getMessageById(@PathVariable("id") String id) {
+		try {
+            Message foundMessage = messageServ.getByPnForm(id);
+            return ResponseEntity.ok().body(foundMessage);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+	}
+
+	@DeleteMapping("/message/delete/{pnId}")
+	public ResponseEntity deleteMessage(@PathVariable(value = "pnId") String pnId) throws ItemNotFoundException {
+		if (pnId != null) {
+            try {
+                return ResponseEntity.accepted().body(messageServ.deleteByPnForm(pnId));
+            } catch (ItemNotFoundException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+		} else {
+			return ResponseEntity.badRequest().body("deleteMessage: Null argument exception");
+		}
+	}
+
+
 }

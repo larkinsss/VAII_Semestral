@@ -73,7 +73,7 @@ public class PnFormServiceImpl implements PnFormService {
     public PnForm updatePnForm(PnForm pnForm) throws ItemNotFoundException {
         if (pnForm != null) {
             if (pnFormRepo.findById(pnForm.getId()).isPresent()) {
-                pnFormRepo.deleteById(pnForm.getId());
+                //pnFormRepo.deleteById(pnForm.getId());
                 pnFormRepo.save(pnForm);
                 return pnForm;
             } else {

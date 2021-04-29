@@ -53,8 +53,8 @@ export class UserComponent implements OnInit {
   openProfile(): void {
     const dialogRef = this.dialog.open(ProfileComponent, {
       panelClass: ['custom-dialog-container', 'custom-form-field-infix'],
-      width: '700px',
-      height: '500px',
+      width: '980px',
+      height: '720px',
       data: { user: this.loggedUser },
     });
 

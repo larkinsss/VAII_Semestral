@@ -17,18 +17,17 @@ export class PatientListComponent implements OnInit {
 
   searchText: string;
   patients: Patient[];
-  waitingListService: PatientService;
   dialogSubscription: Subscription;
-  pnFormDataService;
   currentData: Patient;
 
-  constructor(waitingService: PatientService, public dialog: MatDialog, pnFormDataService: PnFormDataService, private router: Router) {
-    this.waitingListService = waitingService;
-    this.pnFormDataService = pnFormDataService;
+  constructor(private patientService: PatientService, 
+              public dialog: MatDialog, 
+              private pnFormDataService: PnFormDataService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    this.waitingListService.getWaitingList().subscribe(response => {
+    this.patientService.getWaitingList().subscribe(response => {
       this.patients = response;
     });
 
@@ -38,8 +37,8 @@ export class PatientListComponent implements OnInit {
   public openPatientDetail(patient: Patient): any {
     const dialogRef = this.dialog.open(PatientDetailComponent, {
       panelClass: ['custom-dialog-container', 'custom-form-field-infix'],
-      width: '700px',
-      height: '500px',
+      width: '1020px',
+      height: '720px',
       data: { patientData: patient },
     });
 

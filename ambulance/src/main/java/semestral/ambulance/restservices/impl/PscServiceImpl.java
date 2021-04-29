@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import javassist.NotFoundException;
 import semestral.ambulance.models.ZipPostal;
 import semestral.ambulance.repository.PscRepository;
 
@@ -32,5 +33,15 @@ public class PscServiceImpl {
         return this.pscRepo.findAll();
     }
 
+    public ZipPostal getZipPostal(String postal) throws Exception{
+        if (postal != null) {
+            Optional<ZipPostal> existing = pscRepo.findById(postal);
+            if (existing.isPresent()) {
+                return existing.get();
+            }
+            throw new NotFoundException("Postal was not found!");
+        }
+        throw new NullPointerException("Postal argument was null!");
+    }
     
 }

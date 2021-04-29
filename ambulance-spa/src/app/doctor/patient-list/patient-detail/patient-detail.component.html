@@ -1,53 +1,72 @@
-<mat-card class="card">
-    <mat-card-title>{{patient.firstname}} {{patient.lastname}}
-        <br>
-    </mat-card-title>
-    <mat-card-content>
-        <div class="row">
-            <div class="col-md-8">
-                <tr>
-                    <td class = "title">Meno pacienta:</td>
-                    <td></td>
-                    <td>{{patient.firstname}} {{patient.lastname}}</td>
-                </tr>
-                <tr>
-                    <td class = "title">Rodné číslo:</td>
-                    <td></td>
-                    <td>{{patient.id}}</td>
-                </tr>
-                
-                <tr>
-                    <td class = "title">Dátum narodenia: </td>
-                    <td></td>
-                    <td>{{patient.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
-                </tr>
-                <tr>
-                    <td class = "title">Adresa trvalého bydliska: </td>
-                    <td></td>
-                    <td>{{patient.streetName}} {{patient.streetNumber}}, Slovensko</td>
-                </tr>
-                <tr>
-                    <td class = "title">Dátum narodenia: </td>
-                    <td></td>
-                    <td>{{patient.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
-                </tr>
-                <tr>
-                    <td class = "title">E-mail: </td>
-                    <td></td>
-                    <td>{{patient.email}}</td>
-        
-                </tr>
-                <tr>
-                    <td class = "title">Poisťovňa: </td>
-                    <td></td>
-                    <td>{{patient.insuranceNumber}}</td>
-                </tr>
+
+
+<div class="close">
+    <button type="button" class="close" aria-label="Close" aria-checked="false" mat-dialog-close>
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</div>
+<h1 mat-dialog-title>Karta pacienta</h1>
+<div class="card">
+    <mat-card>
+        <mat-card-title>{{patient.firstname}} {{patient.lastname}}
+            <br>
+        </mat-card-title>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-md-8">
+                    <tr>
+                        <td class = "title">Meno pacienta:</td>
+                        <td></td>
+                        <td>{{patient.firstname}} {{patient.lastname}}</td>
+                    </tr>
+                    <hr>
+                    <tr>
+                        <td class = "title">Rodné číslo:</td>
+                        <td></td>
+                        <td>{{patient.id}}</td>
+                    </tr>
+                    <hr>
+                    <tr>
+                        <td class = "title">Dátum narodenia: </td>
+                        <td></td>
+                        <td>{{patient.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
+                    </tr>
+                    <hr>
+                    <tr>
+                        <td class = "title">Adresa trvalého bydliska: </td>
+                        <td></td>
+                        <td>{{patient.streetName}} {{patient.streetNumber}}, {{patientZip.psc}} {{patientZip.name}}, Slovensko</td>
+                    </tr>
+                    <hr>
+                    <tr>
+                        <td class = "title">Dátum narodenia: </td>
+                        <td></td>
+                        <td>{{patient.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
+                    </tr>
+                    <hr>
+                    <tr>
+                        <td class = "title">E-mail: </td>
+                        <td></td>
+                        <td>{{patient.email}}</td>
+            
+                    </tr>
+                    <hr>
+                    <tr>
+                        <td class = "title">Poisťovňa: </td>
+                        <td></td>
+                        <td>{{poistovna.name}}-{{poistovna.code}}</td>
+                    </tr>
+                </div>
             </div>
-        </div>
-    </mat-card-content>
-</mat-card>
+        </mat-card-content>
+    </mat-card>
+</div>
+
 <br>
 <div class="button-div">
     <button mat-raised-button color="warn" (click)="createPN(patient)" class="detail-button">Vytvoriť záznam PN</button>
+    
+</div>
+<div class="button-div">
     <button mat-raised-button color="warn" (click)="openDeleteDialog(patient)" class="detail-button">Odstrániť pacienta</button>
 </div>
